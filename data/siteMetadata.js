@@ -1,28 +1,31 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: 'TailwindBlog',
-  description: 'A blog created with Next.js and Tailwind.css',
-  language: 'en-us',
+  title: 'LeonGao | leongaooo | 高立民 | 博客',
+  author: 'LeonGao',
+  headerTitle: 'LeonGao‘s Blog | 高立民的博客',
+  description:
+    'LeonGao‘s Blog | 高立民的博客 | 个人知识分享 | 成长与生活 | 全栈工程师 | 个人作品分享 | 前端开发 | Nextjs, Vue, React',
+  language: 'zh-cn',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
+  siteUrl: 'https://www.leongao.me/',
+  siteRepo: 'https://github.com/leongaooo/next-blog',
+  siteLogo: `${process.env.BASE_PATH || ''}/static/images/lion1.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'address@yoursite.com',
-  github: 'https://github.com',
-  x: 'https://twitter.com/x',
+  email: 'gaolimin88@gmail.com',
+  github: 'https://github.com/leongaooo',
+  x: 'https://x.com/Leongaooo',
   // twitter: 'https://twitter.com/Twitter',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
-  linkedin: 'https://www.linkedin.com',
+  linkedin: 'https://www.linkedin.com/in/%E7%AB%8B%E6%B0%91-%E9%AB%98-099073384/',
   threads: 'https://www.threads.net',
   instagram: 'https://www.instagram.com',
   medium: 'https://medium.com',
-  bluesky: 'https://bsky.app/',
-  locale: 'en-US',
+  bluesky: 'https://bsky.app/profile/leongao.bsky.social',
+  wechat: 'https://github.com/leongaooo',
+  juejin: 'https://juejin.cn/user/3976252950591149',
+  locale: 'zh-US',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
   analytics: {
@@ -52,7 +55,7 @@ const siteMetadata = {
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus, beehive
     // Please add your .env file and modify it according to your selection
-    provider: 'buttondown',
+    provider: null,
   },
   comments: {
     // If you want to use an analytics provider you have to add it to the

@@ -1,0 +1,194 @@
+---
+title: 🚀 Next.js 自建部署全家桶：Docker + PM2 + Nginx
+date: '2025-09-12'
+tags: ['next-js']
+draft: false
+summary: Next Full-stack Deployment
+---
+
+> “程序员的人生就像发射火箭，不是点火就是爆炸。”
+> 今天我们来聊聊如何把你的 **Next.js 应用** 从本地宠物，变成一只 **真正在服务器跑得欢的野兽**。
+> 工具箱包括：**Docker**（集装箱运输大队）、**PM2**（工地管理员）、**Nginx**（门卫老大爷）。
+
+---
+
+## 🧩 背景故事
+
+先别急着敲代码，带你从底层视角看看整个系统的运转逻辑。
+
+- **Docker**：想象你的 Next.js 项目是一辆四驱吉普车，Docker 就是你把它载进了“货运集装箱”，这样无论运到海南还是北极，都能保证启动时配件齐全。
+
+- **PM2**：假设代码是一群猿猴，PM2 就是这群猴子的工头，负责喊：“崽子们，挂了？立刻给我爬起来！”
+
+- **Nginx**：所有来访的客人会先到大门口，Nginx 就是看门人，拿着小本子：
+  - 80 端口进的是普通访客 👉 转去 PM2 管的场子
+  - 443 走的是贵宾 VIP 通道 👉 还得顺带验证证书
+
+---
+
+## ⚙️ 环境准备
+
+1.  你的 Next.js 项目已经写好了（不写好没法部署啊喂）。
+1.  服务器一台（建议 Linux，别折腾 Windows，这活儿不合适）。
+1.  Docker、Node.js、Nginx 提前装好。
+
+检查环境命令如下：
+
+```
+docker -v
+pm2 -v
+nginx -v
+```
+
+如果版本都蹦出来了，说明三兄弟已经在岗。🎉
+
+---
+
+## 🛠 第一步：用 Docker 打包 Next.js
+
+先写个 `Dockerfile`（像一份食谱，教 Docker 厨师怎么煮你的应用）：
+
+```
+# 基础镜像：带 node 的厨房
+FROM node:18-alpine
+
+# 工作目录
+WORKDIR /app
+
+# 复制依赖清单
+COPY package.json package-lock.json* ./
+
+# 安装依赖
+RUN npm ci
+
+# 复制全部代码
+COPY . .
+
+# 构建 Next.js
+RUN npm run build
+
+# 暴露 3000 端口
+EXPOSE 3000
+
+# 启动服务
+CMD ["npm", "start"]
+```
+
+然后一顿操作猛如虎：
+
+```
+# 构建镜像（打包成你自定义的名字）
+docker build -t my-next-app .
+
+# 运行容器
+docker run -d -p 3000:3000 my-next-app
+```
+
+此时打开 `http://你的服务器IP:3000`，你能看到 Next.js 的页面，说明这辆车已经在箱子里跑起来啦。🐒
+
+---
+
+## 🧙 第二步：PM2 上场
+
+PM2 主要负责 **进程守护**，因为没有谁希望午夜十二点被用户电话吵醒：“哥们，你的服务挂了。”
+
+安装：
+
+```
+npm install pm2 -g
+```
+
+然后在容器里启动：
+
+```
+pm2 start npm --name "next-app" -- start
+```
+
+命令意思：
+
+- `npm start` 启动 Next.js 项目
+- `--name "next-app"` 给猴子工地取个名字
+
+查看状态：
+
+```
+pm2 list
+```
+
+PM2 会确保你的进程掉线了也自动原地满血。就像工头揪着猴子耳朵喊：“不许偷懒！” 🐵
+
+---
+
+## 🛡 第三步：Nginx 网关
+
+现在问题是：你总不能让用户敲 `http://ip:3000` 吧，这也太掉价。应对之道：请出 **Nginx**。
+
+打开 `/etc/nginx/sites-available/next.conf`，写上配置：
+
+```
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+保存配置后：
+
+```
+ln -s /etc/nginx/sites-available/next.conf /etc/nginx/sites-enabled/
+nginx -t   # 测试是否正确
+systemctl reload nginx
+```
+
+此时只需访问 `http://your-domain.com`，你就能优雅地访问项目了。✨
+
+---
+
+## 🔥 Bonus：加一把 SSL 火
+
+配个 HTTPS，不然浏览器会提醒“这网站是个野孩子”。推荐用 **Certbot**：
+
+```
+apt install certbot python3-certbot-nginx
+certbot --nginx -d your-domain.com
+```
+
+然后……恭喜你，网站变“绿锁”了！🔒
+
+---
+
+## 🎨 全局架构小插画（ASCII 风格）
+
+```
+ [ 用户浏览器 ]
+        |
+        v
+   [ Nginx 门卫 ]
+        |
+        v
+   [ PM2 工头 ]
+        |
+        v
+[ Docker 集装箱里的 Next.js 程序 ]
+```
+
+---
+
+## 📚 总结
+
+- **Docker** 保证环境统一，哪里跑都能跑。
+- **PM2** 负责守护进程，应用挂了立刻救命。
+- **Nginx** 扛得住流量，还能优雅地处理转发和证书。
+
+一句话总结：
+
+> “前端搭房子，后端修水管，部署就是搬家打包和买小区保安。”
