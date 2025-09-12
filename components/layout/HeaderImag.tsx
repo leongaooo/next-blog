@@ -7,16 +7,25 @@ import { useEffect, useState } from 'react'
 
 export default function HeaderImage() {
   const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  const [themeClass, setThemeClass] = useState('')
-
+  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
-    setThemeClass(`invert-[${theme === 'dark' ? '.6' : '0'}]`)
-  }, [theme])
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <>
-      <Image src={Loin2} alt="logo" width={100} className={themeClass} />
+      <Image
+        src={Loin2}
+        alt="logo"
+        width={100}
+        style={{ filter: `invert(${theme === 'dark' ? '.6' : '0'})` }}
+      />
     </>
   )
 }
