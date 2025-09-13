@@ -1,0 +1,527 @@
+---
+title: Vite 前端Framework Practice
+date: '2022-10-22'
+tags: ['vite']
+draft: false
+summary: vite is a user-friendly and highly efficient development framework
+---
+
+# 写在前面
+
+vue项目在线下环境开发完成后，我们就需要项目的打包上线了，除了要知道打包命令`npm run build` 之外，我们还要知道项目整体文件依赖情况，web访问加载速度等概念，包括首屏优化方案。我通过一次实战把最基本可以优化的步骤走一下。
+将分为以下几个步骤:
+
+1.  build 视图分析依赖文件
+2.  第三方库CDN引入
+3.  依赖文件分包
+4.  gzip压缩文件
+5.  部署前配置history路由模式的404问题
+
+---
+
+# build 视图分析依赖文件
+
+分析项目中的文件大小及引用情况，是优化前的重要一步,从而去采取文件分包，cdn引入等相关技术概念，那么在vite下我们可以利用什么工具来做项目的依赖分析呢？
+
+答案是:
+`Rollup Plugin Visualizer`,这是一个依赖分析插件，它提供了多种模式的依赖分析，包括直观的视图分析，sunburst（循环层次图，像光谱）、treemap（矩形层次图，看起来比较直观，也是默认参数）、network（网格图，查看包含关系）、raw-data（原数据模式，json格式）, list(列表模式),你可以选择任意一种你喜欢的观察模式，这里我们就以默认的为例；
+
+安装方式如下:
+`npm install --save-dev rollup-plugin-visualizer`
+`yarn add --dev rollup-plugin-visualizer`
+❗选择一种安装即可；
+
+安装完成后，即可在vite下的插件属性中进行配置：
+
+```javascript
+import { visualizer } from 'rollup-plugin-visualizer'
+export default defineConfig({
+  plugins: [
+    vue(),
+    visualizer({
+      emitFile: false,
+      file: 'stats.html', //分析图生成的文件名
+      open: true, //如果存在本地服务端口，将在打包后自动展示
+    }),
+  ],
+})
+```
+
+配置的参数有很多是默认的，如果你没有特殊需求，完全可以不添加参数；下面我添加一个表格对已有参数进行诠释：
+|参数|类型 |解释 |
+|--|--|----|
+|filename/file |string|生成分析的文件名 |
+|title |string|html标签页标题 |
+|open |boolean|以默认服务器代理打开文件 |
+|template |string|可选择的图表类型 |
+|gzipSize |boolean|搜集gzip压缩包的大小到图表 |
+|BrotliSize |boolearn|搜集brotli压缩包的大小到图表 |
+|emitFile|boolean|使用emitFile生成文件，简单说，这个属性为true,打包后的分析文件会出现在打包好的文件包下，否则就会在项目目录下|
+|sourcemap|boolean|使用sourcemap计算大小|
+|projectRoot|string， RegExp|文件的根目录，默认在打包好的目录下|
+
+看完这些参数，也有了大概的了解，根据需求配置就好
+接下来，你只需要`npm run build`；就可以查看这个图表了
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb9e58707f6a4fb3be4cd9ce7c49b548~tplv-k3u1fbpfcp-zoom-1.image)
+是不是很好看，五颜六色的，这里颜色也是有说法的：
+🟦蓝色表示自己写下的js文件项；
+🟩绿色是表示依赖的文件项；
+其他颜色我们可以根据文件名来判断
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/34733438fd134abe9fa3215dad60cb32~tplv-k3u1fbpfcp-zoom-1.image)
+
+> 像上面这个文件，明显我们可以看出这是router相关的文件，当鼠标点击时我们可以看出这块依赖文件的大小，他的位置是是哪里；这里也看到它的大小马上到了100kb，是因为我们的主要业务也确实在这里；那我们就可以通过这样的信息采取一些优化方案，包括不限于修改代码的设计方式等，那么下面要说的CDN引入就是为了减少如element-plus及bootstrap5的打包文件大小，减少本地文件载入压力。下图很直观的可以看出element-plus的占据程度
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b955077f4b4d4507a231f4e5367c3c0a~tplv-k3u1fbpfcp-zoom-1.image)
+
+---
+
+# 第三方库CDN引入
+
+> 🤔CDN 是构建在数据网络上的一种分布式的内容分发网。 CDN
+> 的作用是采用流媒体服务器集群技术，克服单机系统输出带宽及并发能力不足的缺点，可极大提升系统支持的并发流数目，减少或避免单点失效带来的不良影响。
+
+上面是百度百科的一段话，这里我要cdn引入是因为我们只有一个服务器，便称为单系统；那么引入他们各自官方的cdn链接就是在利用分布式内容分发技术，但是毕竟是人家的cdn安全上还需要考虑，如果自己公司有条件，就可以用自己公司的保证安全性；
+
+话接上文，我们通过视图分析发现了`element-plus`是最大的文件依赖，包括
+`bootstrap5`,那我们就尝试在vite+vue下配置这俩个库的cdn引入来减少请求压力；
+
+cdn管理插件我们使用`vite-plugin-cdn-import`
+安装方式
+`npm install vite-plugin-cdn-import --save-dev`
+`yarn add vite-plugin-cdn-import -D`
+选择自己的包管理器下载
+
+```javascript
+// vite.config.js 基本用法
+import reactRefresh from '@vitejs/plugin-react-refresh'
+import importToCDN from 'vite-plugin-cdn-import'
+
+export default {
+  plugins: [
+    importToCDN({
+      modules: [
+        {
+          name: 'react',
+          var: 'React',
+          path: `umd/react.production.min.js`,
+        },
+        {
+          name: 'react-dom',
+          var: 'ReactDOM',
+          path: `umd/react-dom.production.min.js`,
+        },
+      ],
+    }),
+  ],
+}
+```
+
+有一些model该插件还提供了自动完成，不要太爽，我们不需要配置参数了
+
+```javascript
+export default {
+  plugins: [
+    importToCDN({
+      modules: [autoComplete('react'), autoComplete('react-dom')],
+    }),
+    reactRefresh(),
+  ],
+}
+```
+
+写法如上，那么有那些是支持自动完成的呢，官方也写出了
+
+> 自动完成支持的 module
+> "react" | "react-dom" | "react-router-dom" |
+> "antd" | "ahooks" | "@ant-design/charts" |
+> "vue" | "vue2" | "@vueuse/shared" |
+> "@vueuse/core" | "moment" |
+> "eventemitter3" | "file-saver" |
+> "browser-md5-file" | "xlsx | "crypto-js" |
+> "axios" | "lodash" | "localforage"
+
+接下来我们再看完参数配置即可完成cdn的相关配置
+这里的相关属性配置你们去官方看吧，很明确[vite-plugin-cdn-import](https://github.com/mmf-fe/vite-plugin-cdn-import/blob/HEAD/README.zh-CN.md)
+然后还需要知道是常见cdn网站,我们主要介绍俩个国外的，也是常用的，
+
+`UNPKG：https://unpkg.com`
+`jsDelivr ：https://www.jsdelivr.com`
+
+这里还要学习怎么找到对应库cdn包的路径，我们好来配置参数，以`UNPKG`为例实践如下:
+比如我们要配置element-plus的cdn引入,
+
+1.  先进入https://unpkg.com
+2.  在地址后面链接你的包名
+3.  得到链接配置参数即可
+
+下面我附图来展示：
+package.json找到你的包信息
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fa2706acd5af42a5b7950109ef4503ff~tplv-k3u1fbpfcp-zoom-1.image)
+
+浏览器拼接你的包并且回车：
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/42ecf8e9faf34275946338eab6755e3e~tplv-k3u1fbpfcp-zoom-1.image)
+
+你会发现页面请求到了内容（这就说明该库在cdn上已经存在，我们把整个的链接拿下来配置好参数就可以了）：
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fb9214a4dab486586b25a0d1eb1eebf~tplv-k3u1fbpfcp-zoom-1.image)
+
+> 到这里你已经掌握了cdn库自动构建的基本知识，下面看一下我的配置片段:
+
+```javascript
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { autoComplete, Plugin as importToCDN } from 'vite-plugin-cdn-import';
+
+export default defineConfig({
+  plugins: [vue(),
+   importToCDN({
+    prodUrl: 'https://unpkg.com/{name}@{version}/{path}',
+    modules: [
+      autoComplete('vue'),
+      autoComplete('axios'),
+      {
+        name: 'element-plus',
+        var: 'ElementPlus', //根据main.js中定义的来
+        version: '2.2.17',
+        path: 'dist/index.full.js',
+        css: 'dist/index.css'
+      },
+      {
+        name: 'vue-demi',
+        var: 'VueDemi', //根据main.js中定义的来
+        version: '0.13.11',
+        path: 'lib/index.iife.js'
+      },
+      {
+        name: '@element-plus/icons-vue',
+        var: 'ElementPlusIconsVue', //根据main.js中定义的来
+        version: '2.0.9',
+        path: 'dist/index.iife.min.js'
+      },
+      {
+        name: 'bootstrap',
+        var: 'bootStrap', //根据main.js中定义的来
+        version: '5.2.1',
+        path: 'dist/js/bootstrap.js',
+        css: 'dist/css/bootstrap.min.css'
+      },
+    ],
+  })
+],
+)}
+```
+
+> 上面的配置中有一个问题需要提及，我配置了`vue-demi`,它是pinia仓库的依赖，简单说，如果不配置它我们的cdn构建中间出现了个缺口，它是pinia-vue中间的一个依赖;vue和axios我配置了自动完成，那接下来看下我们进入实战。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./static/ico/favicon-a91524b8.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xxxxx</title>
+    <script type="module" crossorigin src="./static/js/index-3f77d0fe.js"></script>
+    <link rel="modulepreload" crossorigin href="./static/js/@vue-57a1150c.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/js-cookie-1db5286e.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/axios-08851a62.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/lodash-es-9a8f223b.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@vueuse-d210d573.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@element-plus-1fa478d9.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@popperjs-892fd7f5.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@ctrl-eb0b847c.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/dayjs-54e8cf14.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/async-validator-efc2d198.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/memoize-one-99e54574.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/escape-html-4bbaf1e1.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/normalize-wheel-es-da779ce4.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@floating-ui-4b8fd220.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/element-plus-88e408ab.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/vue-router-5a9da933.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/vue-demi-5b9a0fa5.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/pinia-ef1d9feb.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@fortawesome-7be7f9bf.js" />
+    <link rel="stylesheet" href="./static/css/element-plus-c08499e6.css" />
+    <link rel="stylesheet" href="./static/css/index-f2f66543.css" />
+    <link rel="stylesheet" href="./static/css/bootstrap-744009a1.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+```
+
+> 这样的入口文件，这么多的link是我提前用了分包的效果，下面我们会实战分包；回到上面，这么多的link引入对我们本地的压力可想而知；再来看分析图：
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ddb103159b0a42128c31947607b120f7~tplv-k3u1fbpfcp-zoom-1.image)
+
+> element-plus的依赖是如此庞大，那我们配置完后，build再来感受下；
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./static/ico/favicon-a91524b8.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xxxxxxxxx</title>
+    <link href="https://unpkg.com/element-plus@2.2.17/dist/index.css" rel="stylesheet" />
+    <link href="https://unpkg.com/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/vue@3.2.36/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/element-plus@2.2.17/dist/index.full.js"></script>
+    <script src="https://unpkg.com/vue-demi@0.13.11/lib/index.iife.js"></script>
+    <script src="https://unpkg.com/@element-plus/icons-vue@2.0.9/dist/index.iife.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@5.2.1/dist/js/bootstrap.js"></script>
+    <script type="module" crossorigin src="./static/js/index-8dbc54cb.js"></script>
+    <link rel="modulepreload" crossorigin href="./static/js/js-cookie-1db5286e.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/vue-router-5755d64e.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/pinia-7992cf6b.js" />
+    <link rel="modulepreload" crossorigin href="./static/js/@fortawesome-0742f1fb.js" />
+    <link rel="stylesheet" href="./static/css/index-f2f66543.css" />
+    <link rel="stylesheet" href="./static/css/element-plus-c08499e6.css" />
+    <link rel="stylesheet" href="./static/css/bootstrap-744009a1.css" />
+  </head>
+
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+```
+
+> cdn标签引入正确，我们也可以本地构建serve 来验证效果，这里就不扩展了，那么再看下分析图
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cc6dd9c4d0004ff081c04a780ecb6c52~tplv-k3u1fbpfcp-zoom-1.image)
+
+> element-plus等第三方库将不会成为我们的本地依赖，这里的tool是我自己的js工具模块，他看起来也是很大，那我们就可以找方法去优化调整，至此你学会了vite框架下的vue项目cdn引入方式；
+
+还有一点题外话，cdn引入之前:
+
+1.  你需要知道一但依赖网站出现问题，我们的项目也就不行了，所以有依赖如上网站的cdn建议留下备用方案，以便维护。
+2.  cdn是对整个库的引入，在你引入前，你要对一个库足够熟悉，比如我有一个`好朋友`他就在cdn引入中上出现了问题；
+    大致是这样：项目是vue3项目，我们知道在vue3中的`reactive`响应式对象函数，
+
+```javascript
+//它可以这样导入：
+import { reactive } from '@vue/reactivity'
+//也可以这样：
+import { onBeforeMount, ref, reactive } from 'vue'
+```
+
+那么如果你用`@vue/reactivity`来导入，上线后发现reactive响应式没了，别问我怎么知道的，我朋友说的。我们cdn可没有引入该组件的相关依赖，只是在本地`\node_modules`下才有；
+
+---
+
+# 依赖文件分包
+
+🤔在我们没有配置构建工具的分包功能时，构建出来的build将无比巨大且是独立的一个js and css 文件，这样就会存在本地加载文件的压力，已经成熟的方案在rollup 和 webpack中都有概念；
+
+在vite的官方介绍中有这么一段
+
+> build.rollupOptions¶
+> 类型： RollupOptions
+> 自定义底层的 Rollup 打包配置。这与从 Rollup 配置文件导出的选项相同，并将与 Vite 的内部 Rollup 选项合并。查看 Rollup 选项文档 获取更多细节。
+
+vite底层已经集成了rollup的一部分功能，也就是说我们直接配置好即可；详细关于rollup的配置可以去看官方文档[rollupjs](https://rollupjs.org/guide/en/#big-list-of-options);这里我直接给出我的配置情况，也是借鉴部分大佬的文章得出；
+
+```javascript
+export default defineConfig({
+  plugins: [
+    vue(),
+    viteCompression({
+      verbose: true,
+      disable: false,
+      threshold: 10240,
+      algorithm: 'gzip',
+      ext: '.gz',
+    }),
+    importToCDN({
+      prodUrl: 'https://unpkg.com/{name}@{version}/{path}',
+      modules: [
+        autoComplete('vue'),
+        autoComplete('axios'),
+        {
+          name: 'element-plus',
+          var: 'ElementPlus', //根据main.js中定义的来
+          version: '2.2.17',
+          path: 'dist/index.full.js',
+          css: 'dist/index.css',
+        },
+        {
+          name: 'vue-demi',
+          var: 'VueDemi', //根据main.js中定义的来
+          version: '0.13.11',
+          path: 'lib/index.iife.js',
+        },
+        {
+          name: '@element-plus/icons-vue',
+          var: 'ElementPlusIconsVue', //根据main.js中定义的来
+          version: '2.0.9',
+          path: 'dist/index.iife.min.js',
+        },
+        {
+          name: 'bootstrap',
+          var: 'bootStrap', //根据main.js中定义的来
+          version: '5.2.1',
+          path: 'dist/js/bootstrap.js',
+          css: 'dist/css/bootstrap.min.css',
+        },
+      ],
+    }),
+  ],
+  build: {
+    outDir: 'mh', //输出目录名
+    minify: 'terser', //压缩方式
+    terserOptions: {
+      compress: {
+        drop_console: true, //剔除console,和debugger
+        drop_debugger: true,
+      },
+    },
+    // chunkSizeWarningLimit: 1500,大文件报警阈值设置,不建议使用
+    rollupOptions: {
+      output: {
+        //静态资源分类打包
+        chunkFileNames: 'static/js/[name]-[hash].js',
+        entryFileNames: 'static/js/[name]-[hash].js',
+        assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        manualChunks(id) {
+          //静态资源分拆打包
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
+        },
+      },
+    },
+  },
+})
+```
+
+> 配置好你的build.output参数，执行命令`npm run build`我们就可以看目录结构了
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fca20c796d2c45c2a4ddc3e279a71f2b~tplv-k3u1fbpfcp-zoom-1.image)
+看，已经拆分了一部分，而且在html的头部也进行了分别引入；到这里，你了解了vite文件分包过程；
+
+---
+
+# gzip压缩文件
+
+🤔GZIP最早由Jean-loup Gailly和Mark Adler创建，用于UNⅨ系统的文件压缩。我们在Linux中经常会用到后缀为.gz的文件，它们就是GZIP格式的。现今已经成为Internet 上使用非常普遍的一种数据压缩格式，或者说一种文件格式。
+
+> HTTP协议上的GZIP编码是一种用来改进WEB应用程序性能的技术。大流量的WEB站点常常使用GZIP压缩技术来让用户感受更快的速度。这一般是指WWW服务器中安装的一个功能，当有人来访问这个服务器中的网站时，服务器中的这个功能就将网页内容压缩后传输到来访的电脑浏览器中显示出来.一般对纯文本内容可压缩到原大小的40%.这样传输就快了，效果就是你点击网址后会很快的显示出来.当然这也会增加服务器的负载.
+> 一般服务器中都安装有这个功能模块的。
+
+了解完gizp的相关概念后，上面的引用也说明了，gzip不只是我们需要在打包的时候生成，也需要在web服务里开启功能，具体开启方式大家自行探索；
+
+在vite下配置gzip
+
+1.  安装插件`vite-plugin-compression`；npm i vite-plugin-compression -D
+2.  vite入口文件引入
+3.  `配置参数
+4.  build执行后查看
+
+**vite-plugin-compression**:使用 gzip 或者 brotli 来压缩资源.
+
+**引入方式**
+
+```javascript
+import viteCompression from 'vite-plugin-compression';
+export default defineConfig({
+  plugins: [vue(), viteCompression({
+    verbose: true, //是否在控制台输出压缩结果
+    disable: false, //是否禁用,相当于开关在这里
+    threshold: 10240, //体积大于 threshold 才会被压缩,单位 b，1b=8B, 1B=1024KB  那我们这里相当于 9kb多吧，就会压缩
+    algorithm: 'gzip', //压缩算法,可选 [ 'gzip' , 'brotliCompress' ,'deflate' , 'deflateRaw']
+    ext: '.gz', //文件后缀
+    )}
+ ]
+)}
+```
+
+> 上面我尽可能把用到的参数进行了注释，在官方文档中的参数还剩几个，感兴趣的自行研究，目前不涉及。
+
+下面我们再来打包看下文件目录，及终端情况
+
+```powershell
+vite v3.1.2 building for production...
+✓ 150 modules transformed.
+mh/static/ico/favicon-a91524b8.ico             16.56 KiB
+mh/index.html                                  1.58 KiB
+mh/static/js/index-8dbc54cb.js                 30.40 KiB / gzip: 11.69 KiB
+mh/static/js/js-cookie-1db5286e.js             1.39 KiB / gzip: 0.71 KiB
+mh/static/js/@vue-eab67317.js                  6.79 KiB / gzip: 2.78 KiB
+mh/static/js/pinia-7992cf6b.js                 4.04 KiB / gzip: 1.85 KiB
+mh/static/js/Index-59d563ba.js                 4.04 KiB / gzip: 1.47 KiB
+mh/static/js/vue3-slide-verify-b2c33c71.js     6.33 KiB / gzip: 2.54 KiB
+mh/static/js/reg-203083cd.js                   1.57 KiB / gzip: 0.69 KiB
+mh/static/js/vue-router-5755d64e.js            21.95 KiB / gzip: 8.59 KiB
+mh/static/js/Index-117574d0.js                 5.50 KiB / gzip: 2.32 KiB
+mh/static/js/formatForm-9f5753eb.js            1.30 KiB / gzip: 0.57 KiB
+mh/static/js/Page404-3fd796cd.js               0.52 KiB / gzip: 0.38 KiB
+mh/static/js/Project-371261a3.js               10.14 KiB / gzip: 3.75 KiB
+mh/static/css/Index-a26bc5b2.css               0.39 KiB / gzip: 0.23 KiB
+mh/static/css/vue3-slide-verify-db0b17f7.css   5.44 KiB / gzip: 2.03 KiB
+mh/static/css/Index-cca8f32a.css               0.96 KiB / gzip: 0.36 KiB
+mh/static/css/Project-962fb2fe.css             1.84 KiB / gzip: 0.60 KiB
+mh/static/css/index-f2f66543.css               4.32 KiB / gzip: 1.57 KiB
+mh/static/js/crypto-js-734b2e9d.js             53.24 KiB / gzip: 18.24 KiB
+mh/static/js/@fortawesome-0742f1fb.js          76.09 KiB / gzip: 21.03 KiB
+mh/static/css/bootstrap-744009a1.css           190.34 KiB / gzip: 26.78 KiB
+mh/static/css/element-plus-c08499e6.css        313.70 KiB / gzip: 42.47 KiB
+mh/static/css/Login-19ba0f1f.css               240.09 KiB / gzip: 181.10 KiB
+mh/static/js/Login-89718221.js                 500.40 KiB / gzip: 373.03 KiB
+```
+
+看这个打包效果，已经很受用了，那目录结构如下，把打包好的项目放入服务器目录，服务器开启gzip服务即可应用了；
+
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f93219a06b43491bb16ccbbdcf7ba4d7~tplv-k3u1fbpfcp-zoom-1.image)
+项目运行后找到发网络控制台，查看gzip加载;
+![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/47538d78e75c4407acccadd6ea504bcb~tplv-k3u1fbpfcp-zoom-1.image)
+有时候控制台默认是没有的，想查看的话要右击该栏->响应表头->content-encoding，这一栏就出现了;
+
+---
+
+# 部署前配置history路由模式的404问题
+
+🤔history模式： HTML5 模式，推荐使用这个模式；当使用这种历史模式时，URL 会看起来很 "正常"，例如 https://example.com/user/id。漂亮!
+
+不过，问题来了。由于我们的应用是一个单页的客户端应用，如果没有适当的服务器配置，用户在浏览器中直接访问 https://example.com/user/id，就会得到一个 404 错误。这就丑了。
+
+不用担心：要解决这个问题，你需要做的就是在你的服务器上添加一个简单的回退路由。如果 URL 不匹配任何静态资源，它应提供与你的应用程序中的 index.html 相同的页面。漂亮依旧!
+
+上面是vue-router官方文档的一段话，如果你上线是用的history模式那么只要路由不匹配就会产生404；我们在nginx配置关键服务就好，下面是实战配置（大佬给配置的）;
+
+```javascript
+//nginx 配置文件里的 server成员配置，我大概解释一下，配置好启动服务即可
+server
+    {
+        listen 80; //服务端口号
+        server_name phpmyadmin;
+        index index.html index.htm index.php;
+        location /neimenmenhuan {
+        proxy_pass http://localhost:8080;  //配置后端接口端口
+      }
+      location / {
+        root  /www/server/phpmyadmin;   //根目录位置
+        index index.html index.htm index.php;  //默认入口文件
+        try_files $uri $uri /index.html;  //出错重定向 index.html 问题解决于此
+      }
+
+
+      access_log  /www/wwwlogs/access.log;
+    }
+```
+
+---
+
+# 最后
+
+📚 vite专栏(https://juejin.cn/column/7157319531055022094)
+
+☃️ 个人简介：一个喜爱技术的人。
+
+🌞 励志格言: 脚踏实地，虚心学习。
+
+❗如果文章还可以，记得用你可爱的小手点赞👍关注✅，我会在第一时间回关、回访，欢迎进一步交流。

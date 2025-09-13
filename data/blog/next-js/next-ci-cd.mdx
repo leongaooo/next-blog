@@ -1,0 +1,101 @@
+---
+title: Next.js CI/CD 基础（GitHub Actions）
+date: '2025-09-13'
+tags: ['next-js']
+draft: false
+summary: Next Full-stack Deployment
+---
+
+在现代软件开发的快节奏环境中，持续集成（CI）和持续交付（CD）已成为不可或缺的部分。Next.js 作为一个强大的 React 框架，搭配 GitHub Actions，可以让我们轻松实现自动化部署，仿佛施展了一种神奇的魔法。今天，我们就来聊聊如何利用 GitHub Actions 为 Next.js 应用搭建 CI/CD 流水线，让你的每一次代码提交都能顺利飞向生产环境。
+
+## 什么是 CI/CD？
+
+在我们深入之前，先来搞清楚 CI/CD 的基本概念。
+
+- **持续集成（CI）** ：开发者将代码频繁集成到主干上，自动化测试确保代码质量，仿佛是一场团队之间的友好较量，谁的代码更完美，就能赢得这场比赛。
+- **持续交付（CD）** ：将经过测试的代码自动部署到生产环境。这样一来，用户就能立即享受到新功能，简直是技术界的快递小哥，24小时送达！
+
+## GitHub Actions 简介
+
+GitHub Actions 是 GitHub 提供的一种 CI/CD 工具，它允许开发者通过 YAML 文件定义自动化工作流。你可以像搭积木一样，将不同的动作组合在一起，实现各种复杂的自动化任务。比如，你可以在每次推送代码时，自动运行测试、构建项目并部署到服务器。
+
+## 搭建 Next.js CI/CD 流水线
+
+### 1. 创建 GitHub Actions 工作流
+
+在你的 Next.js 项目的根目录下，创建一个 `.github/workflows` 文件夹，然后在其中创建一个名为 `ci-cd.yml` 的文件。这个文件就是我们定义 CI/CD 流水线的地方。
+
+```
+name: CI/CD for Next.js
+
+on:
+  push:
+    branches:
+      - main  # 监听主分支的推送
+  pull_request:
+    branches:
+      - main  # 监听主分支的拉取请求
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # 使用 Node.js 16.x 版本
+
+      - name: Install dependencies
+        run: npm install  # 安装依赖
+
+      - name: Run tests
+        run: npm test  # 运行测试
+
+      - name: Build project
+        run: npm run build  # 构建项目
+
+      - name: Deploy to Production
+        run: npm run deploy  # 自动部署
+```
+
+### 2. 解释 YAML 文件
+
+在这个 YAML 文件中，我们定义了以下几个步骤：
+
+- **触发条件**：当代码推送到主分支或有拉取请求时，工作流将被触发。
+- **作业（Jobs）** ：在一个干净的 Ubuntu 环境中运行构建工作。
+- **步骤（Steps）** ：具体的操作步骤，包括代码检出、设置 Node.js 环境、安装依赖、运行测试、构建项目和最终的部署。
+
+### 3. 配置部署
+
+接下来，我们需要确保你在 `package.json` 中配置了适当的部署命令。例如，你可以使用 Vercel、Netlify 或任何其他服务来部署你的 Next.js 应用。
+
+```
+{
+  "scripts": {
+    "deploy": "vercel --prod"  // 使用 Vercel 进行生产环境部署
+  }
+}
+```
+
+### 4. 触发 CI/CD
+
+一切准备就绪后，只需将代码推送到 GitHub 的主分支，GitHub Actions 将自动开始工作流。这时，你可以坐在椅子上，喝杯咖啡，静静等待你的应用上线。
+
+## 处理常见问题
+
+在使用 GitHub Actions 的过程中，你可能会遇到一些常见问题，比如：
+
+- **构建失败**：检查日志，确保所有依赖和环境配置都正确。
+- **测试未通过**：确保你的测试覆盖率足够，必要时在本地调试。
+- **部署失败**：检查部署配置，确保你有足够的权限。
+
+## 总结
+
+通过 GitHub Actions 实现 Next.js 应用的 CI/CD 流水线，就像为一艘航行中的船只装上了风帆。每一次代码提交都能顺利地驶向生产环境，让用户体验到最新的功能。虽然在实现过程中可能会遇到一些波折，但只要保持冷静，解决问题，总会迎来风和日丽的那一天。
+
+希望这篇文章不仅让你掌握了 Next.js 的 CI/CD 基础知识，还能带给你一丝轻松和幽默。毕竟，在技术的世界里，保持乐观的心态是成功的关键！
