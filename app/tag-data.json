@@ -1,7 +1,4 @@
 {
-  "three-js": 1,
-  "aigc": 1,
-  "next-js": 2,
-  "vite": 1,
-  "node-js": 1
+  "next-js": 1,
+  "three-js": 1
 }

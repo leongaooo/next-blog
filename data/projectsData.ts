@@ -12,6 +12,18 @@ const projectsData: Project[] = [
     imgSrc: '/static/images/svg-converter.png',
     href: 'https://github.com/leongaooo/SvgToThreeModel',
   },
+  {
+    title: 'mind-pilot',
+    description: ` MindPilot 🌟，全新一代AI驱动的任务清单与成长辅助系统，重新定义你的每一天！`,
+    imgSrc: '/static/images/mind-pilot.png',
+    href: 'https://github.com/Amzing-Ai/mind-pilot',
+  },
+  {
+    title: 'cesium-kit',
+    description: `cesium-kit 是一个开源的 Cesium 组件工具库，基于 TypeScript 开发，提供一系列即插即用的函数与工具，帮助开发者在 Cesium 场景中快速绘制、标注和交互。`,
+    imgSrc: '/static/images/cesium-kit.png',
+    href: 'https://github.com/leongaooo/cesium-kit',
+  },
 ]
 
 export default projectsData
