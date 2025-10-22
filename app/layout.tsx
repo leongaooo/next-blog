@@ -56,6 +56,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [siteMetadata.socialBanner],
   },
+  other: {
+    'google-adsense-account': 'ca-pub-8203434652506228',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
