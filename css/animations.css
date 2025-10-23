@@ -1,0 +1,37 @@
+/* 动画性能优化样式 */
+
+/* 启用硬件加速 */
+.animate-hardware {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* 减少动画时的重绘 */
+.animate-optimized {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* 为framer-motion组件添加基础样式 */
+[data-framer-motion] {
+  will-change: transform, opacity;
+}
+
+/* 减少动画时的闪烁 */
+.animate-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 为移动设备优化动画性能 */
+@media (max-width: 768px) {
+  .animate-mobile-optimized {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* 减少动画时的布局重排 */
+.animate-layout-stable {
+  contain: layout style paint;
+}

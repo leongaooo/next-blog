@@ -1,4 +1,5 @@
 import 'css/tailwind.css'
+import 'css/animations.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
@@ -11,6 +12,7 @@ import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
+import { PageTransition } from '@/components/animations'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -103,7 +105,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
               <Header />
-              <main className="mb-auto">{children}</main>
+              <PageTransition>
+                <main className="mb-auto">{children}</main>
+              </PageTransition>
             </SearchProvider>
             <Footer />
           </SectionContainer>
