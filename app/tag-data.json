@@ -1,7 +1,7 @@
 {
   "aigc": 1,
-  "three-js": 1,
   "next-js": 2,
+  "three-js": 1,
   "node-js": 1,
   "vite": 1
 }
