@@ -1,7 +1,15 @@
 {
+  "oa": 1,
+  "iot": 3,
+  "product": 7,
   "aigc": 1,
   "next-js": 2,
   "three-js": 1,
   "node-js": 1,
-  "vite": 1
+  "vite": 1,
+  "ai": 3,
+  "data": 1,
+  "frontend": 3,
+  "data-visualization": 1,
+  "automation": 4
 }
