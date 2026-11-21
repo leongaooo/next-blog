@@ -32,6 +32,10 @@ export default function Projects() {
                       description={d.description}
                       imgSrc={d.imgSrc}
                       href={d.href}
+                      demoHref={d.demoHref}
+                      stack={d.stack}
+                      highlight={d.highlight}
+                      year={d.year}
                     />
                   </StaggerItem>
                 ))}
