@@ -4,6 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 import { FadeInUp, StaggerContainer, StaggerItem, HoverScale } from '@/components/animations'
+import IdentityLinks from '@/components/IdentityLinks'
 
 const MAX_DISPLAY = 5
 
@@ -19,6 +20,7 @@ export default function Home({ posts }) {
             <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
               {siteMetadata.description}
             </p>
+            <IdentityLinks />
           </div>
         </FadeInUp>
         <StaggerContainer>

@@ -22,6 +22,7 @@ const projectsData: Project[] = [
   {
     title: 'obscura-ocr',
     description: `PaddleOCR 工作台，自托管部署、口令制访问。演示入口与当日口令请加微信 Mintopia_ 获取。`,
+    demoHref: '/demo',
     href: 'https://github.com/leongaooo/obscura-ocr',
     stack: ['PaddleOCR', 'systemd', 'HTTP API'],
     highlight: '把 OCR 能力做成可控、可交付的在线工作台。',

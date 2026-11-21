@@ -10,6 +10,7 @@ import {
   SlideInFromLeft,
   SlideInFromRight,
 } from '@/components/animations'
+import IdentityLinks from '@/components/IdentityLinks'
 
 interface Props {
   children: ReactNode
@@ -81,6 +82,9 @@ export default function AuthorLayout({ children, content }: Props) {
                   )}
                 </div>
               </StaggerContainer>
+              <div className="pt-5">
+                <IdentityLinks />
+              </div>
             </div>
           </SlideInFromLeft>
           <SlideInFromRight delay={0.3}>
