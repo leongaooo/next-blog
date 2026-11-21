@@ -2,12 +2,17 @@
 @plugin "@tailwindcss/forms";
 @plugin '@tailwindcss/typography';
 @source '../node_modules/pliny';
+body {
+  overflow-x: hidden;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Core theme configuration */
 @theme {
   /* Font families */
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  --font-sans:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Colors */
@@ -35,6 +40,26 @@
   --color-gray-800: oklch(0.278 0.033 256.848);
   --color-gray-900: oklch(0.21 0.034 264.665);
   --color-gray-950: oklch(0.13 0.028 261.692);
+
+  /* 首页改版色板：仪器感青绿 + 少量暖色标记，暗色优先 */
+  --color-ink-950: #0b0d10;
+  --color-ink-900: #12151a;
+  --color-ink-850: #161a20;
+  --color-ink-800: #1a1e25;
+  --color-ink-700: #232830;
+  --color-ink-600: #333a45;
+  --color-mist-100: #e8ecf1;
+  --color-mist-200: #d5dbe3;
+  --color-mist-300: #bcc5d1;
+  --color-mist-400: #9aa4b2;
+  --color-mist-500: #7c8794;
+  --color-mist-600: #66707e;
+  --color-accent-300: #a5f3e8;
+  --color-accent-400: #7cebd8;
+  --color-accent-500: #5be1c9;
+  --color-accent-600: #2fc3aa;
+  --color-accent-700: #1f9c88;
+  --color-warn-500: #ffb86b;
 
   /* Line heights */
   --line-height-11: 2.75rem;
@@ -172,4 +197,121 @@ input:-webkit-autofill:focus {
 .linkicon {
   display: inline-block;
   vertical-align: middle;
+}
+
+/* 首页改版：网格底纹与流式光标，纯 CSS，不引入依赖 */
+@layer components {
+  .hero-grid {
+    background-image:
+      linear-gradient(to right, rgba(154, 164, 178, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(154, 164, 178, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
+  }
+
+  .hero-glow {
+    background: radial-gradient(
+      ellipse 60% 50% at 20% 0%,
+      rgba(91, 225, 201, 0.14),
+      transparent 70%
+    );
+  }
+
+  .stream-caret {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    background: currentColor;
+    vertical-align: -0.12em;
+    animation: caret-blink 1s step-end infinite;
+  }
+
+  .live-ring {
+    animation: live-pulse 2.4s ease-in-out infinite;
+  }
+
+  .art-layer {
+    transition: transform 120ms linear;
+    will-change: transform;
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 184, 107, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 184, 107, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stream-caret,
+  .live-ring {
+    animation: none;
+  }
+  .art-layer {
+    transition: none;
+  }
+}
+
+/* 首页自适应表面：亮色用浅稿，暗色用深稿；hero 面板两种主题都保持深色 */
+:root {
+  --home-strong: #0b1017;
+  --home-text: #202a36;
+  --home-muted: #4b5563;
+  --home-subtle: #6b7280;
+  --home-card: rgba(15, 23, 42, 0.04);
+  --home-card-hover: rgba(15, 23, 42, 0.07);
+  --home-border: rgba(15, 23, 42, 0.12);
+  --home-accent: #0f6b5e;
+  --home-accent-soft: #2fa79a;
+  --home-hero: #0b1017;
+}
+
+.dark {
+  --home-strong: #e8ecf1;
+  --home-text: #cbd5e1;
+  --home-muted: #9aa4b2;
+  --home-subtle: #66707e;
+  --home-card: rgba(255, 255, 255, 0.03);
+  --home-card-hover: rgba(255, 255, 255, 0.06);
+  --home-border: rgba(255, 255, 255, 0.1);
+  --home-accent: #5be1c9;
+  --home-accent-soft: #7cebd8;
+  --home-hero: #0a1116;
+}
+
+/* 无障碍：用户要求减少动效时，入场动画直接呈现终态，避免内容长时间半透明 */
+@media (prefers-reduced-motion: reduce) {
+  [data-framer-motion] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* 减少动效时兜底：即使入场动画未及时结束，也保证内容可见 */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

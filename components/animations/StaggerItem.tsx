@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ReactNode } from 'react'
 
 interface StaggerItemProps {
@@ -10,6 +10,13 @@ interface StaggerItemProps {
 }
 
 export default function StaggerItem({ children, className = '', delay = 0 }: StaggerItemProps) {
+  const prefersReducedMotion = useReducedMotion()
+
+  // 系统要求减少动效时，直接渲染终态，不做入场动画
+  if (prefersReducedMotion) {
+    return <div className={`enter-item enter-static ${className}`}>{children}</div>
+  }
+
   return (
     <motion.div
       variants={{
@@ -24,7 +31,7 @@ export default function StaggerItem({ children, className = '', delay = 0 }: Sta
           },
         },
       }}
-      className={className}
+      className={`enter-item ${className}`}
     >
       {children}
     </motion.div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ReactNode } from 'react'
 
 interface PageTransitionProps {
@@ -33,6 +33,13 @@ const pageTransition = {
 }
 
 export default function PageTransition({ children, className = '' }: PageTransitionProps) {
+  const prefersReducedMotion = useReducedMotion()
+
+  // 系统开启「减少动效」时直接呈现终态，避免页面长时间半透明
+  if (prefersReducedMotion) {
+    return <div className={`page-transition ${className}`}>{children}</div>
+  }
+
   return (
     <motion.div
       initial="initial"
@@ -40,7 +47,7 @@ export default function PageTransition({ children, className = '' }: PageTransit
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
-      className={className}
+      className={`page-transition ${className}`}
     >
       {children}
     </motion.div>

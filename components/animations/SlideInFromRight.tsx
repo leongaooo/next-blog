@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ReactNode } from 'react'
 
 interface SlideInFromRightProps {
@@ -16,6 +16,13 @@ export default function SlideInFromRight({
   duration = 0.6,
   className = '',
 }: SlideInFromRightProps) {
+  const prefersReducedMotion = useReducedMotion()
+
+  // 系统要求减少动效时，直接渲染终态，不做入场动画
+  if (prefersReducedMotion) {
+    return <div className={`enter-item enter-static ${className}`}>{children}</div>
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -25,7 +32,7 @@ export default function SlideInFromRight({
         delay,
         ease: [0.6, -0.05, 0.01, 0.99],
       }}
-      className={className}
+      className={`enter-item ${className}`}
     >
       {children}
     </motion.div>
