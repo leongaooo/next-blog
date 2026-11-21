@@ -266,6 +266,54 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* Three.js Hero 场景的 HUD 与首屏交叉淡入。 */
+.hero-three-canvas {
+  cursor: grab;
+  touch-action: none;
+}
+
+.hero-three-canvas:active {
+  cursor: grabbing;
+}
+
+.hero-three-poster {
+  transition: opacity 200ms ease;
+}
+
+.hero-three-pipeline span {
+  transition: color 180ms ease;
+}
+
+.hero-three-stats,
+.hero-three-help {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero-three-hud-card {
+  padding: 7px 9px;
+  border: 1px solid rgba(91, 225, 201, 0.18);
+  border-radius: 6px;
+  background: rgba(4, 10, 12, 0.62);
+  backdrop-filter: blur(8px);
+}
+
+.hero-three-tooltip {
+  background: rgba(4, 10, 12, 0.78);
+}
+
+@media (max-width: 767px) {
+  .hero-three-help {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-three-poster,
+  .hero-three-pipeline span {
+    transition: none;
+  }
+}
+
 /* 首页自适应表面：亮色用浅稿，暗色用深稿；hero 面板两种主题都保持深色 */
 :root {
   --home-strong: #0b1017;

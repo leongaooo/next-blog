@@ -1,6 +1,6 @@
 import Link from '@/components/Link'
 import HeroStream from '@/components/home/HeroStream'
-import GenerativeArt from '@/components/home/GenerativeArt'
+import HeroScene from '@/components/home/HeroScene'
 import EntryGrid from '@/components/home/EntryGrid'
 import FeaturedProjects from '@/components/home/FeaturedProjects'
 import PostsRail from '@/components/home/PostsRail'
@@ -25,7 +25,7 @@ export default function Home({ posts }) {
             <HeroStream />
           </div>
           <div className="order-first min-w-0 md:order-last">
-            <GenerativeArt />
+            <HeroScene />
           </div>
         </div>
 

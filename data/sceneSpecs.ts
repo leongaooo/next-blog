@@ -1,8 +1,7 @@
 /**
  * 首页生成式插画的场景定义。
  *
- * 思路沿用 ai-graph 的 SceneSpec：先声明数据（色板 + 等距体块 + 扫描线），
- * 再由组件渲染为分层 SVG，而不是直接给一张位图。
+ * 先声明数据（色板 + 等距体块 + 扫描线），再由 SVG fallback 和 Three.js 场景共同渲染。
  * 这里不放任何 API 调用，全部是常量，保证零网络请求、可复现。
  */
 
@@ -40,15 +39,15 @@ export type Scene = {
 }
 
 const basePalette = {
-  blockTop: '#35434f',
-  blockLeft: '#232e38',
-  blockRight: '#18212a',
+  blockTop: '#3d4a56',
+  blockLeft: '#2b3741',
+  blockRight: '#202b34',
   accentTop: '#5be1c9',
   accentLeft: '#2fc3aa',
   accentRight: '#1f9c88',
-  mutedTop: '#3a4854',
-  mutedLeft: '#28333d',
-  mutedRight: '#1c2530',
+  mutedTop: '#465560',
+  mutedLeft: '#303e49',
+  mutedRight: '#25323b',
   line: 'rgba(91,225,201,0.55)',
   scan: 'rgba(91,225,201,0.25)',
 }
@@ -69,6 +68,8 @@ export const scenes: Scene[] = [
       { x: 7.2, y: 6, w: 1.6, d: 1.6, h: 1.1, tone: 'accent' },
       { x: 1.6, y: 2.2, w: 1, d: 1, h: 0.6, tone: 'muted' },
       { x: 9, y: 5, w: 0.9, d: 0.9, h: 0.5, tone: 'muted' },
+      { x: 0.6, y: 7.8, w: 0.9, d: 0.9, h: 0.45, tone: 'muted' },
+      { x: 8.8, y: 7.4, w: 1.1, d: 1.1, h: 0.8, tone: 'base' },
     ],
     scans: [0.42, 0.68],
   },
@@ -93,6 +94,9 @@ export const scenes: Scene[] = [
       { x: 6.8, y: 5.6, w: 1.4, d: 1.4, h: 2.2, tone: 'base' },
       { x: 8.4, y: 5.2, w: 0.9, d: 0.9, h: 0.6, tone: 'muted' },
       { x: 4.8, y: 4.6, w: 0.8, d: 0.8, h: 3.2, tone: 'accent' },
+      { x: 0.8, y: 4.4, w: 0.9, d: 0.9, h: 0.5, tone: 'muted' },
+      { x: 8.8, y: 7.1, w: 1, d: 1, h: 0.7, tone: 'base' },
+      { x: 6.1, y: 7.9, w: 0.8, d: 0.8, h: 0.9, tone: 'accent' },
     ],
     scans: [0.55],
   },
@@ -115,6 +119,11 @@ export const scenes: Scene[] = [
       { x: 7.6, y: 6.4, w: 1.8, d: 1.2, h: 0.9, tone: 'base' },
       { x: 2, y: 7.2, w: 1.4, d: 1.4, h: 0.7, tone: 'muted' },
       { x: 5.2, y: 7.6, w: 1, d: 1, h: 1.4, tone: 'accent' },
+      { x: 0.8, y: 5.2, w: 0.9, d: 0.9, h: 0.5, tone: 'muted' },
+      { x: 7.8, y: 4.6, w: 1, d: 1, h: 0.8, tone: 'base' },
+      { x: 8.7, y: 7.8, w: 0.8, d: 0.8, h: 0.6, tone: 'muted' },
+      { x: 2.8, y: 1.6, w: 0.9, d: 0.9, h: 0.5, tone: 'base' },
+      { x: 5.9, y: 2.1, w: 0.8, d: 0.8, h: 0.7, tone: 'accent' },
     ],
     scans: [0.36, 0.72],
   },
