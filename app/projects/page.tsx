@@ -1,49 +1,73 @@
 import projectsData from '@/data/projectsData'
-import Card from '@/components/Card'
+import ProjectCard from '@/components/projects/ProjectCard'
+import WeChatCopy from '@/components/WeChatCopy'
 import { genPageMetadata } from 'app/seo'
-import { FadeInUp, StaggerContainer, StaggerItem } from '@/components/animations'
 
 export const metadata = genPageMetadata({ title: 'Projects' })
 
+const FEATURED = 'obscura-ocr'
+
 export default function Projects() {
+  const featured = projectsData.find((p) => p.title === FEATURED)
+  const rest = projectsData.filter((p) => p.title !== FEATURED)
+  const tail = rest[rest.length - 1]
+  const grid = rest.slice(0, -1)
+  const demoCount = projectsData.filter((p) => p.demoHref).length
+  const npmCount = projectsData.filter((p) => p.stack?.includes('Cesium')).length
+
   return (
-    <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <FadeInUp delay={0.1}>
-          <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-            <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
-              Projects
-            </h1>
-            <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-              Here are some of the works I have created in the past. If you have any questions or
-              issues regarding development or collaboration, please feel free to contact me. My
-              WeChat is: Mintopia_.
-            </p>
-          </div>
-        </FadeInUp>
-        <FadeInUp delay={0.2}>
-          <div className="py-12">
-            <StaggerContainer>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {projectsData.map((d, index) => (
-                  <StaggerItem key={d.title} delay={index * 0.1}>
-                    <Card
-                      title={d.title}
-                      description={d.description}
-                      imgSrc={d.imgSrc}
-                      href={d.href}
-                      demoHref={d.demoHref}
-                      stack={d.stack}
-                      highlight={d.highlight}
-                      year={d.year}
-                    />
-                  </StaggerItem>
-                ))}
-              </div>
-            </StaggerContainer>
-          </div>
-        </FadeInUp>
-      </div>
-    </>
+    <div className="proj-page">
+      <section className="proj-hero">
+        <p className="proj-kicker">EVIDENCE WALL · 2021 — 2026</p>
+        <h1 className="proj-h1">作品与服务交付</h1>
+        <p className="proj-lede">
+          每个项目只写三件事：解决什么问题、我负责哪一段、最后能验证到什么。线上入口都在跑，源码都能打开。
+        </p>
+        <ul className="proj-stats">
+          <li>
+            <strong>{projectsData.length}</strong>
+            <span>个项目</span>
+          </li>
+          <li>
+            <strong>{demoCount}</strong>
+            <span>个在线演示</span>
+          </li>
+          <li>
+            <strong>{npmCount}</strong>
+            <span>个 npm 包</span>
+          </li>
+          <li>
+            <strong>2021</strong>
+            <span>起持续交付</span>
+          </li>
+        </ul>
+      </section>
+
+      {featured && (
+        <section className="proj-featured" aria-label="主推项目">
+          <ProjectCard project={featured} index={0} featured />
+        </section>
+      )}
+
+      <section className="proj-grid" aria-label="其他项目">
+        {grid.map((p, i) => (
+          <ProjectCard key={p.title} project={p} index={i + (featured ? 1 : 0)} />
+        ))}
+      </section>
+
+      {tail && (
+        <section className="proj-tail" aria-label="最近项目">
+          <ProjectCard project={tail} index={rest.length} wide />
+        </section>
+      )}
+
+      <section className="proj-foot">
+        <div className="proj-foot-text">
+          <p className="proj-kicker">需要看现场</p>
+          <p>在线演示带口令，加微信拿当日入口；也可以直接约一次 20 分钟的代码走查。</p>
+        </div>
+        <WeChatCopy />
+      </section>
+    </div>
   )
 }

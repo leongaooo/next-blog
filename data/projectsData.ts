@@ -45,7 +45,6 @@ const projectsData: Project[] = [
   {
     title: 'LexiLoop（词回环）',
     description: `取自 Lexis (词汇) + Loop (循环)，寓意为一个循环记忆的文字练习伴侣。技术栈：Electron + React + TypeScript + Vite。主要功能目标：极简、专注文本轮播记忆工具，可记忆单词、句子、短语或语料。`,
-    imgSrc: '/static/images/LexiLoop.png',
     href: 'https://github.com/leongaooo/LexiLoop',
     stack: ['Electron', 'React', 'TypeScript', 'Vite'],
     highlight: '循环记忆的文字练习伴侣。',
