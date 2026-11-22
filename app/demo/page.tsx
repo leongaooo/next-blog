@@ -24,6 +24,9 @@ const demos = [
   },
 ]
 
+const openDemos = demos.filter((demo) => demo.live)
+const queuedDemos = demos.filter((demo) => !demo.live)
+
 export default function DemoPage() {
   return (
     <div className="demo-page">
@@ -35,9 +38,12 @@ export default function DemoPage() {
         </p>
       </section>
 
-      <section className="demo-grid" aria-label="演示项目">
-        {demos.map((demo) => (
-          <article key={demo.title} className="demo-card">
+      <section
+        className={openDemos.length === 1 ? 'demo-grid demo-grid--single' : 'demo-grid'}
+        aria-label="演示项目"
+      >
+        {openDemos.map((demo) => (
+          <article key={demo.title} className="demo-card demo-card--open">
             <div className="demo-card-top">
               <span className="demo-no">{demo.no}</span>
               <span className={demo.live ? 'demo-status demo-status--live' : 'demo-status'}>
@@ -55,6 +61,21 @@ export default function DemoPage() {
           </article>
         ))}
       </section>
+
+      {/* 未开放的展台不占一个整列，收成一条候场记录，避免半张空卡 */}
+      {queuedDemos.length > 0 && (
+        <section className="demo-queue" aria-label="候场中的展台">
+          <span className="demo-queue-label">候场</span>
+          {queuedDemos.map((demo) => (
+            <div key={demo.title} className="demo-queue-row">
+              <span className="demo-no">{demo.no}</span>
+              <span className="demo-queue-title">{demo.title}</span>
+              <span className="demo-queue-note">{demo.description}</span>
+              <span className="demo-status">{demo.status}</span>
+            </div>
+          ))}
+        </section>
+      )}
 
       <section className="demo-pass" id="access">
         <div className="demo-pass-text">
