@@ -12,6 +12,8 @@ export interface Project {
   caseHref?: string
   /** 复盘链接的文案，默认「复盘」；成果页可写「成果页」。 */
   caseLabel?: string
+  /** 无截图卡片的封面事实行，写技术栈/交付形态，默认取 stack。 */
+  coverMeta?: string
 }
 
 const projectsData: Project[] = [
@@ -43,6 +45,7 @@ const projectsData: Project[] = [
     href: 'https://github.com/leongaooo/obscura-ocr',
     stack: ['PaddleOCR', 'systemd', 'HTTP API'],
     highlight: '把 OCR 能力做成可控、可交付的在线工作台。',
+    coverMeta: 'PaddleOCR · systemd · 口令制',
     caseHref: '/blog/agent-delivered-gate-service',
   },
   {
@@ -59,13 +62,14 @@ const projectsData: Project[] = [
     href: 'https://github.com/leongaooo/LexiLoop',
     stack: ['Electron', 'React', 'TypeScript', 'Vite'],
     highlight: '循环记忆的文字练习伴侣。',
+    coverMeta: 'Electron · React · 循环记忆',
   },
   {
     title: 'mind-pilot',
-    description: ` MindPilot 🌟，全新一代AI驱动的任务清单与成长辅助系统，重新定义你的每一天！`,
-    imgSrc: '/static/images/mind-pilot.png',
+    description: `AI 驱动的任务清单与个人成长系统，把每天要做的事和长期目标接起来。`,
     href: 'https://github.com/Amzing-Ai/mind-pilot',
     highlight: 'AI 驱动的任务清单与成长辅助系统。',
+    coverMeta: '任务清单 · 成长辅助',
   },
 ]
 

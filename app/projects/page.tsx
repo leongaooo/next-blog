@@ -2,20 +2,26 @@ import projectsData, { FEATURED_PROJECTS } from '@/data/projectsData'
 import ProjectCard from '@/components/projects/ProjectCard'
 import WeChatCopy from '@/components/WeChatCopy'
 import { genPageMetadata } from 'app/seo'
+import LionMarkTrad from '@/components/layout/LionMarkTrad'
 
 export const metadata = genPageMetadata({ title: '作品与服务交付' })
 
 export default function Projects() {
   const featured = projectsData.filter((p) => FEATURED_PROJECTS.includes(p.title))
   const rest = projectsData.filter((p) => !FEATURED_PROJECTS.includes(p.title))
-  const tail = rest[rest.length - 1]
-  const grid = rest.slice(0, -1)
+  // 双数列排满两列；奇数时最后一张落单，才改用整行卡片，避免半边留白
+  const hasOdd = rest.length % 2 === 1
+  const grid = hasOdd ? rest.slice(0, -1) : rest
+  const tail = hasOdd ? rest[rest.length - 1] : undefined
   const demoCount = projectsData.filter((p) => p.demoHref).length
   const npmCount = projectsData.filter((p) => p.stack?.includes('Cesium')).length
 
   return (
     <div className="proj-page">
       <section className="proj-hero">
+        <div className="proj-seal" aria-hidden="true">
+          <LionMarkTrad size={248} animate />
+        </div>
         <p className="proj-kicker">EVIDENCE WALL · 2021 — 2026</p>
         <h1 className="proj-h1">作品与服务交付</h1>
         <p className="proj-lede">

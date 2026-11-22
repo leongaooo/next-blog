@@ -794,9 +794,9 @@ input:-webkit-autofill:focus {
 :root {
   /* 墨色默认满强度；Header 水印层把它压到 0.2 / 0.34 */
   --lion-ink-alpha: 1;
-  --lion-ink: #1d3f72;
-  --lion-glow: #3f7fc4;
-  --lion-glow-alpha: 0.45;
+  --lion-ink: #141a1f;
+  --lion-glow: #0f6b5e;
+  --lion-glow-alpha: 0.28;
 }
 
 .dark {
@@ -974,8 +974,33 @@ input:-webkit-autofill:focus {
 }
 
 .proj-hero {
+  position: relative;
   padding: 28px 0 26px;
   border-bottom: 1px solid var(--home-border);
+}
+
+/* 证据墙的狮纹印记：大尺寸才看得清线稿，小尺寸会糊成一团，所以只在宽屏做页眉印记 */
+.proj-seal {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .proj-hero {
+    overflow: hidden;
+  }
+  .proj-seal {
+    position: absolute;
+    top: -18px;
+    right: -34px;
+    display: block;
+    width: 248px;
+    height: 248px;
+    --lion-ink-alpha: 0.14;
+    pointer-events: none;
+    user-select: none;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 54%, transparent 80%);
+    mask-image: radial-gradient(circle at 50% 50%, #000 54%, transparent 80%);
+  }
 }
 
 .proj-kicker {
@@ -1081,33 +1106,74 @@ input:-webkit-autofill:focus {
 }
 
 .proj-cover {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 10px;
   height: 100%;
-  padding: 16px 18px;
+  padding: 18px 20px 20px;
   background:
-    radial-gradient(120% 90% at 12% 0%, rgba(91, 225, 201, 0.16), transparent 60%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 26px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 26px),
-    linear-gradient(135deg, #0b1017 0%, #102a2c 100%);
-  color: #7fe8d8;
+    repeating-linear-gradient(150deg, rgba(247, 246, 241, 0.05) 0 1px, transparent 1px 22px),
+    radial-gradient(85% 65% at 86% 8%, rgba(180, 118, 31, 0.12), transparent 62%),
+    linear-gradient(158deg, #0c1218 0%, #0f1a1a 100%);
+  color: #f7f6f1;
+  overflow: hidden;
+}
+
+/* 巨大编号压在水印层：无图封面中间的空白用编号填，不额外造装饰 */
+.proj-cover-ghost {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: clamp(64px, 7vw, 96px);
+  line-height: 0.82;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: rgba(247, 246, 241, 0.09);
+  pointer-events: none;
+}
+
+/* 内框：让无图卡片看起来是一张排好的印张，而不是空面板 */
+.proj-cover::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(247, 246, 241, 0.08);
+  pointer-events: none;
 }
 
 .proj-cover-no {
   font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 44px;
-  line-height: 0.9;
-  font-weight: 600;
-  color: rgba(127, 232, 216, 0.4);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(247, 246, 241, 0.42);
 }
 
-.proj-cover-word {
-  font-size: 12px;
-  letter-spacing: 0.08em;
+.proj-cover-rule {
+  width: 26px;
+  height: 2px;
+  background: #b4761f;
+}
+
+.proj-cover-title {
+  align-self: end;
+  text-wrap: balance;
+  font-size: clamp(22px, 2.2vw, 29px);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+  color: #f7f6f1;
+  word-break: break-word;
+}
+
+.proj-cover-meta {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(169, 240, 224, 0.72);
+  color: rgba(247, 246, 241, 0.46);
 }
 
 .proj-body {
