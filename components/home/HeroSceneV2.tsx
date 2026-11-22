@@ -1014,7 +1014,7 @@ export default function HeroSceneV2() {
           </div>
         )}
         {!fallback && ready && hinted && (
-          <span className="hero2-gesture">滚轮缩放 · 拖拽旋转 · 点节点看参数</span>
+          <span className="hero2-gesture">缩放 · 拖拽旋转 · 点节点看参数</span>
         )}
         {!fallback && ready && (
           <button

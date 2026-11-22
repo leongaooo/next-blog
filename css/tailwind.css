@@ -408,6 +408,10 @@ input:-webkit-autofill:focus {
   }
 }
 
+.hero2-copy h1 {
+  text-wrap: balance;
+}
+
 .hero2-copy h1 > span {
   white-space: normal;
 }
@@ -574,20 +578,21 @@ input:-webkit-autofill:focus {
   }
 }
 
-@media (min-width: 22.5rem) and (width < 48rem) {
+@media (min-width: 22.5rem) and (width < 80rem) {
   .hero2-layout:has(.hero2-panel) {
-    grid-template-columns: minmax(0, 104px) 24px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-      'toolbar toolbar toolbar'
-      'explanation explanation explanation'
-      'caption caption caption'
-      'flow flow flow'
-      'eyebrow . stage'
-      'heading . stage'
-      'hud hud hud'
-      'description description description'
-      'terminal terminal terminal'
-      'actions actions actions';
+      'eyebrow'
+      'heading'
+      'description'
+      'actions'
+      'toolbar'
+      'explanation'
+      'stage'
+      'hud'
+      'caption'
+      'flow'
+      'terminal';
     gap: 0;
   }
 
@@ -609,9 +614,9 @@ input:-webkit-autofill:focus {
   .hero2-layout:has(.hero2-panel) .hero2-copy h1 {
     grid-area: heading;
     align-self: start;
-    margin-top: 8px;
-    font-size: 1.125rem;
-    line-height: 1.22;
+    margin: 6px 0 2px;
+    font-size: 1.75rem;
+    line-height: 1.18;
     overflow-wrap: anywhere;
   }
 
@@ -629,7 +634,9 @@ input:-webkit-autofill:focus {
 
   .hero2-layout .hero2-toolbar {
     grid-area: toolbar;
+    margin-top: 18px;
     border-radius: 8px 8px 0 0;
+    overflow-x: auto;
   }
 
   .hero2-layout .hero2-explanation {

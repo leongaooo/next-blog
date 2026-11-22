@@ -50,11 +50,13 @@ export default function HeroStream() {
         AI Native · Design Engineer
       </p>
 
-      <h1 className="text-mist-100 mt-4 text-[1.7rem] leading-[1.16] font-extrabold tracking-tight sm:text-5xl sm:leading-[1.08] md:text-[3.9rem]">
+      <h1 className="text-mist-100 mt-4 text-[1.7rem] leading-[1.16] font-extrabold tracking-tight sm:text-5xl sm:leading-[1.08] md:text-[clamp(2.7rem,4.1vw,3.9rem)]">
         把设计意图，
         <br />
-        <span className="md:whitespace-nowrap">
-          直接变成<span className="text-accent-400">能跑的东西</span>。
+        <span>
+          直接变成
+          <br className="hidden xl:inline" />
+          <span className="text-accent-400">能跑的东西</span>。
         </span>
       </h1>
 
