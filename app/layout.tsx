@@ -62,6 +62,19 @@ export const metadata: Metadata = {
   },
 }
 
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: '高立民',
+  alternateName: 'Leon Gao',
+  jobTitle: '前端工程师',
+  url: siteMetadata.siteUrl.replace(/\/+$/, ''),
+  email: siteMetadata.email,
+  sameAs: [siteMetadata.github, siteMetadata.x, siteMetadata.linkedin, siteMetadata.juejin].filter(
+    Boolean
+  ),
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const basePath = process.env.BASE_PATH || ''
 
@@ -99,6 +112,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <a href="#main-content" className="skip-link">
