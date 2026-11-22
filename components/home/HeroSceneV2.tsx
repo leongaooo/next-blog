@@ -891,10 +891,10 @@ function createScene(
 }
 
 const PIPELINE = [
-  ['spec', '本页把 3 套场景的节点、边和状态规则放进同一份 Inference Spec。'],
-  ['code', '流程规则和 WebGL 绘制分在 2 个文件，3 套场景共用缓冲与着色器。'],
-  ['render', '四层推理使用 4 个层板实例、1 组点和 1 组线段，共 3 次绘制。'],
-  ['ship', '在线 OCR 演示由 systemd 托管，门禁口令有效期 1 小时。'],
+  ['规格', '本页把 3 套场景的节点、边和状态规则放进同一份 Inference Spec。'],
+  ['代码', '流程规则和 WebGL 绘制分在 2 个文件，3 套场景共用缓冲与着色器。'],
+  ['渲染', '四层推理使用 4 个层板实例、1 组点和 1 组线段，共 3 次绘制。'],
+  ['交付', '在线 OCR 演示由 systemd 托管，门禁口令有效期 1 小时。'],
 ] as const
 
 export function HeroSceneVersion({ v1, v2 }: { v1: ReactNode; v2: ReactNode }) {
@@ -1024,13 +1024,13 @@ export default function HeroSceneV2() {
             <div className="hero2-step" key={step}>
               {i > 0 && <span aria-hidden="true">→</span>}
               <button type="button" onClick={() => togglePanel(i)} aria-expanded={panel === i}>
-                {step} ✓
+                {step}
               </button>
             </div>
           ))}
         </div>
         <button type="button" onClick={() => togglePanel('why')} aria-expanded={panel === 'why'}>
-          why this
+          为什么这样做
         </button>
         {!fallback && (
           <div className="hero2-scene-switch">

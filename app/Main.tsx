@@ -26,7 +26,7 @@ export default function Home({ posts }) {
           <div className="hero2-copy max-w-[560px] min-w-0">
             <HeroStream />
           </div>
-          <div className="hero2-view order-first min-w-0 md:order-last">
+          <div className="hero2-view min-w-0 md:order-last">
             <Suspense fallback={<HeroScenePoster />}>
               <HeroSceneVersion v1={<HeroScene />} v2={<HeroSceneV2 />} />
             </Suspense>
