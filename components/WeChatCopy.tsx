@@ -30,7 +30,9 @@ export default function WeChatCopy({
   }
 
   return (
-    <div className={plain ? 'flex flex-col items-start gap-1' : 'flex flex-col items-center gap-1'}>
+    <div
+      className={plain ? 'flex flex-col items-start gap-1.5' : 'flex flex-col items-center gap-2'}
+    >
       <div
         className={
           plain

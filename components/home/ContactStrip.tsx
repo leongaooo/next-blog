@@ -16,12 +16,6 @@ export default function ContactStrip() {
           GitHub ↗
         </Link>
         <Link
-          href={siteMetadata.siteUrl}
-          className="text-[var(--home-muted)] hover:text-[var(--home-accent)]"
-        >
-          个人站 ↗
-        </Link>
-        <Link
           href={`mailto:${siteMetadata.email}`}
           className="text-[var(--home-muted)] hover:text-[var(--home-accent)]"
         >
