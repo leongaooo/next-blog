@@ -47,6 +47,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
   const filteredPosts = allCoreContent(
     sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
   )
+  const totalPostCount = allCoreContent(sortPosts(allBlogs)).length
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
 
   // Return 404 for invalid page numbers or empty pages
@@ -68,6 +69,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title={title}
+      totalPostCount={totalPostCount}
     />
   )
 }
