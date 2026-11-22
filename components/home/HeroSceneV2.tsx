@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useTheme } from 'next-themes'
 import type { BufferAttribute, PerspectiveCamera, Vector3 } from 'three'
 import GenerativeArt from './GenerativeArt'
 import {
@@ -11,8 +12,9 @@ import {
   PIN_LIMIT,
   PULSE_LENGTH,
   PULSE_PERIOD_MS,
-  STATE_COLORS,
+  SCENE_PALETTES,
   STATE_COLOR_MS,
+  type ScenePalette,
   advanceInferenceMachine,
   createInferenceMachine,
   streamingRate,
@@ -21,7 +23,6 @@ import {
   type NodeState,
 } from '@/data/inferenceSpecs'
 
-const BG = '#080f13'
 const POINT_LIMIT = 19
 const ZOOM_START = 1.45
 const ZOOM_SPARSE = 1.16
@@ -60,9 +61,16 @@ const pointVertex = `
 const fog = `
   uniform float uFogNear;
   uniform float uFogFar;
+  uniform vec3 uFogColor;
   varying float vDepth;
-  float transmission() {
-    return mix(1.0, 0.7, smoothstep(uFogNear, uFogFar, vDepth));
+  float fogAmount() {
+    return smoothstep(uFogNear, uFogFar, vDepth) * 0.55;
+  }
+  vec3 fogged(vec3 color) {
+    return mix(color, uFogColor, fogAmount());
+  }
+  float fade() {
+    return mix(1.0, 0.72, fogAmount());
   }
 `
 
@@ -78,7 +86,7 @@ const pointFragment = `
     float center = 1.0 - smoothstep(0.12, 0.29, r);
     float disc = 1.0 - smoothstep(0.64, 1.0, r);
     float mask = uRingWidth > 0.0 ? max(rim, center * 0.85) : disc;
-    gl_FragColor = vec4(vVisual.rgb * transmission(), mask * vVisual.a);
+    gl_FragColor = vec4(fogged(vVisual.rgb), mask * vVisual.a * fade());
     #include <colorspace_fragment>
   }
 `
@@ -124,8 +132,8 @@ const lineFragment = `
     }
     float opacity = vEdge.x > 1.0 ? 1.0 : mix(0.35, 0.9, vEdge.x);
     gl_FragColor = vec4(
-      mix(uEdgeColor, uPulseColor, signal) * transmission(),
-      min(1.0, opacity + signal * 0.35) * vEdge.y
+      fogged(mix(uEdgeColor, uPulseColor, signal)),
+      min(1.0, opacity + signal * 0.35) * vEdge.y * fade()
     );
     #include <colorspace_fragment>
   }
@@ -199,18 +207,26 @@ function createScene(
   publish: (hud: Hud) => void,
   onFirstFrame: () => void,
   onLost: () => void,
-  onCycle: () => void
+  onCycle: () => void,
+  palette: ScenePalette
 ) {
   const renderer = new THREE.WebGLRenderer({ canvas, context, antialias: true, alpha: false })
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color(BG)
+  scene.background = new THREE.Color(palette.bg)
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200)
   const colors = Object.fromEntries(
-    Object.entries(STATE_COLORS).map(([state, color]) => [state, new THREE.Color(color)])
+    (['idle', 'pending', 'streaming', 'partial', 'committed', 'failed'] as const).map((state) => [
+      state,
+      new THREE.Color(palette[state]),
+    ])
   ) as Record<NodeState, InstanceType<Three['Color']>>
   const color = new THREE.Color()
 
-  const fogUniforms = { uFogNear: { value: 0 }, uFogFar: { value: 1 } }
+  const fogUniforms = {
+    uFogNear: { value: 0 },
+    uFogFar: { value: 1 },
+    uFogColor: { value: new THREE.Color(palette.fog) },
+  }
   const pointMaterial = new THREE.ShaderMaterial({
     uniforms: {
       ...fogUniforms,
@@ -912,6 +928,9 @@ export default function HeroSceneV2() {
   const advanceRef = useRef<() => void>(() => {})
   const holdUntilRef = useRef(0)
   const spec = INFERENCE_SPECS[index]
+  const { resolvedTheme } = useTheme()
+  const mode: keyof typeof SCENE_PALETTES = resolvedTheme === 'light' ? 'light' : 'dark'
+  const palette = SCENE_PALETTES[mode]
 
   // 减少动效偏好：默认不自动轮播，仍保留手动「换一版」
   useEffect(() => {
@@ -961,7 +980,8 @@ export default function HeroSceneV2() {
             if (!autoRef.current) return
             if (Date.now() < holdUntilRef.current) return
             advanceRef.current()
-          }
+          },
+          palette
         )
         engineRef.current = engine
       })
@@ -973,7 +993,8 @@ export default function HeroSceneV2() {
       engine?.dispose()
       engineRef.current = null
     }
-  }, [])
+    // 主题（亮/暗）换了要重建场景，配色随 Lite 主题走
+  }, [palette])
 
   function switchScene(fromAuto = false) {
     const next = (index + 1) % INFERENCE_SPECS.length
@@ -1124,10 +1145,7 @@ export default function HeroSceneV2() {
         </p>
         {!fallback && (
           <>
-            <p
-              className="hero2-state"
-              style={{ borderColor: state ? STATE_COLORS[state] : undefined }}
-            >
+            <p className="hero2-state" style={{ borderColor: state ? palette[state] : undefined }}>
               state {state ?? '—'} · stage {hud?.role ?? '—'} · token{' '}
               {hud ? hud.tokens + '/' + hud.tokenLimit : '—'} · retry {retry ?? '—'}
             </p>

@@ -10,6 +10,41 @@ export const STATE_COLORS = {
 export type NodeState = keyof typeof STATE_COLORS
 export type Position = [number, number, number]
 
+/** 推理场两套配色：暗色是默认的夜场，亮色是跟 Lite 主题走的纸面版 */
+export const SCENE_PALETTES = {
+  dark: {
+    bg: '#080f13',
+    fog: '#080f13',
+    idle: '#2a4a52',
+    pending: '#6a7d84',
+    streaming: '#5be1c9',
+    partial: '#a9f0e0',
+    committed: '#f5f0c8',
+    failed: '#e2695b',
+  },
+  light: {
+    bg: '#f4f8f7',
+    fog: '#e8f1ee',
+    idle: '#93a9a2',
+    pending: '#4d6a63',
+    streaming: '#0b6156',
+    partial: '#1f8d7f',
+    committed: '#7d5a10',
+    failed: '#b5432c',
+  },
+} as const
+
+export type ScenePalette = {
+  bg: string
+  fog: string
+  idle: string
+  pending: string
+  streaming: string
+  partial: string
+  committed: string
+  failed: string
+}
+
 export const STATE_COLOR_MS = 180
 export const FAILURE_INTERVAL_MS = 12_000
 export const PULSE_PERIOD_MS = 900
