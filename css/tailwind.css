@@ -1926,6 +1926,8 @@ input:-webkit-autofill:focus {
   line-height: 1.3;
   letter-spacing: -0.015em;
   color: var(--home-strong);
+  /* 24ch 下会把「首页」拆成首/页两行，balanced 后断在中文冒号处 */
+  text-wrap: balance;
 }
 
 .post-lede {
