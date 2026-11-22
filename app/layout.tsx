@@ -101,10 +101,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
+          <a href="#main-content" className="skip-link">
+            跳到主内容
+          </a>
           <SectionContainer>
             <Header />
             <PageTransition>
-              <main className="mb-auto">{children}</main>
+              <main id="main-content" tabIndex={-1} className="mb-auto outline-none">
+                {children}
+              </main>
             </PageTransition>
             <Footer />
           </SectionContainer>
