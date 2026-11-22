@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link
         rel="mask-icon"
         href={`${basePath}/static/favicons/safari-pinned-tab.svg`}
-        color="#5bbad5"
+        color="#0f6b5e"
       />
       <meta name="msapplication-TileColor" content="#000000" />
       <meta name="theme-color" content="#ffffff" />

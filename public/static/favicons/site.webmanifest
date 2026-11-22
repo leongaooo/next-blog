@@ -1,21 +1,30 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "高立民 Leon Gao · 前端工程师",
+  "short_name": "Leon Gao",
   "icons": [
     {
-      "src": "/web-app-manifest-192x192.png",
+      "src": "/static/favicons/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/web-app-manifest-512x512.png",
+      "src": "/static/favicons/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/static/favicons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#0b1017",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "description": "高立民（Leon Gao）的个人站：前端、3D 与 AI Native 交付。",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "scope": "/"
 }
