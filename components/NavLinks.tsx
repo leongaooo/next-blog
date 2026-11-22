@@ -16,7 +16,7 @@ const NavLinks = () => {
             key={link.title}
             href={link.href}
             aria-current={pathname === link.href ? 'page' : undefined}
-            className="m-1 font-medium text-gray-900 transition-colors duration-200 hover:text-[var(--home-accent)] dark:text-gray-100"
+            className="m-1 inline-flex min-h-6 items-center font-medium text-gray-900 transition-colors duration-200 hover:text-[var(--home-accent)] dark:text-gray-100"
           >
             {link.title}
           </Link>
