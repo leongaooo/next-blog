@@ -1146,8 +1146,12 @@ export default function HeroSceneV2() {
         {!fallback && (
           <>
             <p className="hero2-state" style={{ borderColor: state ? palette[state] : undefined }}>
-              state {state ?? '—'} · stage {hud?.role ?? '—'} · token{' '}
-              {hud ? hud.tokens + '/' + hud.tokenLimit : '—'} · retry {retry ?? '—'}
+              <span className="hero2-pair">
+                state {state ?? '—'} · stage {hud?.role ?? '—'}
+              </span>
+              <span className="hero2-pair">
+                token {hud ? hud.tokens + '/' + hud.tokenLimit : '—'} · retry {retry ?? '—'}
+              </span>
             </p>
             <p className="sr-only" aria-live="polite">
               {state === 'failed' ? '推理失败，等待重试' : retry ? '已重试 ' + retry + ' 次' : ''}

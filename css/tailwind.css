@@ -668,6 +668,23 @@ input:-webkit-autofill:focus {
   color: var(--h2-text);
 }
 
+/* 状态行在 390 宽会被折成「…retry / 0」孤字，按语义拆成两段：
+   宽屏仍是一行，窄屏各自成行。 */
+.hero2-pair + .hero2-pair::before {
+  margin: 0 0.35em;
+  content: '·';
+}
+
+@media (width < 48rem) {
+  .hero2-pair {
+    display: block;
+  }
+
+  .hero2-pair + .hero2-pair::before {
+    content: none;
+  }
+}
+
 .hero2-node {
   padding-top: 4px;
   border-top: 1px solid var(--h2-line);
