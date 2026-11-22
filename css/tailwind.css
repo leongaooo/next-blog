@@ -2464,6 +2464,20 @@ input:-webkit-autofill:focus {
   color: var(--home-subtle);
 }
 
+/* 底行是 10.5px mono，RSS / 源码链接本身只有 12px 高，鼠标也难点；
+   用一层绝对定位的伪元素把命中区扩到 24px，视觉行距与基线不动。 */
+.site-footer-note a,
+.site-footer-meta a {
+  position: relative;
+}
+
+.site-footer-note a::after,
+.site-footer-meta a::after {
+  content: '';
+  position: absolute;
+  inset: -6px -3px;
+}
+
 .site-footer-note a {
   color: var(--home-muted);
   text-decoration: none;
