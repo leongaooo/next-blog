@@ -272,7 +272,7 @@ node tools/art-lint.mjs art/spec-to-scene.art.json`}</code>
         </p>
         <div className="ag-actions">
           <a className="proj-link proj-link--primary" href="http://154.8.178.202/ai-graph/">
-            在线演示 <span aria-hidden="true">↗</span>
+            打开自托管演示 <span aria-hidden="true">↗</span>
           </a>
           <a className="proj-link" href="https://github.com/leongaooo/ai-graph">
             源码仓库 <span aria-hidden="true">↗</span>
@@ -281,6 +281,10 @@ node tools/art-lint.mjs art/spec-to-scene.art.json`}</code>
             回到作品墙 <span aria-hidden="true">→</span>
           </Link>
         </div>
+        <p className="ag-note">
+          演示跑在一台自托管云主机上，没有域名前缀；入口按口令开放，微信
+          <Link href="/demo#access">取当日口令</Link>后再点，单次一小时。
+        </p>
       </section>
     </div>
   )

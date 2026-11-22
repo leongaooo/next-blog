@@ -3772,6 +3772,20 @@ input:-webkit-autofill:focus {
   border-top: 1px solid var(--home-border);
 }
 
+.ag-note {
+  margin: 14px 0 0;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--home-subtle);
+}
+
+.ag-note a {
+  color: var(--home-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .ag-foot p {
   max-width: 620px;
   margin: 0 0 16px;
