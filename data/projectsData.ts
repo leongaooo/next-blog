@@ -10,6 +10,8 @@ export interface Project {
   highlight?: string
   year?: string
   caseHref?: string
+  /** 复盘链接的文案，默认「复盘」；成果页可写「成果页」。 */
+  caseLabel?: string
 }
 
 const projectsData: Project[] = [
@@ -23,6 +25,7 @@ const projectsData: Project[] = [
     badge: 'LIVE',
     highlight: '同一份 Brief + seed 可复现，重叠与裁切在出图前就被门禁拦下。',
     caseHref: '/projects/ai-graph',
+    caseLabel: '成果页',
   },
   {
     title: 'SvgToThreeModel',

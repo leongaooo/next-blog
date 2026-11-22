@@ -15,10 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: post.lastmod || post.date,
     }))
 
-  const routes = ['', 'blog', 'projects', 'demo', 'about', 'tags'].map((route) => ({
-    url: `${siteUrl}/${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-  }))
+  const routes = ['', 'blog', 'projects', 'projects/ai-graph', 'demo', 'about', 'tags'].map(
+    (route) => ({
+      url: `${siteUrl}/${route}`,
+      lastModified: new Date().toISOString().split('T')[0],
+    })
+  )
 
   const tagRoutes = Object.keys(tagData as Record<string, number>).map((tag) => ({
     url: `${siteUrl}/tags/${tag}`,
