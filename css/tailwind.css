@@ -3392,6 +3392,17 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* 关于页项目段的链接夹在正文里，视觉上不能变成按钮；
+   触屏下用负边距撑出 44px 命中区，行距和文字位置保持原样。 */
+@media (hover: none) {
+  .about-copy a:not(:has(> .content-header-link)) {
+    display: inline-block;
+    padding: 14px 4px;
+    margin: -14px -4px;
+    vertical-align: baseline;
+  }
+}
+
 /* 推理场面板顶部工具栏在触屏上只有 28px 高、按钮 18px，逐项都点不准。
    触屏下只把整条工具栏抬到 44px（按钮随 stretch 撑满），横向排布一律不动，
    避免六个标签在 364px 宽度里挤成溢出。 */
