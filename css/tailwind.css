@@ -896,6 +896,10 @@ input:-webkit-autofill:focus {
   right: 8px;
   top: 8px;
   z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
   padding: 2px 8px;
   border: 1px solid var(--h2-strong);
   border-radius: 6px;
