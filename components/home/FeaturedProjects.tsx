@@ -1,8 +1,8 @@
 import Link from '@/components/Link'
-import projectsData from '@/data/projectsData'
+import projectsData, { FEATURED_PROJECTS } from '@/data/projectsData'
 
 export default function FeaturedProjects() {
-  const featured = projectsData.slice(0, 2)
+  const featured = projectsData.filter((project) => FEATURED_PROJECTS.includes(project.title))
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -23,7 +23,7 @@ export default function FeaturedProjects() {
                 </span>
               ) : (
                 <span className="shrink-0 rounded-full border border-[var(--home-border)] px-2.5 py-1 font-mono text-[10px] tracking-wider text-[var(--home-subtle)]">
-                  SOON
+                  {project.badge ?? 'SOON'}
                 </span>
               )}
             </div>

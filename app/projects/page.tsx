@@ -1,15 +1,13 @@
-import projectsData from '@/data/projectsData'
+import projectsData, { FEATURED_PROJECTS } from '@/data/projectsData'
 import ProjectCard from '@/components/projects/ProjectCard'
 import WeChatCopy from '@/components/WeChatCopy'
 import { genPageMetadata } from 'app/seo'
 
 export const metadata = genPageMetadata({ title: '作品与服务交付' })
 
-const FEATURED = 'obscura-ocr'
-
 export default function Projects() {
-  const featured = projectsData.find((p) => p.title === FEATURED)
-  const rest = projectsData.filter((p) => p.title !== FEATURED)
+  const featured = projectsData.filter((p) => FEATURED_PROJECTS.includes(p.title))
+  const rest = projectsData.filter((p) => !FEATURED_PROJECTS.includes(p.title))
   const tail = rest[rest.length - 1]
   const grid = rest.slice(0, -1)
   const demoCount = projectsData.filter((p) => p.demoHref).length
@@ -43,21 +41,23 @@ export default function Projects() {
         </ul>
       </section>
 
-      {featured && (
+      {featured.length > 0 && (
         <section className="proj-featured" aria-label="主推项目">
-          <ProjectCard project={featured} index={0} featured />
+          {featured.map((p, i) => (
+            <ProjectCard key={p.title} project={p} index={i} featured />
+          ))}
         </section>
       )}
 
       <section className="proj-grid" aria-label="其他项目">
         {grid.map((p, i) => (
-          <ProjectCard key={p.title} project={p} index={i + (featured ? 1 : 0)} />
+          <ProjectCard key={p.title} project={p} index={i + featured.length} />
         ))}
       </section>
 
       {tail && (
         <section className="proj-tail" aria-label="最近项目">
-          <ProjectCard project={tail} index={rest.length} wide />
+          <ProjectCard project={tail} index={featured.length + rest.length - 1} wide />
         </section>
       )}
 
