@@ -6,6 +6,7 @@ import Link from '@/components/Link'
 import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import TocHighlight from '@/components/blog/TocHighlight'
 import GithubSlugger from 'github-slugger'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
@@ -48,6 +49,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   return (
     <SectionContainer>
       <ScrollTopAndComment />
+      <TocHighlight />
       <article className="post-page">
         <header className="post-head">
           <time dateTime={date} className="post-date">

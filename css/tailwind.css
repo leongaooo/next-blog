@@ -2452,6 +2452,16 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 当前阅读到的章节：文字转强调色 + 编号加粗，窄屏行内目录同样生效 */
+.post-toc a[aria-current='location'] {
+  color: var(--home-accent);
+}
+
+.post-toc a[aria-current='location'] .post-toc-no {
+  color: var(--home-accent);
+  font-weight: 600;
+}
+
 .post-toc-no {
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 10px;
