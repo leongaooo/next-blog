@@ -1641,7 +1641,7 @@ input:-webkit-autofill:focus {
 
 .tag-row-dots {
   flex: 1;
-  border-bottom: 1px dotted var(--home-border);
+  border-bottom: 1px dotted color-mix(in srgb, var(--home-muted) 55%, transparent);
   transform: translateY(-3px);
 }
 
