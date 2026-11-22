@@ -130,7 +130,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
       <button
         ref={triggerRef}
         type="button"
-        aria-label="搜索站内内容"
+        aria-label={variant === 'icon' ? '搜索站内内容' : undefined}
         onClick={toggle}
         className={
           variant === 'inline'
