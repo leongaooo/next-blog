@@ -3271,7 +3271,8 @@ input:-webkit-autofill:focus {
   top: 1px;
   right: 1px;
   bottom: 1px;
-  width: 30px;
+  width: 38px;
+  border-right: 1px solid rgba(247, 246, 241, 0.16);
   border-radius: 0 6px 6px 0;
   pointer-events: none;
   background: linear-gradient(to left, var(--code-bg), transparent);
