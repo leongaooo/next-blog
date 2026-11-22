@@ -95,10 +95,10 @@ export default function ListLayout({
                 <label>
                   <span className="sr-only">搜索文章</span>
                   <input
-                    aria-label="Search articles"
+                    aria-label="搜索文章"
                     type="text"
                     onChange={(e) => setSearchValue(e.target.value)}
-                    placeholder="Search articles"
+                    placeholder="搜索文章标题…"
                     className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 transition-all duration-200 focus:border-[var(--home-accent)] focus:ring-[var(--home-accent)] dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
                   />
                 </label>
@@ -122,7 +122,7 @@ export default function ListLayout({
         </FadeInUp>
         <StaggerContainer>
           <ul>
-            {!filteredBlogPosts.length && 'No posts found.'}
+            {!filteredBlogPosts.length && '没有匹配的文章。'}
             {displayPosts.map((post, index) => {
               const { path, date, title, summary, tags } = post
               return (
