@@ -43,9 +43,10 @@ export async function generateMetadata(props: {
   if (post.images) {
     imageList = typeof post.images === 'string' ? [post.images] : post.images
   }
+  const siteBase = siteMetadata.siteUrl.replace(/\/+$/, '')
   const ogImages = imageList.map((img) => {
     return {
-      url: img && img.includes('http') ? img : siteMetadata.siteUrl + img,
+      url: img && img.includes('http') ? img : `${siteBase}${img}`,
     }
   })
 
@@ -56,7 +57,7 @@ export async function generateMetadata(props: {
       title: post.title,
       description: post.summary,
       siteName: siteMetadata.title,
-      locale: 'en_US',
+      locale: 'zh_CN',
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
