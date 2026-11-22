@@ -84,7 +84,7 @@ export default function HeroStream() {
                 {line.kind === 'cmd' ? (
                   <span className="text-accent-500">$</span>
                 ) : (
-                  <span className="text-mist-400">›</span>
+                  <span className="text-mist-300">›</span>
                 )}
                 <span
                   className={
@@ -99,7 +99,7 @@ export default function HeroStream() {
                   {!complete && <span className="stream-caret ml-0.5" aria-hidden="true" />}
                 </span>
                 {complete && line.meta && (
-                  <span className="text-mist-400 ml-auto font-mono text-[11px] tabular-nums">
+                  <span className="text-mist-300 ml-auto font-mono text-[11px] tabular-nums">
                     {line.meta}
                   </span>
                 )}
@@ -108,7 +108,7 @@ export default function HeroStream() {
           })}
         </div>
         <div className="border-t border-white/5 px-4 py-2">
-          <p className="text-mist-400 text-[11px]">示意动画 · 数据取自一次真实的构建与交付记录</p>
+          <p className="text-mist-300 text-[11px]">示意动画 · 数据取自一次真实的构建与交付记录</p>
         </div>
       </div>
 
