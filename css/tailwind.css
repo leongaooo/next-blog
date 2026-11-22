@@ -373,6 +373,8 @@ input:-webkit-autofill:focus {
   --cta-bg: #0f6b5e;
   --cta-fg: #ffffff;
   --cta-bg-hover: #0b5347;
+  --code-bg: #0f1720;
+  --code-border: rgba(255, 255, 255, 0.08);
   --home-hero: #f6f8f6;
   --home-hero-grid: rgba(15, 107, 94, 0.09);
   --home-hero-glow: rgba(47, 167, 154, 0.16);
@@ -392,6 +394,8 @@ input:-webkit-autofill:focus {
   --cta-bg: #5be1c9;
   --cta-fg: #07110f;
   --cta-bg-hover: #8ff0dd;
+  --code-bg: #0e161d;
+  --code-border: rgba(255, 255, 255, 0.08);
   --home-hero: #0a1116;
   --home-hero-grid: rgba(154, 164, 178, 0.08);
   --home-hero-glow: rgba(91, 225, 201, 0.14);
@@ -3179,6 +3183,15 @@ input:-webkit-autofill:focus {
   -webkit-overflow-scrolling: touch;
 }
 
+/* 代码块是「纸上的深色印张」，两套主题都保持深底，但底色/描边走 token：
+   暗色页面里不再是一块比背景更黑的洞，右缘渐隐也能和底色对上。 */
+.post-copy pre,
+.prose pre {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+}
+
 .code-fade {
   position: absolute;
   top: 1px;
@@ -3187,7 +3200,7 @@ input:-webkit-autofill:focus {
   width: 30px;
   border-radius: 0 6px 6px 0;
   pointer-events: none;
-  background: linear-gradient(to left, rgba(17, 24, 39, 0.96), rgba(17, 24, 39, 0));
+  background: linear-gradient(to left, var(--code-bg), transparent);
 }
 
 .code-copy {
@@ -3196,7 +3209,7 @@ input:-webkit-autofill:focus {
   right: 8px;
   z-index: 2;
   padding: 3px 9px;
-  border: 1px solid rgba(229, 231, 235, 0.35);
+  border: 1px solid rgba(229, 231, 235, 0.3);
   border-radius: 4px;
   background: rgba(17, 24, 39, 0.7);
   color: #e5e7eb;
