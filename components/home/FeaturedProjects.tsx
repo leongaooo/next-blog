@@ -17,15 +17,16 @@ export default function FeaturedProjects() {
               <h3 className="text-xl font-bold tracking-tight text-[var(--home-strong)]">
                 {project.title}
               </h3>
-              {live ? (
-                <span className="live-ring live-badge shrink-0 rounded-full px-2.5 py-1 font-mono text-[10px] tracking-wider">
-                  LIVE
-                </span>
-              ) : (
-                <span className="shrink-0 rounded-full border border-[var(--home-border)] px-2.5 py-1 font-mono text-[10px] tracking-wider text-[var(--home-subtle)]">
-                  {project.badge ?? 'SOON'}
-                </span>
-              )}
+              <span
+                className="shrink-0 rounded-full border px-2.5 py-1 font-mono text-[10px] tracking-wider"
+                style={{
+                  color: 'var(--home-accent)',
+                  borderColor: 'color-mix(in srgb, var(--home-accent) 38%, transparent)',
+                  background: 'color-mix(in srgb, var(--home-accent) 8%, transparent)',
+                }}
+              >
+                {project.badge ?? (live ? 'DEMO' : 'SOON')}
+              </span>
             </div>
 
             {project.highlight && (
@@ -55,9 +56,9 @@ export default function FeaturedProjects() {
                 <Link
                   href={project.demoHref}
                   className="tap-inline hover:text-accent-300 text-[var(--home-accent)]"
-                  aria-label={`${project.title}：在线体验`}
+                  aria-label={`${project.title}：${project.demoLabel ?? '在线体验'}`}
                 >
-                  在线体验 →
+                  {project.demoLabel ?? '在线体验'} →
                 </Link>
               )}
               {project.href && (
