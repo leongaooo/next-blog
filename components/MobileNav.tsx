@@ -102,7 +102,7 @@ const MobileNav = () => {
                 aria-label="移动导航"
                 className="mobile-nav flex h-full flex-col items-stretch overflow-y-auto px-6 pt-16 pb-6 text-left"
               >
-                <p className="mobile-nav-kicker">MENU · leongao.me</p>
+                <p className="mobile-nav-kicker">菜单 · leongao.me</p>
                 {headerNavLinks.map((link, index) => {
                   const exact = pathname === link.href
                   const inSection = exact || pathname.startsWith(`${link.href}/`)
