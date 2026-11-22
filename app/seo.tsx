@@ -45,6 +45,8 @@ export function genPageMetadata({
     twitter: {
       title: `${title} | ${siteMetadata.title}`,
       card: 'summary_large_image',
+      site: '@Leongaooo',
+      creator: '@Leongaooo',
       images: image
         ? [{ url: image, alt: `${title} | ${siteMetadata.headerTitle}` }]
         : [{ url: siteMetadata.socialBanner, alt: bannerAlt }],

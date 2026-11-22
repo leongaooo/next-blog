@@ -73,6 +73,8 @@ export async function generateMetadata(props: {
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@Leongaooo',
+      creator: '@Leongaooo',
       title: post.title,
       description: post.summary,
       images: imageList.map((img) => ({

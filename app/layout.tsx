@@ -63,6 +63,8 @@ export const metadata: Metadata = {
   twitter: {
     title: siteMetadata.title,
     card: 'summary_large_image',
+    site: '@Leongaooo',
+    creator: '@Leongaooo',
     images: [
       {
         url: siteMetadata.socialBanner,
