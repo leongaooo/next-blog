@@ -97,16 +97,22 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
+  const siteBase = siteMetadata.siteUrl.replace(/\/+$/, '')
+  const postUrl = `${siteBase}/${post.path.replace(/^\/+/, '')}`
   const jsonLd = post.structuredData
   jsonLd['author'] = authorDetails.map((author) => {
     return {
       '@type': 'Person',
       name: author.name,
+      url: `${siteBase}/about`,
     }
   })
+  jsonLd['mainEntityOfPage'] = {
+    '@type': 'WebPage',
+    '@id': postUrl,
+  }
 
   const Layout = layouts[post.layout || defaultLayout]
-  const siteBase = siteMetadata.siteUrl.replace(/\/+$/, '')
   const breadcrumbLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -127,7 +133,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         '@type': 'ListItem',
         position: 3,
         name: post.title,
-        item: `${siteBase}/${post.path.replace(/^\/+/, '')}`,
+        item: postUrl,
       },
     ],
   }
