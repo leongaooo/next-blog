@@ -9,6 +9,9 @@ import { sortPosts } from 'pliny/utils/contentlayer.js'
 
 const outputFolder = process.env.EXPORT ? 'out' : 'public'
 
+// siteUrl 末尾带斜杠时，拼出来的链接会变成 leongao.me//blog
+const normalizeSiteUrl = (config) => ({ ...config, siteUrl: config.siteUrl.replace(/\/$/, '') })
+
 const generateRssItem = (config, post) => `
   <item>
     <guid>${config.siteUrl}/blog/${post.slug}</guid>
@@ -57,7 +60,7 @@ async function generateRSS(config, allBlogs, page = 'feed.xml') {
 }
 
 const rss = () => {
-  generateRSS(siteMetadata, allBlogs)
+  generateRSS(normalizeSiteUrl(siteMetadata), allBlogs)
   console.log('RSS feed generated...')
 }
 export default rss
