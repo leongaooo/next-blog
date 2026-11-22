@@ -1614,6 +1614,14 @@ input:-webkit-autofill:focus {
   text-transform: uppercase;
   color: var(--home-accent);
   text-decoration: none;
+  position: relative;
+}
+
+/* 10.5px 大写 mono 的 chip 只有 16px 高，命中区用伪元素补到 24，视觉高度不变 */
+.blog-tag::after {
+  content: '';
+  position: absolute;
+  inset: -4px -3px;
 }
 
 .blog-tag:hover {
@@ -2309,6 +2317,14 @@ input:-webkit-autofill:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+/* 20px 图标在鼠标下也只有 20px 命中区，补到 24；触屏另有 44px 规则 */
+.site-social-icon::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
 }
 
 @media (max-width: 767px) {
