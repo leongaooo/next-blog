@@ -2604,6 +2604,15 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 404 右栏「全部文章 →」只有 19px 高，移动端与触屏都点不准：补到 44px。 */
+@media (hover: none) {
+  .nf-recent-all {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 900px) {
   .nf-body {
     grid-template-columns: minmax(0, 1fr);
@@ -3519,12 +3528,6 @@ input:-webkit-autofill:focus {
     padding-block: 24px;
   }
 
-  .site-logo {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-  }
-
   .nav-link {
     min-height: 44px;
     padding-inline: 5px;
@@ -3558,6 +3561,15 @@ input:-webkit-autofill:focus {
     padding: 0 10px;
   }
 }
+/* 页头站点标识在手机上只有 28px 高：触屏补到 44px，所在行本来已被图标撑到 44，不额外长高。 */
+@media (hover: none) {
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
 /* 博客列表主标题链接只有 28px 高。标题本身是整行宽，不需要改排版，
    触屏下用伪元素向上、向下各扩 8px，命中区到 44px，列表行距不动。 */
 @media (hover: none) {
