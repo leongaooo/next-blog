@@ -167,8 +167,9 @@ export default function ListLayoutWithTags({
           <ul>
             {displayPosts.map((post) => {
               const { path, date, title: postTitle, summary, tags, readingTime } = post
+              const isLead = onBlogIndex && displayPosts.indexOf(post) === 0
               return (
-                <li key={path} className="blog-item">
+                <li key={path} className={isLead ? 'blog-item blog-item--lead' : 'blog-item'}>
                   <dl>
                     <dt className="sr-only">发布于</dt>
                     <dd className="blog-meta">
@@ -180,11 +181,13 @@ export default function ListLayoutWithTags({
                           · 约 {readingMinutes(readingTime.minutes)} 分钟
                         </span>
                       ) : null}
+                      {isLead ? <span className="blog-flag">最新</span> : null}
                     </dd>
                   </dl>
                   <h2 className="blog-title">
                     <Link href={`/${path}`}>{postTitle}</Link>
                   </h2>
+                  {summary ? <p className="blog-summary">{summary}</p> : null}
                   {tags?.length ? (
                     <div className="blog-tags">
                       {tags.map((tag) => (
@@ -194,7 +197,6 @@ export default function ListLayoutWithTags({
                       ))}
                     </div>
                   ) : null}
-                  {summary ? <p className="blog-summary">{summary}</p> : null}
                 </li>
               )
             })}

@@ -1806,6 +1806,36 @@ input:-webkit-autofill:focus {
   color: var(--home-subtle);
 }
 
+/* 列表首条做一次层级：标题略大、摘要更完整，避免十几条同权重的重复感 */
+.blog-item--lead {
+  padding-bottom: 34px;
+  margin-bottom: 34px;
+}
+
+.blog-item--lead .blog-title {
+  font-size: 27px;
+  line-height: 1.28;
+  margin-bottom: 10px;
+}
+
+.blog-item--lead .blog-summary {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--home-text);
+}
+
+.blog-flag {
+  margin-inline-start: 2px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--home-accent);
+}
+
+.blog-tags {
+  margin-top: 10px;
+}
+
 .blog-title {
   margin: 0 0 8px;
   font-size: 22px;
@@ -1921,6 +1951,9 @@ input:-webkit-autofill:focus {
   }
   .blog-title {
     font-size: 20px;
+  }
+  .blog-item--lead .blog-title {
+    font-size: 23px;
   }
 }
 
