@@ -10,20 +10,22 @@ interface Doc {
   date?: string
   type?: string
   path?: string
+  note?: string
 }
 
+// 每个固定页给一句不同的说明，避免六行都是「页面」这种噪声
 const STATIC_PAGES: Doc[] = [
-  { title: '作品与服务交付', path: 'projects', tags: ['页面'] },
+  { title: '作品与服务交付', path: 'projects', note: '证据墙：问题 / 我负责的部分 / 可验证结果' },
   {
     title: 'ai-graph 成果页',
     path: 'projects/ai-graph',
-    tags: ['页面', '项目'],
+    note: '一份 Brief + seed 可复现的 SVG 场景',
     summary: '把文案画成可复现的 SVG 场景：seed、门禁与复现命令。',
   },
-  { title: '在线演示 · 口令入口', path: 'demo', tags: ['页面'] },
-  { title: '关于高立民', path: 'about', tags: ['页面'] },
-  { title: '文章列表', path: 'blog', tags: ['页面'] },
-  { title: '标签索引', path: 'tags', tags: ['页面'] },
+  { title: '在线演示 · 口令入口', path: 'demo', note: '自托管工作台，口令按需发放' },
+  { title: '关于高立民', path: 'about', note: '在做什么、怎么做、怎么联系' },
+  { title: '文章列表', path: 'blog', note: '按时间倒序的全部文章' },
+  { title: '标签索引', path: 'tags', note: '按主题找到对应的文章' },
 ]
 
 const resultsFor = (docs: Doc[], query: string) => {
@@ -31,7 +33,10 @@ const resultsFor = (docs: Doc[], query: string) => {
   if (!q) return docs.slice(0, 6)
   return docs
     .filter((doc) =>
-      [doc.title, doc.summary, (doc.tags ?? []).join(' ')].join(' ').toLowerCase().includes(q)
+      [doc.title, doc.summary, doc.note, (doc.tags ?? []).join(' ')]
+        .join(' ')
+        .toLowerCase()
+        .includes(q)
     )
     .slice(0, 8)
 }
@@ -232,10 +237,14 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                         onClick={() => go(doc)}
                       >
                         <span className="search-item-title">{doc.title}</span>
-                        <span className="search-item-meta">
-                          {(doc.tags ?? []).slice(0, 3).join(' · ')}
-                          {doc.date ? ` · ${doc.date.slice(0, 10)}` : ''}
-                        </span>
+                        {doc.note ? (
+                          <span className="search-item-note">{doc.note}</span>
+                        ) : (
+                          <span className="search-item-meta">
+                            {(doc.tags ?? []).slice(0, 3).join(' · ')}
+                            {doc.date ? ` · ${doc.date.slice(0, 10)}` : ''}
+                          </span>
+                        )}
                       </button>
                     </li>
                   ))}
