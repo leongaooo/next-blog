@@ -2219,7 +2219,7 @@ input:-webkit-autofill:focus {
 }
 
 .post-nav-item--next {
-  text-align: right;
+  text-align: left;
 }
 
 .post-nav-label {
@@ -2267,9 +2267,6 @@ input:-webkit-autofill:focus {
   }
   .post-nav {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .post-nav-item--next {
-    text-align: left;
   }
 }
 
