@@ -103,8 +103,15 @@ export default function ListLayoutWithTags({
       if (itemLeft >= list.scrollLeft && itemRight <= list.scrollLeft + list.clientWidth - 48) {
         if (list.scrollLeft === 0) return
       }
-      // 需要滚动时靠左对齐，避免左侧只剩上一项被裁掉的计数。
-      list.scrollLeft = Math.max(0, Math.min(itemLeft, list.scrollWidth - list.clientWidth))
+      // 最后一项没有后继标签，靠左后右侧只剩留白；此时保留前一项作为上下文，
+      // 仍按整项左缘对齐，避免把邻项计数切在视口边缘。
+      const previous = item.parentElement?.previousElementSibling?.querySelector(
+        '.blog-nav-item'
+      ) as HTMLElement | null
+      const target = !item.parentElement?.nextElementSibling && previous ? previous : item
+      const targetBox = target.getBoundingClientRect()
+      const targetLeft = list.scrollLeft + targetBox.left - listBox.left
+      list.scrollLeft = Math.max(0, Math.min(targetLeft, list.scrollWidth - list.clientWidth))
     }
 
     // 首次渲染时字体和标签宽度还没稳定，滚完会把当前项留在邻项计数上；
