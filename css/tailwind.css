@@ -2349,7 +2349,80 @@ input:-webkit-autofill:focus {
 
 /* ---------- 404 ---------- */
 .nf-page {
-  padding: 84px 0 96px;
+  padding: 72px 0 88px;
+}
+
+/* 404 双栏：左边是「走丢了」，右边给三条真实文章兜底 */
+.nf-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 288px;
+  gap: 60px;
+  align-items: start;
+}
+
+.nf-recent {
+  padding-top: 14px;
+  border-top: 1px solid var(--home-border);
+}
+
+.nf-recent-head {
+  margin: 0 0 12px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--home-subtle);
+}
+
+.nf-recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nf-recent-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--home-border);
+  text-decoration: none;
+}
+
+.nf-recent-date {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--home-subtle);
+}
+
+.nf-recent-title {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--home-text);
+}
+
+.nf-recent-item:hover .nf-recent-title {
+  color: var(--home-accent);
+}
+
+.nf-recent-all {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--home-muted);
+  text-decoration: none;
+}
+
+.nf-recent-all:hover {
+  color: var(--home-accent);
+}
+
+@media (max-width: 900px) {
+  .nf-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
 }
 
 .nf-code {
@@ -2376,6 +2449,7 @@ input:-webkit-autofill:focus {
 .nf-btn {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   padding: 9px 16px;
   border: 1px solid var(--home-border);
   border-radius: 8px;
