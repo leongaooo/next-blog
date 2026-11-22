@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 interface Doc {
@@ -44,6 +44,9 @@ const resultsFor = (docs: Doc[], query: string) => {
 
 export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'inline' } = {}) {
   const router = useRouter()
+  const uid = useId()
+  const listId = `${uid}-search-results`
+  const hintId = `${uid}-search-keys`
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   // 固定页面直接可搜，不等索引；文章索引另行加载
@@ -159,6 +162,11 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   const { items: results, total } = useMemo(() => resultsFor(docs, query), [docs, query])
   const shortcutLabel = isMac ? '⌘K' : 'Ctrl K'
 
+  // 文章索引是异步加载的，结果数量可能在键盘浏览途中变化；把高亮收回到有效范围。
+  useEffect(() => {
+    setActive((prev) => (results.length ? Math.min(prev, results.length - 1) : 0))
+  }, [results.length])
+
   // 键盘翻到列表下方的条目时，把它滚进可视区，不然高亮会落在看不见的地方
   useEffect(() => {
     if (!open) return
@@ -240,6 +248,17 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                 className="search-input"
                 placeholder="搜索文章、标签、项目…"
                 value={query}
+                role="combobox"
+                aria-label="搜索站内文章、标签和项目"
+                aria-autocomplete="list"
+                aria-haspopup="listbox"
+                aria-expanded={results.length > 0}
+                aria-controls={results.length > 0 ? listId : undefined}
+                aria-activedescendant={results.length > 0 ? `${listId}-${active}` : undefined}
+                aria-describedby={hintId}
+                autoComplete="off"
+                spellCheck={false}
+                enterKeyHint="search"
                 onChange={(event) => {
                   setQuery(event.target.value)
                   setActive(0)
@@ -249,15 +268,20 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                   if (event.nativeEvent.isComposing) return
                   if (event.key === 'ArrowDown') {
                     event.preventDefault()
-                    setActive((prev) => Math.min(prev + 1, results.length - 1))
+                    setActive((prev) =>
+                      results.length ? Math.min(prev + 1, results.length - 1) : 0
+                    )
                   }
                   if (event.key === 'ArrowUp') {
                     event.preventDefault()
-                    setActive((prev) => Math.max(prev - 1, 0))
+                    setActive((prev) => (results.length ? Math.max(prev - 1, 0) : 0))
                   }
-                  if (event.key === 'Enter') go(results[active])
+                  if (event.key === 'Enter') go(results[active] ?? results[0])
                 }}
               />
+              <p id={hintId} className="sr-only">
+                输入关键词筛选。用上下方向键选择结果，回车打开，Esc 关闭。
+              </p>
               <span className="search-kbd">ESC</span>
               <button
                 type="button"
@@ -318,11 +342,14 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                   </div>
                 </div>
               ) : (
-                <ul ref={listRef}>
+                <ul ref={listRef} id={listId} role="listbox" aria-label="搜索结果">
                   {results.map((doc, index) => (
-                    <li key={doc.path}>
+                    <li key={doc.path} role="presentation">
                       <button
                         type="button"
+                        id={`${listId}-${index}`}
+                        role="option"
+                        aria-selected={index === active}
                         className={index === active ? 'search-item search-item-on' : 'search-item'}
                         onMouseEnter={() => setActive(index)}
                         onClick={() => go(doc)}
