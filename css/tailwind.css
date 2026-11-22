@@ -2610,3 +2610,13 @@ input:-webkit-autofill:focus {
     min-height: 44px;
   }
 }
+
+/* 文章尾部「回到文章列表 / 在 X 上讨论 / 在 GitHub 看源文」只有 19px 高，
+   触屏下各自补到 44px；这一行是 flex-wrap，抬高度不会互相压住。 */
+@media (hover: none) {
+  .post-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
