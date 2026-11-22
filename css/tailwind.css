@@ -810,6 +810,14 @@ input:-webkit-autofill:focus {
   .hero2-layout:has(.hero2-panel) .hero2-copy h1 {
     font-size: clamp(1.55rem, 7.8vw, 1.7rem);
   }
+
+  /* 精选作品描述在 320 会截掉「装饰永不给人名和文字让位」，
+     单列平铺没有对齐压力，小屏直接显示全文。 */
+  .featured-desc {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
 }
 
 /* 320–359 宽（老 iPhone SE 等）不在上面的半局部布局断点里，

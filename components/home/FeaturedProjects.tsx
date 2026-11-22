@@ -34,7 +34,7 @@ export default function FeaturedProjects() {
                 {project.highlight}
               </p>
             )}
-            <p className="mt-2 line-clamp-3 text-sm leading-6 text-[var(--home-subtle)]">
+            <p className="featured-desc mt-2 line-clamp-3 text-sm leading-6 text-[var(--home-subtle)]">
               {project.description}
             </p>
 
