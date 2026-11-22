@@ -8,7 +8,7 @@ export default function ContactStrip() {
       <p className="max-w-2xl text-base leading-7 text-[var(--home-muted)]">
         想聊 AI Native 前端的机会，或者要一个演示口令，都可以直接找我。
       </p>
-      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+      <div className="contact-actions mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
         <Link
           href={siteMetadata.github}
           className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-accent)]"

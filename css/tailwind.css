@@ -3506,6 +3506,18 @@ input:-webkit-autofill:focus {
   inset: -4px -2px;
 }
 
+/* 联系区「GitHub / 邮箱 / 关于我」视觉 20px 高，补到 28px 命中区；
+   行距和微信块位置不变。 */
+.contact-actions .tap-inline {
+  position: relative;
+}
+
+.contact-actions .tap-inline::after {
+  content: '';
+  position: absolute;
+  inset: -4px -2px;
+}
+
 /* 首页内联文字链接（「全部作品 →」「源码 ↗」「关于我 →」等）行高只有 16–20px。
    触屏下用等量负边距撑出 44px 命中区，文字位置与行距都不动。 */
 @media (hover: none) {
