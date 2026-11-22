@@ -2985,14 +2985,26 @@ input:-webkit-autofill:focus {
   margin: 26px 0 0;
 }
 
-.ag-zoom {
-  display: block;
-  border-radius: 10px;
+.ag-orig {
+  display: flex;
+  width: fit-content;
+  margin: 8px 0 0 auto;
+  padding: 4px 2px;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--home-accent);
+  border-radius: 4px;
 }
 
-.ag-zoom:focus-visible {
+.ag-orig:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ag-orig:focus-visible {
   outline: 2px solid var(--home-accent);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .ag-figure img {

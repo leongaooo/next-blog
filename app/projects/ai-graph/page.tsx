@@ -21,7 +21,7 @@ const SCENES = [
     title: '平面图能被读出高度',
     file: '/static/images/ai-graph/iso-rebuild.svg',
     alt: '轴测重建场景：一面面墙体从平面轮廓立起来，分层切片堆叠，标注线标出尺寸，成品立在画面中间。',
-    facts: ['65,693 B', '412 条路径', '428 个节点', 'seed 412907'],
+    facts: ['65,693 B', '412 条路径', '428 个节点', 'seed 412907', 'sha1 56a1a0e3'],
     note: '21 面墙、4 层切片由同一份轮廓推导，先在平面里排好，再沿高度轴立起。笔迹数量写在图内，出图后可以逐项回查。',
   },
   {
@@ -29,7 +29,7 @@ const SCENES = [
     title: '推理链画成等轴测的场',
     file: '/static/images/ai-graph/inference-field.svg',
     alt: '推理场场景：四层平台沿轴测方向错落排布，四个门禁节点立在通道上，连线表示一次推理的走向。',
-    facts: ['50,338 B', '268 条路径', '284 个节点', 'seed 731109'],
+    facts: ['50,338 B', '268 条路径', '284 个节点', 'seed 731109', 'sha1 dd84c9d0'],
     note: '4 层平台对应一次推理的四段，4 个门禁对应出图前必须通过的检查。连线不做发光，靠线宽与墨色区分主次。',
   },
 ]
@@ -72,19 +72,19 @@ export default function AiGraphCase() {
       </header>
 
       <section className="ag-figure ag-figure--lead" aria-label="场景 01 落笔之前">
+        <img
+          src="/static/images/ai-graph/spec-to-scene.svg"
+          alt="制图室场景：作者坐在桌前在草图纸上落笔，同一张图纸由草稿、网格校样进入墨线成品的观测亭，左侧是标题与编号。"
+          width={1200}
+          height={675}
+        />
         <a
-          className="ag-zoom"
+          className="ag-orig"
           href="/static/images/ai-graph/spec-to-scene.svg"
           target="_blank"
           rel="noreferrer"
-          aria-label="打开场景 01 原图（1200 × 675 SVG）"
         >
-          <img
-            src="/static/images/ai-graph/spec-to-scene.svg"
-            alt="制图室场景：作者坐在桌前在草图纸上落笔，同一张图纸由草稿、网格校样进入墨线成品的观测亭，左侧是标题与编号。"
-            width={1200}
-            height={675}
-          />
+          原图 · 1200 × 675 ↗
         </a>
         <div className="ag-caption">
           <div className="ag-caption-head">
@@ -196,14 +196,9 @@ export default function AiGraphCase() {
       <section className="ag-grid" aria-label="场景 02 与 03">
         {SCENES.slice(1).map((s) => (
           <article className="ag-figure" key={s.no}>
-            <a
-              className="ag-zoom"
-              href={s.file}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`打开场景 ${s.no} 原图（1200 × 675 SVG）`}
-            >
-              <img src={s.file} alt={s.alt} width={1200} height={675} />
+            <img src={s.file} alt={s.alt} width={1200} height={675} />
+            <a className="ag-orig" href={s.file} target="_blank" rel="noreferrer">
+              原图 · 1200 × 675 ↗
             </a>
             <div className="ag-caption">
               <div className="ag-caption-head">
