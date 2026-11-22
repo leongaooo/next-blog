@@ -2465,11 +2465,12 @@ input:-webkit-autofill:focus {
 }
 
 .site-footer-note {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  color: var(--home-subtle);
+  font-size: 11.5px;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+  color: var(--home-muted);
 }
 
 /* ---------- 404 ---------- */
