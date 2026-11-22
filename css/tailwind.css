@@ -123,15 +123,18 @@ body {
       font-weight: 600;
     }
     & :where(code):not(pre code) {
-      color: var(--home-accent);
+      /* 行内代码是标识符，不是强调：用中性墨色 + 极浅底，避免一段正文里出现
+         四五个青绿胶囊，把阅读节奏打散。 */
+      color: var(--home-text);
+      font-size: 0.9em;
       /* 行内代码里的长标识符（WebGLRenderer.prototype.render 这类）在 320
          宽下撑破正文列、把整页撑出横向滚动：允许在任意位置断行。 */
       overflow-wrap: anywhere;
       /* Tailwind Typography 默认给行内代码加 "`" 前后缀，中文正文里会读成
-         两个多余的反引号；改成纸面感的浅青底小胶囊。 */
-      padding: 0.1em 0.34em;
-      border-radius: 4px;
-      background: color-mix(in oklab, var(--home-accent) 11%, transparent);
+         两个多余的反引号。 */
+      padding: 0.08em 0.3em;
+      border-radius: 3px;
+      background: color-mix(in oklab, var(--home-strong) 7%, transparent);
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
       &::before,
@@ -2196,10 +2199,10 @@ input:-webkit-autofill:focus {
 }
 
 .post-lede {
-  margin: 0 0 12px;
-  max-width: 62ch;
-  font-size: 15px;
-  line-height: 1.7;
+  margin: 0 0 14px;
+  max-width: 60ch;
+  font-size: 16.5px;
+  line-height: 1.65;
   color: var(--home-muted);
 }
 
@@ -2315,7 +2318,7 @@ input:-webkit-autofill:focus {
     max-width: none;
   }
   .post-lede {
-    font-size: 14.5px;
+    font-size: 15.5px;
   }
   .post-nav {
     grid-template-columns: minmax(0, 1fr);
