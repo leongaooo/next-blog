@@ -96,9 +96,14 @@ export default function ListLayoutWithTags({
       if (list.scrollWidth <= list.clientWidth + 2) return
       const listBox = list.getBoundingClientRect()
       const itemBox = item.getBoundingClientRect()
-      // 窄屏把当前标签靠左对齐：居中时左侧空间不够放完整邻项，
-      // 会只剩上一项的计数（如「1」），看起来像断掉的标签。
       const itemLeft = list.scrollLeft + itemBox.left - listBox.left
+      const itemRight = itemLeft + itemBox.width
+      // 短标签在初始位置已完整可见时保持不动，把「全部」留在视口里；
+      // 字体加载后当前项若仍偏离左缘，则再校正一次。
+      if (itemLeft >= list.scrollLeft && itemRight <= list.scrollLeft + list.clientWidth - 48) {
+        if (list.scrollLeft === 0) return
+      }
+      // 需要滚动时靠左对齐，避免左侧只剩上一项被裁掉的计数。
       list.scrollLeft = Math.max(0, Math.min(itemLeft, list.scrollWidth - list.clientWidth))
     }
 
