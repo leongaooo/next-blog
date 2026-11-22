@@ -22,11 +22,15 @@ export default async function Page() {
       <ul className="tag-list">
         {sortedTags.map((t) => (
           <li key={t} className="tag-row">
-            <Link href={`/tags/${slug(t)}`} className="tag-row-name">
-              {t}
+            <Link
+              href={`/tags/${slug(t)}`}
+              className="tag-row-link"
+              aria-label={`${t}，${tagCounts[t]} 篇文章`}
+            >
+              <span className="tag-row-name">{t}</span>
+              <span className="tag-row-dots" aria-hidden="true" />
+              <span className="tag-row-count">{tagCounts[t]}</span>
             </Link>
-            <span className="tag-row-dots" aria-hidden="true" />
-            <span className="tag-row-count">{tagCounts[t]}</span>
           </li>
         ))}
       </ul>
