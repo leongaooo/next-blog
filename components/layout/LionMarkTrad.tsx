@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { lionTradPaths, lionTradTransform } from '@/data/lionTradPaths'
 
@@ -20,6 +20,9 @@ type Props = {
  */
 export default function LionMarkTrad({ size = 96, className = '', ink, animate = false }: Props) {
   const { resolvedTheme } = useTheme()
+  const uid = useId().replace(/[:]/g, '')
+  const bandId = `lion-band-${uid}`
+  const bandMaskId = `lion-band-mask-${uid}`
   const [play, setPlay] = useState(0)
   const svgRef = useRef<SVGSVGElement | null>(null)
 
@@ -50,6 +53,34 @@ export default function LionMarkTrad({ size = 96, className = '', ink, animate =
       style={ink ? { color: ink, display: 'block' } : { display: 'block' }}
       shapeRendering="geometricPrecision"
     >
+      {animate && (
+        <defs>
+          <linearGradient id={bandId} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#fff" stopOpacity="0" />
+            <stop offset="0.32" stopColor="#fff" stopOpacity="0.9" />
+            <stop offset="0.52" stopColor="#fff" stopOpacity="1" />
+            <stop offset="0.72" stopColor="#fff" stopOpacity="0.55" />
+            <stop offset="1" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+          <mask
+            id={bandMaskId}
+            maskUnits="userSpaceOnUse"
+            x="-200"
+            y="-200"
+            width="1413"
+            height="1413"
+          >
+            <rect
+              className="lion-band"
+              x="-520"
+              y="0"
+              width="520"
+              height="1013"
+              fill={`url(#${bandId})`}
+            />
+          </mask>
+        </defs>
+      )}
       <g className={animate ? 'lion-ink' : undefined}>
         <g transform={lionTradTransform} fill="currentColor" stroke="none">
           {lionTradPaths.map((d, i) => (
@@ -57,7 +88,15 @@ export default function LionMarkTrad({ size = 96, className = '', ink, animate =
           ))}
         </g>
       </g>
-      {animate && <></>}
+      {animate && (
+        <g className="lion-lit" mask={`url(#${bandMaskId})`}>
+          <g transform={lionTradTransform} fill="currentColor" stroke="none">
+            {lionTradPaths.map((d, i) => (
+              <path key={i} d={d} />
+            ))}
+          </g>
+        </g>
+      )}
     </svg>
   )
 }

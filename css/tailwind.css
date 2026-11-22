@@ -741,28 +741,50 @@ input:-webkit-autofill:focus {
 
 .lion-watermark .lion-ink {
   opacity: var(--lion-ink-alpha);
-  animation: lion-reink 9.5s ease-in-out infinite;
+  animation: lion-reink 11s ease-in-out infinite;
+}
+
+/* 流墨：一条全强度墨色带持续从左向右流过纹样，走到哪哪块墨就"厚"起来 */
+.lion-band {
+  transform: translateX(0);
+  animation: lion-band 7.5s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+.lion-lit {
+  filter: drop-shadow(0 0 5px var(--lion-glow));
+}
+
+@keyframes lion-band {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(2053px);
+  }
 }
 
 /* 周期复墨：墨色淡下去、轮廓先亮、再落回原亮度 */
+/* 呼吸：底墨在 11s 周期里缓慢加深并带一点辉光，保证纹样永远不是静止的 */
 @keyframes lion-reink {
-  0%,
-  50% {
+  0% {
     opacity: var(--lion-ink-alpha);
-    filter: blur(0);
+    filter: blur(0) drop-shadow(0 0 0 transparent);
   }
-  60% {
-    opacity: calc(var(--lion-ink-alpha) * 0.4);
-    filter: blur(1.1px);
+  28% {
+    opacity: calc(var(--lion-ink-alpha) * 1.16);
+    filter: blur(0.2px) drop-shadow(0 0 5px var(--lion-glow));
   }
-  68% {
+  52% {
     opacity: var(--lion-ink-alpha);
-    filter: blur(0) drop-shadow(0 0 7px var(--lion-glow));
+    filter: blur(0) drop-shadow(0 0 1px var(--lion-glow));
   }
-  76%,
+  74% {
+    opacity: calc(var(--lion-ink-alpha) * 1.2);
+    filter: blur(0.3px) drop-shadow(0 0 7px var(--lion-glow));
+  }
   100% {
     opacity: var(--lion-ink-alpha);
-    filter: blur(0);
+    filter: blur(0) drop-shadow(0 0 0 transparent);
   }
 }
 
@@ -770,7 +792,7 @@ input:-webkit-autofill:focus {
   /* 先播一次落墨，之后接周期复墨；后写的动画覆盖同属性 */
   animation:
     lion-ink-bloom 900ms cubic-bezier(0.22, 1, 0.36, 1) both,
-    lion-reink 9.5s ease-in-out 1.1s infinite;
+    lion-reink 11s ease-in-out 1.1s infinite;
 }
 
 @keyframes lion-ink-bloom {
@@ -797,6 +819,14 @@ input:-webkit-autofill:focus {
   .lion-trad.lion-play .lion-ink {
     animation: none;
   }
+
+  .lion-band {
+    animation: none;
+  }
+
+  .lion-lit {
+    display: none;
+  }
 }
 
 /* Header 狮纹：绝对定位的背景层，不参与布局、不撑高 */
@@ -811,7 +841,7 @@ input:-webkit-autofill:focus {
 }
 
 .dark .lion-watermark {
-  --lion-ink-alpha: 0.42;
+  --lion-ink-alpha: 0.34;
 }
 
 /* Hero V2：半局部默认视角的交互提示与复位 */
