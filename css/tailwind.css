@@ -2601,3 +2601,12 @@ input:-webkit-autofill:focus {
     margin-inline: -3px;
   }
 }
+
+/* 文章页上下篇导航：触屏整行可点，方向词补中文提示 */
+@media (hover: none) {
+  .post-nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
