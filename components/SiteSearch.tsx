@@ -14,6 +14,12 @@ interface Doc {
 
 const STATIC_PAGES: Doc[] = [
   { title: '作品与服务交付', path: 'projects', tags: ['页面'] },
+  {
+    title: 'ai-graph 成果页',
+    path: 'projects/ai-graph',
+    tags: ['页面', '项目'],
+    summary: '把文案画成可复现的 SVG 场景：seed、门禁与复现命令。',
+  },
   { title: '在线演示 · 口令入口', path: 'demo', tags: ['页面'] },
   { title: '关于高立民', path: 'about', tags: ['页面'] },
   { title: '文章列表', path: 'blog', tags: ['页面'] },
