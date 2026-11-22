@@ -1970,8 +1970,17 @@ input:-webkit-autofill:focus {
 }
 
 .blog-pager a {
+  position: relative;
   color: var(--home-strong);
   text-decoration: none;
+}
+
+/* 分页文字链接视觉只有 20px 高，用透明伪元素补到 26px 命中区；
+   文字位置、行高与页脚间距都不动。 */
+.blog-pager a::after {
+  content: '';
+  position: absolute;
+  inset: -4px -4px;
 }
 
 .blog-pager a:hover {
