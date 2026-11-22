@@ -644,7 +644,7 @@ input:-webkit-autofill:focus {
   }
 }
 
-@media (min-width: 22.5rem) and (width < 80rem) {
+@media (width < 80rem) {
   .hero2-layout:has(.hero2-panel) {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
