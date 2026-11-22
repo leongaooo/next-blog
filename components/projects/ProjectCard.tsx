@@ -54,6 +54,11 @@ export default function ProjectCard({ project, index, featured = false, wide = f
         <div className="proj-meta">
           <span aria-hidden="true">{no}</span>
           {project.year && <span>{project.year}</span>}
+          {(project.demoHref || project.badge) && (
+            <span className="proj-badge font-mono text-[10px] tracking-wider">
+              {project.demoHref ? 'LIVE' : project.badge}
+            </span>
+          )}
         </div>
 
         <h2 className="proj-title">{project.title}</h2>
