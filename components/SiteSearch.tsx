@@ -95,6 +95,8 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent & { __searchSeen?: boolean }) => {
+      // 中文输入法组词时，Esc 先用于取消候选词，不能被页面当成关闭搜索。
+      if (event.isComposing || event.keyCode === 229) return
       // 404 这类页面同时有页头和正文两个搜索实例，同一个快捷键只能响应一次
       if (event.__searchSeen) return
       event.__searchSeen = true
