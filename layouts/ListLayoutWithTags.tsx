@@ -158,7 +158,7 @@ export default function ListLayoutWithTags({
           </ul>
         </aside>
 
-        <main className="blog-list">
+        <div className="blog-list">
           {displayPosts.length === 0 ? (
             <div className="blog-empty">
               <p>这个标签下还没有文章。</p>
@@ -207,7 +207,7 @@ export default function ListLayoutWithTags({
           {pagination && pagination.totalPages > 1 && (
             <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
           )}
-        </main>
+        </div>
       </div>
     </div>
   )
