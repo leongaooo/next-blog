@@ -10,6 +10,7 @@ import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
+import ThemeColorSync from '@/components/ThemeColorSync'
 import { Metadata } from 'next'
 import { PageTransition } from '@/components/animations'
 
@@ -120,8 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         color="#5bbad5"
       />
       <meta name="msapplication-TileColor" content="#000000" />
-      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
-      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+      <meta name="theme-color" content="#ffffff" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <script
@@ -129,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         <ThemeProviders>
+          <ThemeColorSync />
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <a href="#main-content" className="skip-link">
             跳到主内容
