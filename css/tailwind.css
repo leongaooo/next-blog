@@ -153,6 +153,11 @@ body {
     }
     /* 表格右缘露出一截被切断的单元格，靠一条朝背景色的渐隐说明「还能往右滑」，
        否则看起来像正文被裁掉了。 */
+    .table-scroll-body:focus-visible {
+      outline: 2px solid var(--home-accent);
+      outline-offset: 2px;
+    }
+
     .table-scroll {
       position: relative;
     }
