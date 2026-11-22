@@ -3708,9 +3708,9 @@ input:-webkit-autofill:focus {
   }
 }
 
-/* 触屏横屏（如 844×390）：页头 92px 会占掉四分之一屏。
-   只收紧上下内边距，导航/图标 44px 命中区不动。 */
-@media (hover: none) and (min-width: 48rem) and (max-height: 30rem) {
+/* 触屏横屏（如 844×390、667×375）：页头 92–108px 会占掉四分之一屏。
+   只收紧上下内边距，导航/图标 44px 命中区不动；用 orientation 排除 320×480 竖屏。 */
+@media (hover: none) and (max-height: 30rem) and (orientation: landscape) {
   .site-header {
     padding-block: 10px;
   }
