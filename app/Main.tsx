@@ -41,7 +41,7 @@ export default function Home({ posts }) {
             ['最近交付', '门禁 + OCR'],
           ].map(([k, v]) => (
             <div key={k}>
-              <dt className="text-mist-500 font-mono text-[10px] tracking-[0.18em] uppercase">
+              <dt className="font-mono text-[10px] tracking-[0.18em] text-[var(--home-muted)] uppercase">
                 {k}
               </dt>
               <dd className="mt-1 text-[13px] font-medium text-[var(--home-strong)]">{v}</dd>
