@@ -140,7 +140,9 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
         panel.querySelectorAll<HTMLElement>(
           'button, input, [href], [tabindex]:not([tabindex="-1"])'
         )
-      ).filter((el) => !el.hasAttribute('disabled') && el.getClientRects().length > 0)
+      ).filter(
+        (el) => !el.hasAttribute('disabled') && el.tabIndex >= 0 && el.getClientRects().length > 0
+      )
       if (focusables.length === 0) return
       const first = focusables[0]
       const last = focusables[focusables.length - 1]
@@ -350,6 +352,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                         id={`${listId}-${index}`}
                         role="option"
                         aria-selected={index === active}
+                        tabIndex={-1}
                         className={index === active ? 'search-item search-item-on' : 'search-item'}
                         onMouseEnter={() => setActive(index)}
                         onClick={() => go(doc)}
