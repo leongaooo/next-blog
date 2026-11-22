@@ -2520,3 +2520,18 @@ input:-webkit-autofill:focus {
   outline: 2px solid var(--home-accent);
   outline-offset: 2px;
 }
+
+/* 触屏上卡片按钮与微信复制按钮只有 30–31px 高，统一补到 44px */
+@media (hover: none) {
+  .proj-link,
+  .demo-cta {
+    min-height: 44px;
+  }
+
+  .wechat-copy {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: 0;
+  }
+}
