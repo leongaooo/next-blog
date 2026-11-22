@@ -68,7 +68,7 @@ export default function WeChatCopy({
           className={
             'wechat-copy ' +
             (plain
-              ? 'text-[12.5px] text-[var(--home-accent)] hover:underline'
+              ? 'rounded-md border border-[var(--home-accent)] px-2.5 py-1 text-[12.5px] font-medium text-[var(--home-accent)] transition-colors hover:bg-[var(--home-accent)] hover:text-white dark:hover:text-[#07110f]'
               : ink
                 ? 'rounded-md border border-[#5be1c9] px-3 py-1 text-sm font-medium text-[#5be1c9] transition-colors hover:bg-[#5be1c9] hover:text-[#07110f]'
                 : 'rounded-md border border-[#0f6b5e] px-3 py-1 text-sm font-medium text-[#0f6b5e] transition-colors hover:bg-[#0f6b5e] hover:text-white dark:border-[#5be1c9] dark:text-[#5be1c9] dark:hover:bg-[#5be1c9] dark:hover:text-[#07110f]')
