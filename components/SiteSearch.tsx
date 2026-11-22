@@ -248,6 +248,22 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                 }}
               />
               <span className="search-kbd">ESC</span>
+              <button
+                type="button"
+                className="search-close"
+                aria-label="关闭搜索"
+                onClick={() => setOpen(false)}
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                >
+                  <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+                </svg>
+              </button>
             </div>
 
             <p className="sr-only" role="status" aria-live="polite">
