@@ -69,9 +69,10 @@ export default function ListLayoutWithTags({
   const onBlogIndex = pathname === '/blog' || pathname === '/blog/'
   const activeTag = decodeURI(pathname.split('/tags/')[1] ?? '')
   const isPaged = /\/blog\/page\/\d+/.test(pathname)
+  const pageNo = isPaged ? Number(pathname.match(/\/page\/(\d+)/)?.[1] ?? 1) : 0
 
   const kicker = isPaged
-    ? 'WRITING · ARCHIVE'
+    ? `WRITING · ARCHIVE · ${pageNo} / ${pagination?.totalPages ?? pageNo}`
     : onBlogIndex
       ? 'WRITING · 长期记录'
       : activeTag
