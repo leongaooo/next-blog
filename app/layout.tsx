@@ -31,7 +31,14 @@ export const metadata: Metadata = {
     description: siteMetadata.description,
     url: './',
     siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: siteMetadata.socialBannerWidth,
+        height: siteMetadata.socialBannerHeight,
+        alt: `${siteMetadata.headerTitle}｜${siteMetadata.description}`,
+      },
+    ],
     locale: 'zh_CN',
     type: 'website',
   },
@@ -55,7 +62,12 @@ export const metadata: Metadata = {
   twitter: {
     title: siteMetadata.title,
     card: 'summary_large_image',
-    images: [siteMetadata.socialBanner],
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        alt: `${siteMetadata.headerTitle}｜${siteMetadata.description}`,
+      },
+    ],
   },
   other: {
     'google-adsense-account': 'ca-pub-8203434652506228',

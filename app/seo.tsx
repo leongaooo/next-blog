@@ -18,6 +18,17 @@ export function genPageMetadata({
   ...rest
 }: PageSEOProps): Metadata {
   const siteUrl = siteMetadata.siteUrl.replace(/\/$/, '')
+  const bannerAlt = `${siteMetadata.headerTitle}｜${siteMetadata.description}`
+  const ogImages = image
+    ? [{ url: image, alt: `${title} | ${siteMetadata.headerTitle}` }]
+    : [
+        {
+          url: siteMetadata.socialBanner,
+          width: siteMetadata.socialBannerWidth,
+          height: siteMetadata.socialBannerHeight,
+          alt: bannerAlt,
+        },
+      ]
   return {
     title,
     alternates: { canonical: canonicalPath ? `${siteUrl}${canonicalPath}` : './' },
@@ -27,14 +38,16 @@ export function genPageMetadata({
       description: description || siteMetadata.description,
       url: './',
       siteName: siteMetadata.title,
-      images: image ? [image] : [siteMetadata.socialBanner],
+      images: ogImages,
       locale: 'zh_CN',
       type: 'website',
     },
     twitter: {
       title: `${title} | ${siteMetadata.title}`,
       card: 'summary_large_image',
-      images: image ? [image] : [siteMetadata.socialBanner],
+      images: image
+        ? [{ url: image, alt: `${title} | ${siteMetadata.headerTitle}` }]
+        : [{ url: siteMetadata.socialBanner, alt: bannerAlt }],
     },
     ...rest,
   }

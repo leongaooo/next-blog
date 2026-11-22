@@ -11,6 +11,8 @@ const siteMetadata = {
   siteRepo: 'https://github.com/leongaooo/next-blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/lion1.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
+  socialBannerWidth: 1200,
+  socialBannerHeight: 600,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'gaolimin88@gmail.com',
   github: 'https://github.com/leongaooo',

@@ -45,8 +45,14 @@ export async function generateMetadata(props: {
   }
   const siteBase = siteMetadata.siteUrl.replace(/\/+$/, '')
   const ogImages = imageList.map((img) => {
+    const url = img && img.includes('http') ? img : `${siteBase}${img}`
+    const isBanner = img === siteMetadata.socialBanner
     return {
-      url: img && img.includes('http') ? img : `${siteBase}${img}`,
+      url,
+      alt: isBanner ? `${siteMetadata.headerTitle}｜${post.title}` : post.title,
+      ...(isBanner
+        ? { width: siteMetadata.socialBannerWidth, height: siteMetadata.socialBannerHeight }
+        : {}),
     }
   })
 
@@ -69,7 +75,10 @@ export async function generateMetadata(props: {
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: imageList,
+      images: imageList.map((img) => ({
+        url: img,
+        alt: `${siteMetadata.headerTitle}｜${post.title}`,
+      })),
     },
   }
 }
