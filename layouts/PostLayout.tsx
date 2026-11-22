@@ -66,22 +66,24 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </div>
         </header>
 
-        {tocItems.length >= 3 ? (
-          <>
-            <nav className="post-toc post-toc-d" aria-label="本页目录">
-              <p className="post-toc-label">本页目录 · {tocItems.length} 条</p>
-              {renderTocList()}
-            </nav>
-            <details className="post-toc post-toc-m">
-              <summary>
-                <span className="post-toc-label">本页目录 · {tocItems.length} 条</span>
-              </summary>
-              {renderTocList()}
-            </details>
-          </>
-        ) : null}
+        <div className="post-body">
+          {tocItems.length >= 3 ? (
+            <>
+              <nav className="post-toc post-toc-d" aria-label="本页目录">
+                <p className="post-toc-label">本页目录 · {tocItems.length} 条</p>
+                {renderTocList()}
+              </nav>
+              <details className="post-toc post-toc-m">
+                <summary>
+                  <span className="post-toc-label">本页目录 · {tocItems.length} 条</span>
+                </summary>
+                {renderTocList()}
+              </details>
+            </>
+          ) : null}
 
-        <div className="post-copy prose dark:prose-invert max-w-none">{children}</div>
+          <div className="post-copy prose dark:prose-invert max-w-none">{children}</div>
+        </div>
 
         <footer className="post-foot">
           {tags?.length ? (

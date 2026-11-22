@@ -2091,6 +2091,7 @@ input:-webkit-autofill:focus {
 
 /* ---------- Post：文章正文 ---------- */
 .post-head {
+  max-width: 68ch;
   padding: 30px 0 22px;
   border-bottom: 1px solid var(--home-border);
 }
@@ -2789,6 +2790,42 @@ input:-webkit-autofill:focus {
     grid-template-columns: 1fr;
     gap: 0;
     margin: 0 0 10px;
+  }
+}
+/* 宽屏把目录做成右侧粘性栏：长文滚到一半仍能跳章；1024–1279 维持行内目录，390 用折叠目录 */
+@media (min-width: 1280px) {
+  .post-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 246px;
+    column-gap: 44px;
+    align-items: start;
+  }
+
+  .post-toc-d {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 92px;
+    max-width: none;
+    padding: 0;
+    border-top: 1px solid var(--home-border);
+  }
+
+  .post-toc-d ul {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 4px;
+  }
+
+  .post-toc-d a {
+    padding: 5px 0;
+    font-size: 12.5px;
+  }
+
+  .post-copy {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
   }
 }
 
