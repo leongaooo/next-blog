@@ -13,8 +13,9 @@ export default function Projects() {
   const hasOdd = rest.length % 2 === 1
   const grid = hasOdd ? rest.slice(0, -1) : rest
   const tail = hasOdd ? rest[rest.length - 1] : undefined
+  // 这两个数字都按「卡片上真实挂着什么链接」算，不从技术栈推断
   const demoCount = projectsData.filter((p) => p.demoHref).length
-  const npmCount = projectsData.filter((p) => p.stack?.includes('Cesium')).length
+  const repoCount = projectsData.filter((p) => p.href).length
 
   return (
     <div className="proj-page">
@@ -25,7 +26,7 @@ export default function Projects() {
         <p className="proj-kicker">EVIDENCE WALL · 2021 — 2026</p>
         <h1 className="proj-h1">作品与服务交付</h1>
         <p className="proj-lede">
-          每个项目只写三件事：解决什么问题、我负责哪一段、最后能验证到什么。线上入口都在跑，源码都能打开。
+          每个项目只写三件事：解决什么问题、我负责哪一段、最后能验证到什么。入口和源码都挂在卡片上，点得开、核得了。
         </p>
         <ul className="proj-stats">
           <li>
@@ -34,11 +35,11 @@ export default function Projects() {
           </li>
           <li>
             <strong>{demoCount}</strong>
-            <span>个在线演示</span>
+            <span>个演示入口</span>
           </li>
           <li>
-            <strong>{npmCount}</strong>
-            <span>个 npm 包</span>
+            <strong>{repoCount}</strong>
+            <span>个开源仓库</span>
           </li>
           <li>
             <strong>2021</strong>

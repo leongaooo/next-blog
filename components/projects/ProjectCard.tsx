@@ -20,18 +20,7 @@ export default function ProjectCard({ project, index, featured = false, wide = f
         .filter(Boolean)
         .join(' ')}
     >
-      <div
-        className={project.imgSrc ? 'proj-media proj-media--img' : 'proj-media'}
-        style={
-          project.imgSrc
-            ? {
-                backgroundImage: `url(${project.imgSrc})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }
-            : undefined
-        }
-      >
+      <div className={project.imgSrc ? 'proj-media proj-media--img' : 'proj-media'}>
         {project.imgSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={project.imgSrc} alt="" loading="lazy" />
@@ -56,7 +45,8 @@ export default function ProjectCard({ project, index, featured = false, wide = f
           {project.year && <span>{project.year}</span>}
           {(project.demoHref || project.badge) && (
             <span className="proj-badge font-mono text-[10px] tracking-wider">
-              {project.demoHref ? 'LIVE' : project.badge}
+              {/* 有链接只说明入口存在，不能替服务健康背书；LIVE 只在数据里显式标注时出现 */}
+              {project.badge ?? (project.demoHref ? 'DEMO' : null)}
             </span>
           )}
         </div>

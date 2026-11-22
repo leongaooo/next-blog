@@ -1,6 +1,6 @@
 export interface Project {
   title: string
-  /** 卡片角标：有 demoHref 时显示 LIVE，否则用它（如 LIB）。 */
+  /** 卡片角标：显式写 LIVE / LIB 才显示；只有 demoHref 时卡片默认标 DEMO。 */
   badge?: string
   description: string
   href?: string

@@ -62,7 +62,7 @@ export default function Home({ posts }) {
             {
               href: '/demo',
               label: '演示',
-              count: demoCount > 0 ? `${demoCount} 个在线` : '口令制',
+              count: demoCount > 0 ? `${demoCount} 个入口` : '口令制',
               detail: '跑在自运维服务器上，口令按需发放，一小时有效。',
             },
             {
