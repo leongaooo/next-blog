@@ -284,7 +284,15 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
               <p id={hintId} className="sr-only">
                 输入关键词筛选。用上下方向键选择结果，回车打开，Esc 关闭。
               </p>
-              <span className="search-kbd">ESC</span>
+              <button
+                type="button"
+                className="search-kbd"
+                aria-label="关闭搜索"
+                aria-keyshortcuts="Escape"
+                onClick={() => setOpen(false)}
+              >
+                ESC
+              </button>
               <button
                 type="button"
                 className="search-close"
