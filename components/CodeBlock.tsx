@@ -11,7 +11,7 @@ type Props = { children?: React.ReactNode }
  */
 export default function CodeBlock({ children }: Props) {
   const preRef = useRef<HTMLPreElement>(null)
-  const [copied, setCopied] = useState(false)
+  const [copyState, setCopyState] = useState<'idle' | 'ok' | 'fail'>('idle')
   const [overflow, setOverflow] = useState(false)
   const [atEnd, setAtEnd] = useState(true)
 
@@ -30,19 +30,19 @@ export default function CodeBlock({ children }: Props) {
   }, [measure])
 
   useEffect(() => {
-    if (!copied) return
-    const t = setTimeout(() => setCopied(false), 1600)
+    if (copyState === 'idle') return
+    const t = setTimeout(() => setCopyState('idle'), 1600)
     return () => clearTimeout(t)
-  }, [copied])
+  }, [copyState])
 
   const onCopy = async () => {
     const pre = preRef.current
     if (!pre) return
     try {
       await navigator.clipboard.writeText(pre.textContent ?? '')
-      setCopied(true)
+      setCopyState('ok')
     } catch {
-      /* 复制失败时保持按钮原样，不做假成功提示 */
+      setCopyState('fail')
     }
   }
 
@@ -54,9 +54,27 @@ export default function CodeBlock({ children }: Props) {
         </pre>
         {overflow && !atEnd ? <span className="code-fade" aria-hidden="true" /> : null}
       </div>
-      <button type="button" className="code-copy" aria-label="复制这段代码" onClick={onCopy}>
-        {copied ? '已复制 ✓' : '复制代码'}
+      <button
+        type="button"
+        className="code-copy"
+        aria-label={
+          copyState === 'ok'
+            ? '代码已复制'
+            : copyState === 'fail'
+              ? '代码复制失败，可重试'
+              : '复制这段代码'
+        }
+        onClick={onCopy}
+      >
+        {copyState === 'ok' ? '已复制 ✓' : copyState === 'fail' ? '复制失败' : '复制代码'}
       </button>
+      <span className="sr-only" role="status" aria-live="polite">
+        {copyState === 'ok'
+          ? '代码已复制到剪贴板'
+          : copyState === 'fail'
+            ? '代码复制失败，请手动选择复制'
+            : ''}
+      </span>
     </div>
   )
 }
