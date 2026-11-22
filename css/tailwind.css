@@ -249,6 +249,19 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* LIVE 徽标：亮色底上用深琥珀保证对比，暗色底回到品牌琥珀。 */
+.live-badge {
+  color: #8a5206;
+  border: 1px solid rgba(138, 82, 6, 0.4);
+  background: rgba(255, 184, 107, 0.2);
+}
+
+.dark .live-badge {
+  color: #ffb86b;
+  border-color: rgba(255, 184, 107, 0.4);
+  background: rgba(255, 184, 107, 0.1);
+}
+
 @keyframes caret-blink {
   0%,
   100% {

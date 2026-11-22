@@ -18,7 +18,7 @@ export default function FeaturedProjects() {
                 {project.title}
               </h3>
               {live ? (
-                <span className="live-ring border-warn-500/40 bg-warn-500/10 text-warn-500 shrink-0 rounded-full border px-2.5 py-1 font-mono text-[10px] tracking-wider">
+                <span className="live-ring live-badge shrink-0 rounded-full px-2.5 py-1 font-mono text-[10px] tracking-wider">
                   LIVE
                 </span>
               ) : (
