@@ -3586,6 +3586,20 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* 关于页联系方式是纵向排列的独立链接，桌面盒高只有 20px；
+   上下各扩 4px 补到 28px，视觉字号与 8px 行距不变。 */
+@media (hover: hover) and (pointer: fine) {
+  .tap-stack {
+    position: relative;
+  }
+
+  .tap-stack::after {
+    content: '';
+    position: absolute;
+    inset: -4px -4px;
+  }
+}
+
 /* 文章页上下篇导航：触屏整行可点，方向词补中文提示 */
 @media (hover: none) {
   .post-nav-link {
