@@ -27,6 +27,19 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const slugger = new GithubSlugger()
   const basePath = path.split('/')[0]
 
+  const renderTocList = () => (
+    <ul>
+      {tocItems.map((item, index) => (
+        <li key={item.url}>
+          <a href={item.url}>
+            <span className="post-toc-no">{String(index + 1).padStart(2, '0')}</span>
+            {item.value}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+
   return (
     <SectionContainer>
       <ScrollTopAndComment />
@@ -49,19 +62,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         </header>
 
         {tocItems.length >= 3 ? (
-          <nav className="post-toc" aria-label="本页目录">
-            <p className="post-toc-label">ON THIS PAGE · {tocItems.length}</p>
-            <ul>
-              {tocItems.map((item, index) => (
-                <li key={item.url}>
-                  <a href={item.url}>
-                    <span className="post-toc-no">{String(index + 1).padStart(2, '0')}</span>
-                    {item.value}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <>
+            <nav className="post-toc post-toc-d" aria-label="本页目录">
+              <p className="post-toc-label">ON THIS PAGE · {tocItems.length}</p>
+              {renderTocList()}
+            </nav>
+            <details className="post-toc post-toc-m">
+              <summary>
+                <span className="post-toc-label">本页目录 · {tocItems.length} 条</span>
+              </summary>
+              {renderTocList()}
+            </details>
+          </>
         ) : null}
 
         <div className="post-copy prose dark:prose-invert max-w-none">{children}</div>

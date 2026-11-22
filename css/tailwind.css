@@ -2181,3 +2181,57 @@ input:-webkit-autofill:focus {
 #access {
   scroll-margin-top: 110px;
 }
+
+/* 文章页目录：移动端折叠，避免首屏被目录占满 */
+.post-toc-m {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .post-toc-d {
+    display: none;
+  }
+
+  .post-toc-m {
+    display: block;
+    padding: 0;
+    margin-bottom: 18px;
+    border-top: 1px solid var(--home-border);
+    border-bottom: 1px solid var(--home-border);
+  }
+
+  .post-toc-m > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .post-toc-m > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .post-toc-m > summary .post-toc-label {
+    margin: 0;
+  }
+
+  .post-toc-m > summary::after {
+    content: '展开';
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    color: var(--home-accent);
+  }
+
+  .post-toc-m[open] > summary::after {
+    content: '收起';
+  }
+
+  .post-toc-m ul {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0 0 10px;
+  }
+}
