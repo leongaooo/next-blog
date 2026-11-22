@@ -322,7 +322,12 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                         ) : (
                           <span className="search-item-meta">
                             {(doc.tags ?? []).slice(0, 3).join(' · ')}
-                            {doc.date ? ` · ${doc.date.slice(0, 10)}` : ''}
+                            {doc.date ? (
+                              <>
+                                {' · '}
+                                <span className="search-item-date">{doc.date.slice(0, 10)}</span>
+                              </>
+                            ) : null}
                           </span>
                         )}
                       </button>

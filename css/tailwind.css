@@ -3068,6 +3068,12 @@ input:-webkit-autofill:focus {
   color: var(--home-subtle);
 }
 
+/* 320 宽时搜索结果元信息会正好在日期连字符处换行，把「2026-」和「11-21」
+   拆到两行；日期整体保持一行，允许在它前面按标签断行。 */
+.search-item-date {
+  white-space: nowrap;
+}
+
 /* 固定页的说明是中文句子，不用等宽字体 */
 .search-item-note {
   font-size: 11.5px;
