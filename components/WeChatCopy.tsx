@@ -76,6 +76,9 @@ export default function WeChatCopy({
         >
           {copied ? '已复制' : '复制微信号'}
         </button>
+        <span role="status" aria-live="polite" className="sr-only">
+          {copied ? '微信号已复制到剪贴板' : ''}
+        </span>
       </div>
       {withHint && (
         <p className={ink ? 'text-xs text-white/50' : 'text-xs text-gray-500 dark:text-gray-400'}>
