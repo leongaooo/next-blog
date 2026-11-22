@@ -121,8 +121,16 @@ export const Blog = defineDocumentType(() => ({
         datePublished: doc.date,
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
-        image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+        image: doc.images
+          ? doc.images[0]
+          : `${siteMetadata.siteUrl.replace(/\/+$/, '')}${siteMetadata.socialBanner}`,
+        url: `${siteMetadata.siteUrl.replace(/\/+$/, '')}/${doc._raw.flattenedPath}`,
+        inLanguage: 'zh-CN',
+        isPartOf: {
+          '@type': 'Blog',
+          name: siteMetadata.title,
+          url: siteMetadata.siteUrl.replace(/\/+$/, ''),
+        },
       }),
     },
   },
