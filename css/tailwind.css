@@ -1408,6 +1408,12 @@ input:-webkit-autofill:focus {
   .proj-card--wide .proj-title {
     font-size: 21px;
   }
+  .proj-desc,
+  .proj-card--wide .proj-desc {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
   .proj-foot {
     flex-direction: column;
     align-items: flex-start;
