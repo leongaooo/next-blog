@@ -13,11 +13,11 @@ interface Doc {
 }
 
 const STATIC_PAGES: Doc[] = [
-  { title: '作品与服务交付', path: 'projects', tags: ['page'] },
-  { title: '在线演示 · 口令入口', path: 'demo', tags: ['page'] },
-  { title: '关于高立民', path: 'about', tags: ['page'] },
-  { title: '文章列表', path: 'blog', tags: ['page'] },
-  { title: '标签索引', path: 'tags', tags: ['page'] },
+  { title: '作品与服务交付', path: 'projects', tags: ['页面'] },
+  { title: '在线演示 · 口令入口', path: 'demo', tags: ['页面'] },
+  { title: '关于高立民', path: 'about', tags: ['页面'] },
+  { title: '文章列表', path: 'blog', tags: ['页面'] },
+  { title: '标签索引', path: 'tags', tags: ['页面'] },
 ]
 
 const resultsFor = (docs: Doc[], query: string) => {
@@ -156,7 +156,7 @@ export default function SiteSearch() {
 
             <div className="search-list">
               {results.length === 0 ? (
-                <p className="search-empty">没有匹配的内容。换个词，或者直接去 /blog 翻。</p>
+                <p className="search-empty">没有匹配的内容。换个词，或者去文章列表翻。</p>
               ) : (
                 <ul>
                   {results.map((doc, index) => (

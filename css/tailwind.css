@@ -2243,3 +2243,11 @@ input:-webkit-autofill:focus {
     margin: 0 0 10px;
   }
 }
+
+/* 触屏设备上没有物理键，隐藏键盘提示避免误导 */
+@media (hover: none) and (pointer: coarse) {
+  .search-foot,
+  .search-kbd {
+    display: none;
+  }
+}
