@@ -11,6 +11,7 @@ interface Props {
 
 export default function AuthorLayout({ children, content }: Props) {
   const { name, avatar, occupation, company, email, twitter, linkedin, github } = content
+  const roleLines = occupation ? occupation.split('/').map((line) => line.trim()) : []
 
   return (
     <div className="about-page">
@@ -28,7 +29,15 @@ export default function AuthorLayout({ children, content }: Props) {
             <Image src={avatar} alt="Leon Gao" width={192} height={192} className="about-avatar" />
           )}
           <h2 className="about-name">{name}</h2>
-          {occupation && <p className="about-role">{occupation}</p>}
+          {roleLines.length > 0 && (
+            <p className="about-role">
+              {roleLines.map((line) => (
+                <span key={line} className="about-role-line">
+                  {line}
+                </span>
+              ))}
+            </p>
+          )}
           {company && <p className="about-org">{company}</p>}
           <div className="about-icons">
             {email && <SocialIcon kind="mail" href={`mailto:${email}`} />}

@@ -1577,8 +1577,13 @@ input:-webkit-autofill:focus {
   margin: 0;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 11.5px;
+  line-height: 1.75;
   letter-spacing: 0.06em;
   color: var(--home-accent);
+}
+
+.about-role-line {
+  display: block;
 }
 
 .about-org {
