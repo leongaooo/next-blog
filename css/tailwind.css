@@ -3587,6 +3587,16 @@ input:-webkit-autofill:focus {
   outline-offset: 2px;
 }
 
+/* 「原图 · 1200 × 675」是这张小图唯一能看细节的出口，11px 的字只有 25px 高：
+   窄屏和触屏上补到 44px，仍靠右对齐。 */
+@media (hover: none), (width < 48rem) {
+  .ag-orig {
+    align-items: center;
+    min-height: 44px;
+    padding-block: 0;
+  }
+}
+
 .ag-figure img {
   display: block;
   width: 100%;
