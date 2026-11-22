@@ -69,6 +69,15 @@ export default function FeaturedProjects() {
                   源码 ↗
                 </Link>
               )}
+              {project.caseHref && (
+                <Link
+                  href={project.caseHref}
+                  className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-text)]"
+                  aria-label={`${project.title}：成果页`}
+                >
+                  {project.caseLabel ?? '复盘'} →
+                </Link>
+              )}
             </div>
           </article>
         )
