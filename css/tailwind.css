@@ -2011,11 +2011,17 @@ input:-webkit-autofill:focus {
   font-size: 12.5px;
 }
 
+/* 阅读列按「中文一行 40–45 字」收窄，避免整段铺满 800px */
+.about-copy {
+  max-width: 43em;
+}
+
 .about-copy h2 {
-  margin: 26px 0 10px;
-  font-size: 15px;
+  margin: 38px 0 12px;
+  font-size: 18px;
+  line-height: 1.45;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   color: var(--home-strong);
 }
 
@@ -2023,10 +2029,22 @@ input:-webkit-autofill:focus {
   margin-top: 0;
 }
 
+/* 小节标题上方留一条极浅的分隔，让「项目 / 技术面 / 聊聊」三段有段落感 */
+.about-copy h2:not(:first-child) {
+  padding-top: 18px;
+  border-top: 1px solid var(--home-border);
+}
+
 .about-copy p {
-  margin: 0 0 12px;
-  font-size: 14.5px;
-  line-height: 1.85;
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--home-muted);
+}
+
+.about-copy li {
+  font-size: 15px;
+  line-height: 1.8;
   color: var(--home-muted);
 }
 
@@ -2059,8 +2077,12 @@ input:-webkit-autofill:focus {
     width: 72px;
     height: 72px;
   }
-  .about-copy p {
-    font-size: 14px;
+  .about-copy h2 {
+    margin-top: 32px;
+  }
+  .about-copy p,
+  .about-copy li {
+    font-size: 15px;
   }
 }
 
