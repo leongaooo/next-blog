@@ -1453,32 +1453,45 @@ input:-webkit-autofill:focus {
 }
 
 /* 只有一个开放展台时，卡片自己铺满一行，内部左右分栏，不做半张空卡 */
+/* 开放卡改成「通栏标题 + 左描述/入口 + 右说明」：入口跟着描述走，右侧只放条件说明 */
 .demo-card--open {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   column-gap: 40px;
+  row-gap: 12px;
+  align-items: start;
 }
 
 .demo-card--open > .demo-card-top {
   grid-column: 1 / -1;
 }
 
+.demo-card--open > .demo-title {
+  grid-column: 1 / -1;
+  align-self: start;
+}
+
 .demo-card--open > .demo-desc {
   grid-column: 1;
+  grid-row: 3;
+  max-width: 52ch;
+}
+
+.demo-card--open > .demo-cta {
+  grid-column: 1;
+  grid-row: 4;
+  justify-self: start;
+  margin: 6px 0 0;
 }
 
 .demo-card--open > .demo-instruction {
   grid-column: 2;
+  grid-row: 3 / span 2;
+  align-self: center;
   margin: 0;
   padding: 0 0 0 22px;
   border-top: 0;
   border-inline-start: 1px dashed var(--home-border);
-}
-
-.demo-card--open > .demo-cta {
-  grid-column: 2;
-  justify-self: start;
-  margin: 12px 0 0;
 }
 
 .demo-grid--single {
@@ -1628,6 +1641,11 @@ input:-webkit-autofill:focus {
   }
   .demo-card--open {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .demo-card--open > .demo-desc,
+  .demo-card--open > .demo-cta,
+  .demo-card--open > .demo-instruction {
+    grid-row: auto;
   }
   .demo-card--open > .demo-instruction {
     grid-column: 1;

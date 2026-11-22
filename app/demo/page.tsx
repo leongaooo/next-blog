@@ -11,7 +11,7 @@ const demos = [
     title: 'obscura-ocr',
     description: 'PaddleOCR 工作台：上传图片，查看 OCR 识别出的文字与结构化结果。',
     instruction: '加微信获取当日口令，进入工作台后上传一张图片开始识别。',
-    status: '可申请入口',
+    status: '开放中',
     live: true,
   },
   {
