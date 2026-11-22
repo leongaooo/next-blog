@@ -2250,6 +2250,17 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 页脚底行 10.5px 的 RSS / 源码链接，触屏命中区只有文字本身（约 13px）。
+   用 padding + 等量负 margin 把可点区域撑到 44px，视觉行距不变。 */
+@media (hover: none) {
+  .site-footer-note a {
+    display: inline-block;
+    padding: 16px 6px;
+    margin: -16px -6px;
+    line-height: 1.25;
+  }
+}
+
 .demo-cta {
   display: inline-flex;
   align-self: flex-start;
