@@ -804,6 +804,14 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* 320–359：首屏标题在 28px 下会把「西。」单独挤到第三行，
+   按屏宽收到 24.8–27.2px，仍保持两行且不出现单字行。 */
+@media (width < 22.5rem) {
+  .hero2-layout:has(.hero2-panel) .hero2-copy h1 {
+    font-size: clamp(1.55rem, 7.8vw, 1.7rem);
+  }
+}
+
 /* 320–359 宽（老 iPhone SE 等）不在上面的半局部布局断点里，
    但工具栏一样放不下一行：把换行与等宽分段控件提到媒体查询外层，避免「换一版」被裁掉。 */
 /* 390 宽度下 spec→code→render→ship 一行放不下，横向滚动没有提示等于藏内容，改成换行 */
