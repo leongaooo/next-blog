@@ -49,7 +49,7 @@ export default function ProjectCard({ project, index, featured = false, wide = f
           {project.year && <span>{project.year}</span>}
         </div>
 
-        <h3 className="proj-title">{project.title}</h3>
+        <h2 className="proj-title">{project.title}</h2>
 
         {project.highlight && <p className="proj-highlight">{project.highlight}</p>}
 
