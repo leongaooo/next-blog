@@ -3410,6 +3410,7 @@ input:-webkit-autofill:focus {
   .hero2-layout .hero2-toolbar button {
     height: auto;
     min-height: 44px;
+    min-width: 44px;
   }
 }
 
