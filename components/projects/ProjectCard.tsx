@@ -29,7 +29,6 @@ export default function ProjectCard({ project, index, featured = false, wide = f
             <span className="proj-cover-no">{no}</span>
             <span className="proj-cover-ghost">{no}</span>
             <span className="proj-cover-rule" />
-            <span className="proj-cover-title">{project.title}</span>
             {(project.coverMeta || project.stack?.length) && (
               <span className="proj-cover-meta">
                 {project.coverMeta ?? project.stack?.slice(0, 3).join(' · ')}
