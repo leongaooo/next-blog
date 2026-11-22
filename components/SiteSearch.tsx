@@ -164,6 +164,12 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
               <span className="search-kbd">ESC</span>
             </div>
 
+            <p className="sr-only" role="status" aria-live="polite">
+              {query.trim()
+                ? `搜索「${query.trim()}」得到 ${results.length} 条结果`
+                : `${results.length} 条建议`}
+            </p>
+
             <div className="search-list">
               {results.length === 0 ? (
                 <p className="search-empty">没有匹配的内容。换个词，或者去文章列表翻。</p>
