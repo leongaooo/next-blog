@@ -19,6 +19,7 @@ interface ListLayoutProps {
   title: string
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
+  totalPostCount?: number
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
@@ -61,6 +62,7 @@ export default function ListLayoutWithTags({
   title,
   initialDisplayPosts = [],
   pagination,
+  totalPostCount,
 }: ListLayoutProps) {
   const pathname = usePathname()
   const tagCounts = tagData as Record<string, number>
@@ -132,11 +134,11 @@ export default function ListLayoutWithTags({
             <li>
               {onBlogIndex ? (
                 <span className="blog-nav-item blog-nav-item-on" aria-current="true">
-                  全部 <em>{posts.length}</em>
+                  全部 <em>{totalPostCount ?? posts.length}</em>
                 </span>
               ) : (
                 <Link className="blog-nav-item" href="/blog">
-                  全部 <em>{onBlogIndex || isPaged ? posts.length : ''}</em>
+                  全部 <em>{totalPostCount ?? posts.length}</em>
                 </Link>
               )}
             </li>

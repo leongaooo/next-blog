@@ -42,6 +42,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string }> 
   const filteredPosts = allCoreContent(
     sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
   )
+  const totalPostCount = allCoreContent(sortPosts(allBlogs)).length
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
   const initialDisplayPosts = filteredPosts.slice(0, POSTS_PER_PAGE)
   const pagination = {
@@ -55,6 +56,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string }> 
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title={title}
+      totalPostCount={totalPostCount}
     />
   )
 }
