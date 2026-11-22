@@ -144,6 +144,30 @@ body {
     }
   }
 
+  /* 移动端正文表格：390 宽下三列表格被压到 326，两字表头「感知/层」会被挤成
+     两行。给表格一个最小宽度，让它在已有的 overflow-x-auto 容器里横向滑动，
+     而不是把每个单元格都压扁。 */
+  @media (max-width: 767px) {
+    .prose table {
+      min-width: 30rem;
+    }
+    /* 表格右缘露出一截被切断的单元格，靠一条朝背景色的渐隐说明「还能往右滑」，
+       否则看起来像正文被裁掉了。 */
+    .table-scroll {
+      position: relative;
+    }
+    .table-scroll::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 28px;
+      pointer-events: none;
+      content: '';
+      background: linear-gradient(to right, transparent, var(--home-bg));
+    }
+  }
+
   .prose-invert {
     & a {
       color: var(--home-accent);
