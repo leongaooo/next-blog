@@ -1115,3 +1115,138 @@ input:-webkit-autofill:focus {
 .proj-card:hover .proj-title {
   color: var(--home-accent);
 }
+
+/* ---------- Demo：在线演示 ---------- */
+.demo-hero {
+  padding: 28px 0 26px;
+  border-bottom: 1px solid var(--home-border);
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0 0;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--home-border);
+  border-radius: 10px;
+  background: var(--home-card);
+}
+
+.demo-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.demo-no {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--home-subtle);
+}
+
+.demo-status {
+  padding: 2px 8px;
+  border: 1px solid var(--home-border);
+  border-radius: 999px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  color: var(--home-subtle);
+}
+
+.demo-status--live {
+  border-color: var(--home-accent);
+  color: var(--home-accent);
+}
+
+.demo-title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--home-strong);
+}
+
+.demo-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--home-muted);
+}
+
+.demo-instruction {
+  margin: auto 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed var(--home-border);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--home-subtle);
+}
+
+/* 入口面板：深底，两种主题都保持深色 */
+.demo-pass {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  margin-top: 22px;
+  padding: 28px 30px;
+  border-radius: 12px;
+  background:
+    radial-gradient(130% 120% at 0% 0%, rgba(91, 225, 201, 0.14), transparent 58%),
+    linear-gradient(135deg, #0b1017 0%, #102227 100%);
+}
+
+.demo-pass-kicker {
+  margin: 0 0 8px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #5be1c9;
+}
+
+.demo-pass-text h2 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #f2f7f6;
+}
+
+.demo-pass-text p {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(232, 236, 241, 0.72);
+}
+
+.demo-mail {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #5be1c9;
+  text-decoration: none;
+}
+
+.demo-mail:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .demo-pass {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 22px 24px;
+  }
+}
