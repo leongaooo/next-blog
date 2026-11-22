@@ -290,6 +290,10 @@ input:-webkit-autofill:focus {
   .art-layer {
     transition: none;
   }
+  /* 平滑滚动本身也是动效，减弱动效时退回瞬时跳转。 */
+  html {
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Three.js Hero 场景的 HUD 与首屏交叉淡入。 */
