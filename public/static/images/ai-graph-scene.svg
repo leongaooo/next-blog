@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img">
+<title>Props showcase illustration</title>
+<desc>A grid of hand-drawn props suitable for SaaS and ops scenes.</desc>
+<defs><linearGradient id="g_accent" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="rgba(46,158,144,0.95)"/>
+        <stop offset="100%" stop-color="rgba(79,209,192,0.95)"/>
+      </linearGradient>
+      <filter id="f_soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="14"/>
+      </filter>
+      <pattern id="p_scribble" width="22" height="22" patternUnits="userSpaceOnUse">
+        <path d="M2 6c6-3 10-3 16 0" fill="none" stroke="rgba(226,240,236,0.03)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M3 16c5-2 9-2 14 0" fill="none" stroke="rgba(226,240,236,0.02)" stroke-width="2" stroke-linecap="round"/>
+      </pattern>
+<symbol id="motif_calendar_handdrawn" viewBox="0 0 320 240">
+  <path d="M74 42h172c18 0 32 14 32 32v122c0 18-14 32-32 32H74c-18 0-32-14-32-32V74c0-18 14-32 32-32z" fill="rgba(255,255,255,0.04)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42 82h236" fill="none" stroke="rgba(226,240,236,0.18)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M96 32v34" fill="none" stroke="rgba(226,240,236,0.30)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M224 32v34" fill="none" stroke="rgba(226,240,236,0.30)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M92 126h48" fill="none" stroke="rgba(226,240,236,0.14)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M92 156h84" fill="none" stroke="rgba(226,240,236,0.12)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M206 152c18 0 32-14 32-32" fill="none" stroke="url(#g_accent)" stroke-width="10" stroke-linecap="round"/>
+</symbol>
+<symbol id="motif_phone_handdrawn" viewBox="0 0 320 240">
+  <path d="M118 26h84c20 0 36 16 36 36v116c0 20-16 36-36 36h-84c-20 0-36-16-36-36V62c0-20 16-36 36-36z" fill="rgba(255,255,255,0.04)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M106 68h108" fill="none" stroke="rgba(226,240,236,0.16)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M106 100h78" fill="none" stroke="rgba(226,240,236,0.12)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M146 186h28" fill="none" stroke="rgba(226,240,236,0.22)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M218 192c14-10 22-22 24-36" fill="none" stroke="url(#g_accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="1 14"/>
+</symbol>
+<symbol id="motif_receipt_handdrawn" viewBox="0 0 320 240">
+  <path d="M92 22h136c18 0 32 14 32 32v146l-18-10-18 10-18-10-18 10-18-10-18 10-18-10-18 10V54c0-18 14-32 32-32z" fill="rgba(255,255,255,0.04)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M112 70h96" fill="none" stroke="rgba(226,240,236,0.18)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M112 102h126" fill="none" stroke="rgba(226,240,236,0.12)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M112 134h78" fill="none" stroke="rgba(226,240,236,0.10)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M186 164c14 0 26-10 30-24" fill="none" stroke="url(#g_accent)" stroke-width="10" stroke-linecap="round"/>
+</symbol>
+<symbol id="motif_invoice_handdrawn" viewBox="0 0 320 240">
+  <path d="M86 24h132c18 0 32 14 32 32v148l-18-10-18 10-18-10-18 10-18-10-18 10-18-10-18 10V56c0-18 14-32 32-32z" fill="rgba(255,255,255,0.04)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M106 62h108" fill="none" stroke="rgba(226,240,236,0.20)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <path d="M106 96h142" fill="none" stroke="rgba(226,240,236,0.12)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <path d="M106 130h90" fill="none" stroke="rgba(226,240,236,0.10)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <path d="M186 170c22 0 40-16 46-38" fill="none" stroke="url(#g_accent)" stroke-width="10" stroke-linecap="round"/>
+</symbol>
+<symbol id="motif_clipboard_handdrawn" viewBox="0 0 320 240">
+  <path d="M104 30h112c18 0 32 14 32 32v138c0 18-14 32-32 32H104c-18 0-32-14-32-32V62c0-18 14-32 32-32z" fill="rgba(255,255,255,0.03)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M132 30h56c10 0 18 8 18 18v12H114V48c0-10 8-18 18-18z" fill="rgba(255,255,255,0.03)" stroke="rgba(226,240,236,0.30)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M110 102h116" fill="none" stroke="rgba(226,240,236,0.14)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <path d="M110 134h86" fill="none" stroke="rgba(226,240,236,0.10)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <path d="M118 162l10 10 18-22" fill="none" stroke="url(#g_accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="motif_map_route_handdrawn" viewBox="0 0 320 240">
+  <path d="M62 50h196c18 0 32 14 32 32v76c0 18-14 32-32 32H62c-18 0-32-14-32-32V82c0-18 14-32 32-32z" fill="rgba(255,255,255,0.03)" stroke="rgba(226,240,236,0.40)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M98 176c-10 0-18-8-18-18 0-16 18-30 18-30s18 14 18 30c0 10-8 18-18 18z" fill="rgba(46,158,144,0.10)" stroke="rgba(226,240,236,0.42)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M222 176c-10 0-18-8-18-18 0-16 18-30 18-30s18 14 18 30c0 10-8 18-18 18z" fill="rgba(79,209,192,0.10)" stroke="rgba(226,240,236,0.42)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M98 140c34-46 70-46 106 0 12 16 24 20 36 14" fill="none" stroke="url(#g_accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 16"/>
+  <path d="M92 92h144" fill="none" stroke="rgba(226,240,236,0.10)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+</symbol>
+<symbol id="motif_package_handdrawn" viewBox="0 0 320 240">
+  <path d="M86 78l74-40 74 40v104l-74 40-74-40V78z" fill="rgba(255,255,255,0.03)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M160 38v184" fill="none" stroke="rgba(226,240,236,0.16)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 18"/>
+  <path d="M86 78l74 44 74-44" fill="none" stroke="rgba(226,240,236,0.14)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 18"/>
+  <path d="M202 186c16-8 26-18 30-30" fill="none" stroke="url(#g_accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="1 14"/>
+</symbol>
+<symbol id="motif_toolbox_handdrawn" viewBox="0 0 320 240">
+  <path d="M78 92h164c18 0 32 14 32 32v54c0 18-14 32-32 32H78c-18 0-32-14-32-32v-54c0-18 14-32 32-32z" fill="rgba(255,255,255,0.04)" stroke="rgba(226,240,236,0.55)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M118 92c0-18 14-32 32-32h20c18 0 32 14 32 32" fill="none" stroke="rgba(226,240,236,0.22)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M46 140h228" fill="none" stroke="rgba(226,240,236,0.14)" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 16"/>
+  <path d="M150 156h20" fill="none" stroke="url(#g_accent)" stroke-width="10" stroke-linecap="round"/>
+</symbol></defs>
+<g id="layer_bg_base"><rect data-role="decor" data-decor-type="texture" x="0" y="0" width="1200" height="600" fill="#0b1017" id="bg" /><rect data-role="decor" data-decor-type="texture" x="0" y="0" width="1200" height="600" fill="url(#p_scribble)" id="tex" /><ellipse data-role="decor" data-decor-type="shadow" cx="600" cy="412" rx="520" ry="140" fill="rgba(0,0,0,0.28)" filter="url(#f_soft)" id="spot" /></g><g id="layer_bg"></g><g id="layer_fg"><use data-role="prop" href="#motif_calendar_handdrawn" x="80" y="168" width="220" height="170" opacity="0.88" id="p_cal" /><use data-role="prop" href="#motif_phone_handdrawn" x="350" y="168" width="220" height="170" opacity="0.86" id="p_phone" /><use data-role="prop" href="#motif_receipt_handdrawn" x="620" y="168" width="220" height="170" opacity="0.86" id="p_receipt" /><use data-role="prop" href="#motif_invoice_handdrawn" x="890" y="168" width="220" height="170" opacity="0.86" id="p_invoice" /><use data-role="prop" href="#motif_clipboard_handdrawn" x="80" y="360" width="220" height="170" opacity="0.84" id="p_clip" /><use data-role="prop" href="#motif_map_route_handdrawn" x="350" y="360" width="220" height="170" opacity="0.84" id="p_route" /><use data-role="prop" href="#motif_package_handdrawn" x="620" y="360" width="220" height="170" opacity="0.84" id="p_pack" /><use data-role="prop" href="#motif_toolbox_handdrawn" x="890" y="360" width="220" height="170" opacity="0.84" id="p_tool" /></g><g id="layer_text"><text data-role="text" x="600" y="64" text-anchor="middle" fill="rgba(226,240,236,0.66)" font-size="14" letter-spacing="1" id="kicker">MOTIF LIBRARY</text><text data-role="text" x="600" y="98" text-anchor="middle" fill="rgba(226,240,236,0.92)" font-size="28" font-weight="740" id="headline">人物、物品、icon 都是可复用符号</text><text data-role="text" x="600" y="130" text-anchor="middle" fill="rgba(226,240,236,0.64)" font-size="16" id="subhead">symbol 按需注入，SVG 体积可控</text></g>
+</svg>

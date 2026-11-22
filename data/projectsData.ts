@@ -15,11 +15,13 @@ export interface Project {
 const projectsData: Project[] = [
   {
     title: 'ai-graph',
-    description: `面向 AI/团队的前端动效方法论与素材。`,
+    description: `把一段文案变成可控、可复现的 SVG 场景插画：Prompt → SceneSpec(JSON) → 静态 SVG，装饰永不给人物和文字让位。`,
     href: 'https://github.com/leongaooo/ai-graph',
+    demoHref: 'http://154.8.178.202/ai-graph/',
+    imgSrc: '/static/images/ai-graph-scene.svg',
     stack: ['JavaScript'],
-    badge: 'LIB',
-    highlight: 'Prompt → SceneSpec(JSON) → 静态 SVG，图层门禁保证装饰不压人压字。',
+    badge: 'LIVE',
+    highlight: '同一份 Brief + seed 可复现，重叠与裁切在出图前就被门禁拦下。',
   },
   {
     title: 'SvgToThreeModel',
