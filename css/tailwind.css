@@ -3707,6 +3707,14 @@ input:-webkit-autofill:focus {
     padding: 0 10px;
   }
 }
+
+/* 触屏横屏（如 844×390）：页头 92px 会占掉四分之一屏。
+   只收紧上下内边距，导航/图标 44px 命中区不动。 */
+@media (hover: none) and (min-width: 48rem) and (max-height: 30rem) {
+  .site-header {
+    padding-block: 10px;
+  }
+}
 /* 页头站点标识在手机上只有 28px 高：触屏补到 44px，所在行本来已被图标撑到 44，不额外长高。 */
 @media (hover: none) {
   .site-logo {
