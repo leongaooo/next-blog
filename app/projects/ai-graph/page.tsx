@@ -283,7 +283,10 @@ node tools/art-lint.mjs art/spec-to-scene.art.json`}</code>
         </div>
         <p className="ag-note">
           演示跑在一台自托管云主机上，没有域名前缀；入口按口令开放，微信
-          <Link href="/demo#access">取当日口令</Link>后再点，单次一小时。
+          <Link className="tap-inline" href="/demo#access">
+            取当日口令
+          </Link>
+          后再点，单次一小时。
         </p>
       </section>
     </div>
