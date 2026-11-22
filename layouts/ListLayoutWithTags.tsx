@@ -82,7 +82,17 @@ export default function ListLayoutWithTags({
       <section className="blog-hero">
         <p className="proj-kicker">{kicker}</p>
         <h1 className="proj-h1">
-          {onBlogIndex || isPaged ? '文章' : activeTag ? `#${activeTag}` : title}
+          {onBlogIndex || isPaged ? (
+            '文章'
+          ) : activeTag ? (
+            <>
+              <span aria-hidden="true">#</span>
+              <span className="sr-only">标签 </span>
+              {activeTag}
+            </>
+          ) : (
+            title
+          )}
         </h1>
         <p className="proj-lede">
           {activeTag
