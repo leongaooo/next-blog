@@ -1373,6 +1373,15 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 触屏上标签导航的条目只有 29px 高，补到 44px（横滑条与抽屉同理） */
+@media (hover: none) {
+  .blog-nav-item {
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 0;
+  }
+}
+
 .blog-nav-item-on {
   color: var(--home-strong);
   font-weight: 600;
