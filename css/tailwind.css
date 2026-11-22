@@ -3558,6 +3558,20 @@ input:-webkit-autofill:focus {
     padding: 0 10px;
   }
 }
+/* 博客列表主标题链接只有 28px 高。标题本身是整行宽，不需要改排版，
+   触屏下用伪元素向上、向下各扩 8px，命中区到 44px，列表行距不动。 */
+@media (hover: none) {
+  .blog-title a {
+    position: relative;
+  }
+
+  .blog-title a::before {
+    content: '';
+    position: absolute;
+    inset: -8px 0;
+  }
+}
+
 /* 移动端展开的目录条目只有 28px 高：触屏下补到 44px，两列/单列间距不变 */
 @media (hover: none) {
   .post-toc a {
