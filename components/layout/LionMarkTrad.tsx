@@ -57,6 +57,7 @@ export default function LionMarkTrad({ size = 96, className = '', ink, animate =
           ))}
         </g>
       </g>
+      {animate && <></>}
     </svg>
   )
 }
