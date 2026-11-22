@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -77,6 +78,28 @@ export default function ListLayoutWithTags({
         ? `TAGGED · ${posts.length} 篇`
         : 'WRITING'
 
+  // 移动端标签条是横向滚动：进入某个标签页时把当前标签滚进视口，
+  // 否则 15 个标签里靠后的 active 项落在遮罩渐隐之外，看不出当前在哪。
+  const navRef = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    const aside = navRef.current
+    const list = aside?.querySelector('ul') as HTMLElement | null
+    const item = aside?.querySelector('.blog-nav-item-on') as HTMLElement | null
+    if (!aside || !list || !item) return
+    if (list.scrollWidth <= list.clientWidth + 2) return
+    const listBox = list.getBoundingClientRect()
+    const itemBox = item.getBoundingClientRect()
+    // 居中当前标签，左右各留一点邻项，避免左边只剩一个孤零零的计数
+    const itemLeft = list.scrollLeft + itemBox.left - listBox.left
+    list.scrollLeft = Math.max(
+      0,
+      Math.min(
+        itemLeft - (list.clientWidth - itemBox.width) / 2,
+        list.scrollWidth - list.clientWidth
+      )
+    )
+  }, [pathname])
+
   return (
     <div className="blog-page">
       <section className="blog-hero">
@@ -102,12 +125,12 @@ export default function ListLayoutWithTags({
       </section>
 
       <div className="blog-body">
-        <aside className="blog-nav" aria-label="标签导航">
+        <aside className="blog-nav" aria-label="标签导航" ref={navRef}>
           <p className="blog-nav-head">TAGS · {sortedTags.length}</p>
           <ul>
             <li>
               {onBlogIndex ? (
-                <span className="blog-nav-item blog-nav-item-on">
+                <span className="blog-nav-item blog-nav-item-on" aria-current="true">
                   全部 <em>{posts.length}</em>
                 </span>
               ) : (
@@ -119,7 +142,7 @@ export default function ListLayoutWithTags({
             {sortedTags.map((t) => (
               <li key={t}>
                 {activeTag === slug(t) ? (
-                  <span className="blog-nav-item blog-nav-item-on">
+                  <span className="blog-nav-item blog-nav-item-on" aria-current="true">
                     {t} <em>{tagCounts[t]}</em>
                   </span>
                 ) : (
