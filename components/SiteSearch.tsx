@@ -49,6 +49,8 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   // 固定页面直接可搜，不等索引；文章索引另行加载
   const [docs, setDocs] = useState<Doc[]>(STATIC_PAGES)
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle')
+  // 服务端不知道用户平台；先按非 Mac 渲染，挂载后再按真实平台换成 ⌘K，避免 hydration 不一致。
+  const [isMac, setIsMac] = useState(false)
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -56,6 +58,11 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   const restoreRef = useRef<Element | null>(null)
   const listRef = useRef<HTMLUListElement>(null)
   const loadedRef = useRef(false)
+
+  useEffect(() => {
+    const platform = navigator.platform || navigator.userAgent
+    setIsMac(/Mac|iPhone|iPad|iPod/i.test(platform))
+  }, [])
 
   const load = useCallback(async () => {
     if (loadedRef.current) return
@@ -148,6 +155,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   }, [open])
 
   const { items: results, total } = useMemo(() => resultsFor(docs, query), [docs, query])
+  const shortcutLabel = isMac ? '⌘K' : 'Ctrl K'
 
   // 键盘翻到列表下方的条目时，把它滚进可视区，不然高亮会落在看不见的地方
   useEffect(() => {
@@ -173,6 +181,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
         ref={triggerRef}
         type="button"
         aria-label={variant === 'icon' ? '搜索站内内容' : undefined}
+        aria-keyshortcuts={isMac ? 'Meta+K' : 'Control+K'}
         onClick={toggle}
         className={
           variant === 'inline'
@@ -356,7 +365,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                 ) : (
                   <span>Esc 关闭</span>
                 )}
-                <span>⌘K 开关</span>
+                <span>{shortcutLabel} 开关</span>
               </span>
             </div>
           </div>
