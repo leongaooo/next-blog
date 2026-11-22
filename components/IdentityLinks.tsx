@@ -5,24 +5,18 @@ import WeChatCopy from '@/components/WeChatCopy'
 const IdentityLinks = () => (
   <nav
     aria-label="个人链接"
-    className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400"
+    className="flex flex-col items-start gap-y-2 text-[13px] text-[var(--home-muted)]"
   >
-    <Link href={siteMetadata.github} className="hover:text-primary-500 dark:hover:text-primary-400">
+    <Link href={siteMetadata.github} className="hover:text-[var(--home-accent)]">
       GitHub ↗
     </Link>
-    <Link
-      href={siteMetadata.siteUrl}
-      className="hover:text-primary-500 dark:hover:text-primary-400"
-    >
+    <Link href={siteMetadata.siteUrl} className="hover:text-[var(--home-accent)]">
       个人站 ↗
     </Link>
-    <Link
-      href={`mailto:${siteMetadata.email}`}
-      className="hover:text-primary-500 dark:hover:text-primary-400"
-    >
+    <Link href={`mailto:${siteMetadata.email}`} className="hover:text-[var(--home-accent)]">
       邮箱 ↗
     </Link>
-    <WeChatCopy />
+    <WeChatCopy variant="plain" />
   </nav>
 )
 

@@ -13,9 +13,10 @@ export default function WeChatCopy({
 }: {
   withHint?: boolean
   /** ink：深底面板用（黑底 + 青色描边） */
-  variant?: 'default' | 'ink'
+  variant?: 'default' | 'ink' | 'plain'
 }) {
   const ink = variant === 'ink'
+  const plain = variant === 'plain'
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
@@ -29,18 +30,32 @@ export default function WeChatCopy({
   }
 
   return (
-    <div className="flex flex-col items-center gap-1">
-      <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className={plain ? 'flex flex-col items-start gap-1' : 'flex flex-col items-center gap-1'}>
+      <div
+        className={
+          plain
+            ? 'flex flex-wrap items-center gap-2'
+            : 'flex flex-wrap items-center justify-center gap-2'
+        }
+      >
         <span
-          className={ink ? 'text-sm text-white/60' : 'text-sm text-gray-600 dark:text-gray-300'}
+          className={
+            plain
+              ? 'text-[13px] text-[var(--home-subtle)]'
+              : ink
+                ? 'text-sm text-white/60'
+                : 'text-sm text-gray-600 dark:text-gray-300'
+          }
         >
           微信
         </span>
         <code
           className={
-            ink
-              ? 'rounded-md border border-white/15 bg-white/5 px-3 py-1 font-mono text-base font-semibold text-white'
-              : 'rounded-md bg-white px-3 py-1 font-mono text-base font-semibold text-gray-900 shadow-sm dark:bg-gray-900 dark:text-gray-100'
+            plain
+              ? 'font-mono text-[13px] font-semibold text-[var(--home-strong)]'
+              : ink
+                ? 'rounded-md border border-white/15 bg-white/5 px-3 py-1 font-mono text-base font-semibold text-white'
+                : 'rounded-md bg-white px-3 py-1 font-mono text-base font-semibold text-gray-900 shadow-sm dark:bg-gray-900 dark:text-gray-100'
           }
         >
           {WECHAT_ID}
@@ -49,9 +64,11 @@ export default function WeChatCopy({
           type="button"
           onClick={handleCopy}
           className={
-            ink
-              ? 'rounded-md border border-[#5be1c9] px-3 py-1 text-sm font-medium text-[#5be1c9] transition-colors hover:bg-[#5be1c9] hover:text-[#07110f]'
-              : 'border-primary-500 text-primary-600 hover:bg-primary-500 dark:border-primary-400 dark:text-primary-300 dark:hover:bg-primary-500 rounded-md border px-3 py-1 text-sm font-medium transition-colors hover:text-white dark:hover:text-white'
+            plain
+              ? 'text-[12.5px] text-[var(--home-accent)] hover:underline'
+              : ink
+                ? 'rounded-md border border-[#5be1c9] px-3 py-1 text-sm font-medium text-[#5be1c9] transition-colors hover:bg-[#5be1c9] hover:text-[#07110f]'
+                : 'border-primary-500 text-primary-600 hover:bg-primary-500 dark:border-primary-400 dark:text-primary-300 dark:hover:bg-primary-500 rounded-md border px-3 py-1 text-sm font-medium transition-colors hover:text-white dark:hover:text-white'
           }
         >
           {copied ? '已复制' : '复制微信号'}
