@@ -10,8 +10,8 @@ const demos = [
     no: '01',
     title: 'obscura-ocr',
     description: 'PaddleOCR 工作台：上传图片，查看 OCR 识别出的文字与结构化结果。',
-    instruction: '加微信获取当日口令，进入工作台后上传一张图片开始识别。',
-    status: '开放中',
+    instruction: '进入后上传一张图片即可识别；口令一小时有效，过期重新取。',
+    status: '口令制',
     live: true,
   },
   {
@@ -19,7 +19,7 @@ const demos = [
     title: 'SvgToThreeModel',
     description: 'Three.js 2.5D 建模：把 SVG 平面图转换成可旋转、可调整的空间模型。',
     instruction: '展台正在准备，在线入口开放后会在这里更新。',
-    status: '即将开放',
+    status: '筹备中',
     live: false,
   },
 ]
@@ -52,12 +52,28 @@ export default function DemoPage() {
             </div>
             <h2 className="demo-title">{demo.title}</h2>
             <p className="demo-desc">{demo.description}</p>
-            <p className="demo-instruction">{demo.instruction}</p>
             {demo.live ? (
               <Link href="#access" className="demo-cta">
                 申请入口 ↓
               </Link>
             ) : null}
+            <div className="demo-aside">
+              <p className="demo-instruction">{demo.instruction}</p>
+              <dl className="demo-cond">
+                <div>
+                  <dt>访问</dt>
+                  <dd>加微信取当日口令，不开放公开注册</dd>
+                </div>
+                <div>
+                  <dt>有效期</dt>
+                  <dd>单次一小时，用完即失效</dd>
+                </div>
+                <div>
+                  <dt>环境</dt>
+                  <dd>自托管云主机，不是托管演示平台</dd>
+                </div>
+              </dl>
+            </div>
           </article>
         ))}
       </section>
