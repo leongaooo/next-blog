@@ -123,6 +123,20 @@ body {
     }
     & :where(code):not(pre code) {
       color: var(--home-accent);
+      /* 行内代码里的长标识符（WebGLRenderer.prototype.render 这类）在 320
+         宽下撑破正文列、把整页撑出横向滚动：允许在任意位置断行。 */
+      overflow-wrap: anywhere;
+      /* Tailwind Typography 默认给行内代码加 "`" 前后缀，中文正文里会读成
+         两个多余的反引号；改成纸面感的浅青底小胶囊。 */
+      padding: 0.1em 0.34em;
+      border-radius: 4px;
+      background: color-mix(in oklab, var(--home-accent) 11%, transparent);
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      &::before,
+      &::after {
+        content: none;
+      }
     }
   }
 
