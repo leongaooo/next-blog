@@ -69,7 +69,7 @@ export default function HeroStream() {
           <span className="bg-accent-500/70 h-2 w-2 rounded-full" />
           <span className="h-2 w-2 rounded-full bg-white/20" />
           <span className="h-2 w-2 rounded-full bg-white/10" />
-          <span className="text-mist-500 ml-2 font-mono text-[11px]">delivery.log</span>
+          <span className="text-mist-300 ml-2 font-mono text-[11px]">delivery.log</span>
         </div>
         <div className="px-4 py-3 font-mono text-[12.5px] leading-6">
           {LINES.map((line, index) => {
@@ -84,7 +84,7 @@ export default function HeroStream() {
                 {line.kind === 'cmd' ? (
                   <span className="text-accent-500">$</span>
                 ) : (
-                  <span className="text-mist-600">›</span>
+                  <span className="text-mist-400">›</span>
                 )}
                 <span
                   className={
@@ -92,14 +92,14 @@ export default function HeroStream() {
                       ? 'text-accent-400'
                       : line.kind === 'cmd'
                         ? 'text-mist-200'
-                        : 'text-mist-400'
+                        : 'text-mist-300'
                   }
                 >
                   {visible}
                   {!complete && <span className="stream-caret ml-0.5" aria-hidden="true" />}
                 </span>
                 {complete && line.meta && (
-                  <span className="text-mist-600 ml-auto font-mono text-[11px] tabular-nums">
+                  <span className="text-mist-400 ml-auto font-mono text-[11px] tabular-nums">
                     {line.meta}
                   </span>
                 )}
@@ -108,7 +108,7 @@ export default function HeroStream() {
           })}
         </div>
         <div className="border-t border-white/5 px-4 py-2">
-          <p className="text-mist-600 text-[11px]">示意动画 · 数据取自一次真实的构建与交付记录</p>
+          <p className="text-mist-400 text-[11px]">示意动画 · 数据取自一次真实的构建与交付记录</p>
         </div>
       </div>
 
