@@ -144,6 +144,17 @@ body {
     }
   }
 
+  /* 表格右缘渐隐之外再给一句可见提示；只在容器真的横向溢出时渲染，
+     读者不必只靠猜。 */
+  .table-scroll-hint {
+    margin: 8px 0 0;
+    color: var(--home-subtle);
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 11px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+  }
+
   /* 移动端正文表格：390 宽下三列表格被压到 326，两字表头「感知/层」会被挤成
      两行。给表格一个最小宽度，让它在已有的 overflow-x-auto 容器里横向滑动，
      而不是把每个单元格都压扁。 */
