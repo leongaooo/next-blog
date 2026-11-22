@@ -37,6 +37,9 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   const [docs, setDocs] = useState<Doc[]>([])
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const restoreRef = useRef<Element | null>(null)
 
   const load = useCallback(async () => {
     if (docs.length) return
@@ -70,6 +73,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
 
   useEffect(() => {
     if (open) {
+      restoreRef.current = document.activeElement
       setQuery('')
       setActive(0)
       const timer = window.setTimeout(() => inputRef.current?.focus(), 60)
@@ -79,7 +83,38 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
         document.body.style.overflow = ''
       }
     }
+    const restoreTo = restoreRef.current
     document.body.style.overflow = ''
+    if (restoreTo instanceof HTMLElement && restoreTo.isConnected) restoreTo.focus()
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const onTab = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return
+      const panel = dialogRef.current?.querySelector('.search-panel')
+      if (!panel) return
+      const focusables = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'button, input, [href], [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => !el.hasAttribute('disabled') && el.getClientRects().length > 0)
+      if (focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      const current = document.activeElement
+      if (event.shiftKey) {
+        if (current === first || !panel.contains(current)) {
+          event.preventDefault()
+          last.focus()
+        }
+      } else if (current === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    window.addEventListener('keydown', onTab)
+    return () => window.removeEventListener('keydown', onTab)
   }, [open])
 
   const results = useMemo(() => resultsFor(docs, query), [docs, query])
@@ -93,6 +128,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         aria-label="搜索站内内容"
         onClick={toggle}
@@ -120,7 +156,13 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
       </button>
 
       {open && (
-        <div className="search-root" role="dialog" aria-modal="true" aria-label="站内搜索">
+        <div
+          ref={dialogRef}
+          className="search-root"
+          role="dialog"
+          aria-modal="true"
+          aria-label="站内搜索"
+        >
           <button
             type="button"
             className="search-backdrop"
