@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useTheme } from 'next-themes'
 
-const COLORS = { light: '#ffffff', dark: '#030712' }
+const COLORS = { light: '#ffffff', dark: '#0a1116' }
 
 /**
  * 移动端浏览器地址栏配色跟随站点主题。

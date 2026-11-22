@@ -96,7 +96,7 @@ const MobileNav = () => {
             leaveTo="translate-x-full opacity-0"
             unmount={false}
           >
-            <DialogPanel className="fixed top-0 left-0 z-70 h-full w-full bg-white duration-300 dark:bg-[#080c10]">
+            <DialogPanel className="fixed top-0 left-0 z-70 h-full w-full bg-[var(--home-bg)] duration-300">
               <nav
                 ref={navRef}
                 aria-label="移动导航"

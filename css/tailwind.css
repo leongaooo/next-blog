@@ -357,6 +357,7 @@ input:-webkit-autofill:focus {
 
 /* 首页自适应表面：亮色用浅稿，暗色用深稿；hero 面板两种主题都保持深色 */
 :root {
+  --home-bg: #ffffff;
   --home-strong: #0b1017;
   --home-text: #202a36;
   --home-muted: #4b5563;
@@ -375,6 +376,7 @@ input:-webkit-autofill:focus {
 }
 
 .dark {
+  --home-bg: #0a1116;
   --home-strong: #e8ecf1;
   --home-text: #cbd5e1;
   --home-muted: #9aa4b2;

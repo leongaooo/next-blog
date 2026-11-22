@@ -8,7 +8,7 @@ import { SlideInFromLeft, SlideInFromRight, FadeInUp } from './animations'
 
 const Header = () => {
   let headerClass =
-    'relative flex items-center w-full bg-white dark:bg-gray-950 justify-between py-6 sm:py-8'
+    'relative flex items-center w-full bg-[var(--home-bg)] justify-between py-6 sm:py-8'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
