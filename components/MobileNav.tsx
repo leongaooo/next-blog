@@ -5,9 +5,11 @@ import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'bo
 import { Fragment, useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
+import { usePathname } from 'next/navigation'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
+  const pathname = usePathname()
   const navRef = useRef(null)
 
   const onToggleNav = () => {
@@ -84,6 +86,7 @@ const MobileNav = () => {
                     key={link.title}
                     href={link.href}
                     className="mobile-nav-item"
+                    aria-current={pathname === link.href ? 'page' : undefined}
                     onClick={onToggleNav}
                   >
                     <span className="mobile-nav-no">{String(index + 1).padStart(2, '0')}</span>

@@ -1,6 +1,6 @@
 import siteMetadata from '@/data/siteMetadata'
-import headerNavLinks from '@/data/headerNavLinks'
 import MobileNav from './MobileNav'
+import NavLinks from './NavLinks'
 import ThemeSwitch from './ThemeSwitch'
 import SiteSearch from './SiteSearch'
 import LionMarkTrad from './layout/LionMarkTrad'
@@ -44,17 +44,7 @@ const Header = () => {
         <div className="flex items-center space-x-4 leading-5 sm:-mr-6 sm:space-x-6">
           <FadeInUp delay={0.3}>
             <div className="no-scrollbar hidden max-w-40 items-center gap-x-4 overflow-x-auto sm:flex md:max-w-72 lg:max-w-96">
-              {headerNavLinks
-                .filter((link) => link.href !== '/')
-                .map((link) => (
-                  <Link
-                    key={link.title}
-                    href={link.href}
-                    className="m-1 font-medium text-gray-900 transition-colors duration-200 hover:text-[var(--home-accent)] dark:text-gray-100"
-                  >
-                    {link.title}
-                  </Link>
-                ))}
+              <NavLinks />
             </div>
           </FadeInUp>
           <FadeInUp delay={0.4}>
