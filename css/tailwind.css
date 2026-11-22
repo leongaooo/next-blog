@@ -2960,9 +2960,26 @@ input:-webkit-autofill:focus {
 
 .search-empty {
   margin: 0;
-  padding: 22px 12px;
+  padding: 22px 12px 20px;
   font-size: 13px;
+  line-height: 1.7;
   color: var(--home-muted);
+}
+
+.search-empty p {
+  margin: 0;
+}
+
+/* 空态给两条真实出口，别只写「去文章列表翻」却点不动 */
+.search-empty-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 12px;
+}
+
+.search-empty-acts .search-note-btn {
+  font-size: 12.5px;
 }
 
 /* 结果被截断时在底栏说明一句，别让人以为只有这些 */

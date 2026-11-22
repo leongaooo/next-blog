@@ -162,6 +162,11 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
     router.push(`/${doc.path}`)
   }
 
+  const goIndex = (path: string) => {
+    setOpen(false)
+    router.push(path)
+  }
+
   return (
     <>
       <button
@@ -262,11 +267,29 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                 </p>
               ) : null}
               {results.length === 0 && status !== 'loading' ? (
-                <p className="search-empty">
-                  {status === 'error'
-                    ? '固定页面里没有匹配。索引恢复后可以再试一次。'
-                    : '没有匹配的内容。换个词，或者去文章列表翻。'}
-                </p>
+                <div className="search-empty">
+                  <p>
+                    {status === 'error'
+                      ? '固定页面里没有匹配。索引恢复后可以再试一次。'
+                      : '没有匹配的内容。换个词，或者按时间、按主题翻。'}
+                  </p>
+                  <div className="search-empty-acts">
+                    <button
+                      type="button"
+                      className="search-note-btn"
+                      onClick={() => goIndex('/blog')}
+                    >
+                      去文章列表 →
+                    </button>
+                    <button
+                      type="button"
+                      className="search-note-btn"
+                      onClick={() => goIndex('/tags')}
+                    >
+                      按标签找 →
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <ul ref={listRef}>
                   {results.map((doc, index) => (
