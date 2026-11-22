@@ -2049,6 +2049,16 @@ input:-webkit-autofill:focus {
     mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
   }
 
+  /* 键盘 Tab 到标签时，浏览器只保证元素「碰得到」视口，
+     会把 focus ring 停在右侧渐隐里。给滚动容器留出右缘滚动内边距，
+     并让标签本身带滚动外边距，焦点项就落在渐隐左侧。 */
+  .blog-nav ul {
+    scroll-padding-inline: 12px 96px;
+  }
+  .blog-nav-item {
+    scroll-margin-inline: 8px 56px;
+  }
+
   .blog-nav-item {
     flex: none;
   }
