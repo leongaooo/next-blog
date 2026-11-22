@@ -242,6 +242,10 @@ input:-webkit-autofill:focus {
   .content-header-link {
     display: none;
   }
+  /* 图标隐藏后外层 <a> 会变成 0 宽度但仍可 Tab 到达，整枚锚点一起隐藏 */
+  a:has(> .content-header-link) {
+    display: none;
+  }
 }
 
 .content-header-link:focus-visible {
