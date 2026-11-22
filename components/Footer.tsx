@@ -8,7 +8,6 @@ export default function Footer() {
     { kind: 'github' as const, href: siteMetadata.github },
     { kind: 'linkedin' as const, href: siteMetadata.linkedin },
     { kind: 'x' as const, href: siteMetadata.x },
-    { kind: 'wechat' as const, href: siteMetadata.wechat },
     { kind: 'juejin' as const, href: siteMetadata.juejin },
   ].filter((icon) => icon.href)
 

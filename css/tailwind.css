@@ -2258,3 +2258,27 @@ input:-webkit-autofill:focus {
     display: none;
   }
 }
+
+/* 页脚图标统一走前景色，品牌彩色（微信绿 / 掘金蓝）不参与版面 */
+.site-footer svg,
+.site-footer svg path {
+  fill: currentColor;
+}
+
+.comments-load {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--home-border);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--home-muted);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.comments-load:hover {
+  border-color: var(--home-accent);
+  color: var(--home-accent);
+}

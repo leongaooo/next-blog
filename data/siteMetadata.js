@@ -23,7 +23,7 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com',
   medium: 'https://medium.com',
   bluesky: 'https://bsky.app/profile/leongao.bsky.social',
-  wechat: 'https://github.com/leongaooo',
+  wechat: undefined, // 微信号只在 About 里以复制入口呈现，不做外链
   juejin: 'https://juejin.cn/user/3976252950591149',
   locale: 'zh-US',
   // set to true if you want a navbar fixed to the top

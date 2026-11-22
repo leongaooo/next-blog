@@ -26,6 +26,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const tocItems = toc.filter((item) => item.depth <= 2).slice(0, 12)
   const slugger = new GithubSlugger()
   const basePath = path.split('/')[0]
+  const commentsCfg = siteMetadata.comments as
+    | { provider?: string; giscusConfig?: { repo?: string } }
+    | undefined
+  const commentsEnabled =
+    commentsCfg?.provider === 'giscus' && Boolean(commentsCfg.giscusConfig?.repo)
 
   const renderTocList = () => (
     <ul>
@@ -120,7 +125,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <Link href={editUrl(filePath)}>在 GitHub 看源文</Link>
           </div>
 
-          {siteMetadata.comments && (
+          {commentsEnabled && (
             <div className="pt-6" id="comment">
               <Comments slug={slug} />
             </div>
