@@ -46,24 +46,38 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [docs, setDocs] = useState<Doc[]>([])
+  // 固定页面直接可搜，不等索引；文章索引另行加载
+  const [docs, setDocs] = useState<Doc[]>(STATIC_PAGES)
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle')
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const restoreRef = useRef<Element | null>(null)
   const listRef = useRef<HTMLUListElement>(null)
+  const loadedRef = useRef(false)
 
   const load = useCallback(async () => {
-    if (docs.length) return
+    if (loadedRef.current) return
+    setStatus('loading')
     try {
       const res = await fetch('/search.json')
+      if (!res.ok) throw new Error(`search index ${res.status}`)
       const data = (await res.json()) as Doc[]
       setDocs([...STATIC_PAGES, ...data.filter((doc) => doc.path)])
+      loadedRef.current = true
+      setStatus('ready')
     } catch {
-      setDocs([])
+      setDocs(STATIC_PAGES)
+      setStatus('error')
     }
-  }, [docs.length])
+  }, [])
+
+  const retry = useCallback(() => {
+    loadedRef.current = false
+    setStatus('idle')
+    void load()
+  }, [load])
 
   const toggle = useCallback(() => {
     setOpen((prev) => {
@@ -73,7 +87,10 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   }, [load])
 
   useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
+    const onKey = (event: KeyboardEvent & { __searchSeen?: boolean }) => {
+      // 404 这类页面同时有页头和正文两个搜索实例，同一个快捷键只能响应一次
+      if (event.__searchSeen) return
+      event.__searchSeen = true
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
         toggle()
@@ -212,6 +229,8 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                   setActive(0)
                 }}
                 onKeyDown={(event) => {
+                  // 中文输入法还在选词时，方向键和回车先交给输入法，不要当成翻列表
+                  if (event.nativeEvent.isComposing) return
                   if (event.key === 'ArrowDown') {
                     event.preventDefault()
                     setActive((prev) => Math.min(prev + 1, results.length - 1))
@@ -233,8 +252,21 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
             </p>
 
             <div className="search-list">
-              {results.length === 0 ? (
-                <p className="search-empty">没有匹配的内容。换个词，或者去文章列表翻。</p>
+              {status === 'loading' ? <p className="search-note">正在载入文章索引…</p> : null}
+              {status === 'error' ? (
+                <p className="search-note">
+                  文章索引没加载出来，现在只能搜到固定页面。
+                  <button type="button" className="search-note-btn" onClick={retry}>
+                    重试
+                  </button>
+                </p>
+              ) : null}
+              {results.length === 0 && status !== 'loading' ? (
+                <p className="search-empty">
+                  {status === 'error'
+                    ? '固定页面里没有匹配。索引恢复后可以再试一次。'
+                    : '没有匹配的内容。换个词，或者去文章列表翻。'}
+                </p>
               ) : (
                 <ul ref={listRef}>
                   {results.map((doc, index) => (
