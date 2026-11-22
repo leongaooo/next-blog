@@ -3460,6 +3460,18 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* 首页精选作品卡的操作链接视觉只有 16px 高，透明伪元素补到 24px；
+   卡片高度与链接间距不变。 */
+.featured-actions a {
+  position: relative;
+}
+
+.featured-actions a::after {
+  content: '';
+  position: absolute;
+  inset: -4px -2px;
+}
+
 /* 首页内联文字链接（「全部作品 →」「源码 ↗」「关于我 →」等）行高只有 16–20px。
    触屏下用等量负边距撑出 44px 命中区，文字位置与行距都不动。 */
 @media (hover: none) {

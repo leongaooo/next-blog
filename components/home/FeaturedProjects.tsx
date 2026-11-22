@@ -51,7 +51,7 @@ export default function FeaturedProjects() {
               </div>
             )}
 
-            <div className="mt-5 flex items-center gap-4 text-xs font-medium">
+            <div className="featured-actions mt-5 flex items-center gap-4 text-xs font-medium">
               {project.demoHref && (
                 <Link
                   href={project.demoHref}
