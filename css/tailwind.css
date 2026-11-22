@@ -2037,6 +2037,20 @@ input:-webkit-autofill:focus {
   border-bottom: 1px dashed var(--home-border);
 }
 
+/* 「全部文章」置顶行：唯一的入口，用强调色区分于普通标签 */
+.tag-row-all .tag-row-name {
+  color: var(--home-strong);
+  font-weight: 600;
+}
+
+.tag-row-all .tag-row-count {
+  color: var(--home-accent);
+}
+
+.tag-row-all .tag-row-dots {
+  opacity: 0.55;
+}
+
 /* 整行可点：链接铺满行宽与行高，触屏命中区不再只有 19px 高的文字 */
 .tag-row-link {
   display: flex;
