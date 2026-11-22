@@ -68,7 +68,7 @@ const Card = ({
             )}
           </div>
           {highlight && (
-            <p className="text-primary-500 dark:text-primary-400 mb-3 text-base leading-6 font-medium">
+            <p className="mb-3 text-base leading-6 font-medium text-[var(--home-accent)]">
               {highlight}
             </p>
           )}
@@ -90,7 +90,7 @@ const Card = ({
               {demoHref && (
                 <Link
                   href={demoHref}
-                  className="bg-primary-500 hover:bg-primary-600 rounded-md px-4 py-2 text-sm leading-5 font-medium text-white transition-colors"
+                  className="rounded-md bg-[#0f6b5e] px-4 py-2 text-sm leading-5 font-medium text-white transition-colors hover:bg-[#0b5347]"
                   aria-label={`在线体验 ${title}`}
                 >
                   在线体验 ↗
@@ -99,7 +99,7 @@ const Card = ({
               {href && (
                 <Link
                   href={href}
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 rounded-md border border-gray-300 px-4 py-2 text-sm leading-5 font-medium transition-colors dark:border-gray-600"
+                  className="rounded-md border border-gray-300 px-4 py-2 text-sm leading-5 font-medium text-[var(--home-accent)] transition-colors hover:underline dark:border-gray-600"
                   aria-label={`查看 ${title} 源码`}
                 >
                   源码 ↗

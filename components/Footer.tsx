@@ -1,7 +1,6 @@
 import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
-import { FadeInUp, StaggerContainer, StaggerItem } from './animations'
 
 export default function Footer() {
   const socialIcons = [
@@ -14,36 +13,20 @@ export default function Footer() {
   ].filter((icon) => icon.href)
 
   return (
-    <footer>
-      <FadeInUp delay={0.1}>
-        <div className="mt-16 flex flex-col items-center">
-          <StaggerContainer>
-            <div className="mb-3 flex space-x-4">
-              {socialIcons.map((icon, index) => (
-                <StaggerItem key={icon.kind} delay={index * 0.1}>
-                  <SocialIcon kind={icon.kind} href={icon.href} size={6} />
-                </StaggerItem>
-              ))}
-            </div>
-          </StaggerContainer>
-          <FadeInUp delay={0.3}>
-            <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-              <div>{siteMetadata.author}</div>
-              <div>{` • `}</div>
-              <div>{`© ${new Date().getFullYear()}`}</div>
-              <div>{` • `}</div>
-              <Link href="/">{siteMetadata.title}</Link>
-            </div>
-          </FadeInUp>
-          <FadeInUp delay={0.4}>
-            <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-              <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
-                Tailwind Nextjs Theme
-              </Link>
-            </div>
-          </FadeInUp>
+    <footer className="site-footer">
+      <div className="flex flex-wrap items-center justify-between gap-6">
+        <div className="flex items-center gap-3">
+          {socialIcons.map((icon) => (
+            <SocialIcon key={icon.kind} kind={icon.kind} href={icon.href} size={5} />
+          ))}
         </div>
-      </FadeInUp>
+        <p className="site-footer-meta">
+          {siteMetadata.author} · © {new Date().getFullYear()} · <Link href="/">leongao.me</Link>
+        </p>
+      </div>
+      <p className="site-footer-note">
+        Next.js · 自托管在腾讯云 · 源码可查 <span aria-hidden="true">↗</span>
+      </p>
     </footer>
   )
 }

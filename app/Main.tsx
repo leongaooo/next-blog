@@ -35,9 +35,9 @@ export default function Home({ posts }) {
 
         <dl className="border-mist-100 relative mt-10 grid grid-cols-2 gap-4 border-t pt-6 md:grid-cols-4">
           {[
-            ['静态构建', '130 页'],
+            ['交付形态', '静态构建 + SSR'],
             ['首屏脚本', 'SSR 直出'],
-            ['自运维服务', 'systemd 托管'],
+            ['运行环境', '自运维 · systemd'],
             ['最近交付', '门禁 + OCR'],
           ].map(([k, v]) => (
             <div key={k}>

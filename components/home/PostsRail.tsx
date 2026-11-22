@@ -23,7 +23,9 @@ export default function PostsRail({ posts }: { posts: PostItem[] }) {
             </span>
             <span className="flex items-center gap-3 font-mono text-[11px] text-[var(--home-subtle)] tabular-nums">
               <time dateTime={post.date}>{formatDate(post.date, siteMetadata.locale)}</time>
-              {post.readingTime?.minutes && <span>{post.readingTime.minutes} min</span>}
+              {post.readingTime?.minutes ? (
+                <span>{Math.round(post.readingTime.minutes)} 分钟</span>
+              ) : null}
             </span>
           </Link>
         </li>
