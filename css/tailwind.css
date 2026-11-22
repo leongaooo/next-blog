@@ -2983,7 +2983,7 @@ input:-webkit-autofill:focus {
 }
 
 .search-list {
-  max-height: 52vh;
+  max-height: min(68vh, 620px);
   overflow-y: auto;
   padding: 6px;
   /* 条目多于可视高度时，底边渐隐，说明「下面还有」；内容不满时这块没有东西可淡，等于没加 */
@@ -3100,6 +3100,11 @@ input:-webkit-autofill:focus {
   font-size: 10.5px;
   letter-spacing: 0.06em;
   color: var(--home-subtle);
+}
+
+.search-foot-hints {
+  display: inline-flex;
+  gap: 14px;
 }
 
 /* 底行是 10.5px mono，RSS / 源码链接本身只有 12px 高，鼠标也难点；
@@ -3257,9 +3262,11 @@ input:-webkit-autofill:focus {
   }
 }
 
-/* 触屏设备上没有物理键，隐藏键盘提示避免误导 */
+/* 触屏设备上没有物理键：隐藏键盘提示，但保留「共 N 条 · 只列前 8」这类
+   结果状态；否则列表被截断时，用户以为只有眼前这几条。 */
 @media (hover: none) and (pointer: coarse) {
-  .search-foot,
+  .search-foot:not(.search-foot--count),
+  .search-foot-hints,
   .search-kbd {
     display: none;
   }

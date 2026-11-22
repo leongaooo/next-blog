@@ -332,15 +332,21 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
               )}
             </div>
 
-            <div className="search-foot">
+            <div
+              className={['search-foot', total > results.length ? 'search-foot--count' : '']
+                .filter(Boolean)
+                .join(' ')}
+            >
               {total > results.length ? (
                 <span className="search-foot-count">
                   共 {total} 条 · 只列前 {results.length}
                 </span>
               ) : null}
-              <span>↑↓ 选择</span>
-              <span>↵ 打开</span>
-              <span>⌘K 开关</span>
+              <span className="search-foot-hints">
+                <span>↑↓ 选择</span>
+                <span>↵ 打开</span>
+                <span>⌘K 开关</span>
+              </span>
             </div>
           </div>
         </div>
