@@ -22,6 +22,8 @@ interface LayoutProps {
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
   const { filePath, path, slug, date, title, tags, summary, readingTime } = content
+  const toc = (content as { toc?: { value: string; url: string; depth: number }[] }).toc ?? []
+  const tocItems = toc.filter((item) => item.depth <= 2).slice(0, 12)
   const slugger = new GithubSlugger()
   const basePath = path.split('/')[0]
 
@@ -45,6 +47,22 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             ) : null}
           </div>
         </header>
+
+        {tocItems.length >= 3 ? (
+          <nav className="post-toc" aria-label="本页目录">
+            <p className="post-toc-label">ON THIS PAGE · {tocItems.length}</p>
+            <ul>
+              {tocItems.map((item, index) => (
+                <li key={item.url}>
+                  <a href={item.url}>
+                    <span className="post-toc-no">{String(index + 1).padStart(2, '0')}</span>
+                    {item.value}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
 
         <div className="post-copy prose dark:prose-invert max-w-none">{children}</div>
 

@@ -2,7 +2,7 @@ import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
-import SearchButton from './SearchButton'
+import SiteSearch from './SiteSearch'
 import LionMarkTrad from './layout/LionMarkTrad'
 import Link from 'next/link'
 import { SlideInFromLeft, SlideInFromRight, FadeInUp } from './animations'
@@ -58,7 +58,7 @@ const Header = () => {
             </div>
           </FadeInUp>
           <FadeInUp delay={0.4}>
-            <SearchButton />
+            <SiteSearch />
           </FadeInUp>
           <FadeInUp delay={0.5}>
             <ThemeSwitch />
