@@ -3,7 +3,7 @@ import ProjectCard from '@/components/projects/ProjectCard'
 import WeChatCopy from '@/components/WeChatCopy'
 import { genPageMetadata } from 'app/seo'
 
-export const metadata = genPageMetadata({ title: 'Projects' })
+export const metadata = genPageMetadata({ title: '作品与服务交付' })
 
 const FEATURED = 'obscura-ocr'
 

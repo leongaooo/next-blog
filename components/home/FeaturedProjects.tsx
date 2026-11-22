@@ -11,7 +11,7 @@ export default function FeaturedProjects() {
         return (
           <article
             key={project.title}
-            className="relative overflow-hidden rounded-xl border border-[var(--home-border)] bg-[var(--home-card)] p-6"
+            className="relative overflow-hidden rounded-xl border border-[var(--home-border)] bg-[var(--home-card)] p-6 transition-colors duration-200 hover:border-[var(--home-accent)]"
           >
             <div className="flex items-start justify-between gap-3">
               <h3 className="text-xl font-bold tracking-tight text-[var(--home-strong)]">
