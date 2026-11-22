@@ -1,5 +1,6 @@
 import Link from '@/components/Link'
 import NotFoundTitle from '@/components/NotFoundTitle'
+import SiteSearch from '@/components/SiteSearch'
 
 export default function NotFound() {
   return (
@@ -18,6 +19,7 @@ export default function NotFound() {
         <Link className="nf-btn" href="/blog">
           读文章
         </Link>
+        <SiteSearch variant="inline" />
       </div>
       <p className="nf-note">LEONGAO.ME / ERROR 404</p>
     </div>

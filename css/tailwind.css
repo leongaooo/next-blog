@@ -2046,6 +2046,32 @@ input:-webkit-autofill:focus {
   color: var(--cta-fg);
 }
 
+/* 404 页的站内搜索入口，外观与旁边三个按钮保持一致。 */
+.nf-actions .site-search-trigger--inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid var(--home-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--home-strong);
+  font-size: 13.5px;
+  line-height: 1;
+}
+
+.nf-actions .site-search-trigger--inline:hover {
+  border-color: var(--home-accent);
+  color: var(--home-accent);
+}
+
+.nf-actions .site-search-trigger--inline svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
 .nf-note {
   margin: 34px 0 0;
   font-family: var(--font-mono, ui-monospace, monospace);

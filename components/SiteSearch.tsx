@@ -30,7 +30,7 @@ const resultsFor = (docs: Doc[], query: string) => {
     .slice(0, 8)
 }
 
-export default function SiteSearch() {
+export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'inline' } = {}) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -92,7 +92,16 @@ export default function SiteSearch() {
 
   return (
     <>
-      <button type="button" aria-label="搜索" onClick={toggle} className="site-search-trigger">
+      <button
+        type="button"
+        aria-label="搜索站内内容"
+        onClick={toggle}
+        className={
+          variant === 'inline'
+            ? 'site-search-trigger site-search-trigger--inline'
+            : 'site-search-trigger'
+        }
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -107,6 +116,7 @@ export default function SiteSearch() {
             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
           />
         </svg>
+        {variant === 'inline' && <span>搜索站内文章</span>}
       </button>
 
       {open && (
