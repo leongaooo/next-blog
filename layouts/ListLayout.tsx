@@ -93,7 +93,7 @@ export default function ListLayout({
             <FadeInUp delay={0.2}>
               <div className="relative max-w-lg">
                 <label>
-                  <span className="sr-only">Search articles</span>
+                  <span className="sr-only">搜索文章</span>
                   <input
                     aria-label="Search articles"
                     type="text"
@@ -131,7 +131,7 @@ export default function ListLayout({
                     <HoverScale>
                       <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                         <dl>
-                          <dt className="sr-only">Published on</dt>
+                          <dt className="sr-only">发布于</dt>
                           <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
                             <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                           </dd>

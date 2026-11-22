@@ -125,15 +125,20 @@ export default function ListLayoutWithTags({
         <main className="blog-list">
           <ul>
             {displayPosts.map((post) => {
-              const { path, date, title: postTitle, summary, tags } = post
+              const { path, date, title: postTitle, summary, tags, readingTime } = post
               return (
                 <li key={path} className="blog-item">
                   <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd>
+                    <dt className="sr-only">发布于</dt>
+                    <dd className="blog-meta">
                       <time dateTime={date} className="blog-date" suppressHydrationWarning>
                         {formatDate(date, siteMetadata.locale)}
                       </time>
+                      {readingTime?.minutes ? (
+                        <span className="blog-read">
+                          · 约 {Math.max(1, Math.round(readingTime.minutes))} 分钟
+                        </span>
+                      ) : null}
                     </dd>
                   </dl>
                   <h2 className="blog-title">
