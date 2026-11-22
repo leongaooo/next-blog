@@ -78,6 +78,7 @@ const MobileNav = () => {
             <DialogPanel className="fixed top-0 left-0 z-70 h-full w-full bg-white duration-300 dark:bg-[#080c10]">
               <nav
                 ref={navRef}
+                aria-label="移动导航"
                 className="mobile-nav flex h-full flex-col items-stretch overflow-y-auto px-6 pt-16 pb-6 text-left"
               >
                 <p className="mobile-nav-kicker">MENU · leongao.me</p>

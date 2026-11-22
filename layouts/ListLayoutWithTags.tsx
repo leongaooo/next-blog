@@ -30,7 +30,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   const nextPage = currentPage + 1 <= totalPages
 
   return (
-    <nav className="blog-pager">
+    <nav aria-label="文章分页" className="blog-pager">
       {prevPage ? (
         <Link
           href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}

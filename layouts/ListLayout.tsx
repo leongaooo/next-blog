@@ -34,7 +34,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   return (
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="flex justify-between">
+      <nav aria-label="文章分页" className="flex justify-between">
         {!prevPage && (
           <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
             Previous
