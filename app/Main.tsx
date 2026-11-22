@@ -1,6 +1,8 @@
+import { Suspense } from 'react'
 import Link from '@/components/Link'
 import HeroStream from '@/components/home/HeroStream'
-import GenerativeArt from '@/components/home/GenerativeArt'
+import HeroScene from '@/components/home/HeroScene'
+import HeroSceneV2, { HeroScenePoster, HeroSceneVersion } from '@/components/home/HeroSceneV2'
 import EntryGrid from '@/components/home/EntryGrid'
 import FeaturedProjects from '@/components/home/FeaturedProjects'
 import PostsRail from '@/components/home/PostsRail'
@@ -14,18 +16,20 @@ export default function Home({ posts }) {
 
   return (
     <div className="text-[var(--home-text)]">
-      <section className="relative mt-6 overflow-hidden rounded-2xl border border-[var(--home-border)] bg-[var(--home-hero)] px-6 pt-10 pb-12 md:px-10 md:pt-14">
+      <section className="relative mt-6 overflow-hidden rounded-2xl border border-[var(--home-border)] bg-[var(--home-hero)] px-4 pt-10 pb-12 sm:px-6 md:px-10 md:pt-14">
         <div
           className="hero-grid pointer-events-none absolute inset-0 opacity-60"
           aria-hidden="true"
         />
         <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
-        <div className="relative grid grid-cols-1 items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14">
-          <div className="min-w-0">
+        <div className="hero2-layout relative grid grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:gap-14">
+          <div className="hero2-copy max-w-[560px] min-w-0">
             <HeroStream />
           </div>
-          <div className="order-first min-w-0 md:order-last">
-            <GenerativeArt />
+          <div className="hero2-view order-first min-w-0 md:order-last">
+            <Suspense fallback={<HeroScenePoster />}>
+              <HeroSceneVersion v1={<HeroScene />} v2={<HeroSceneV2 />} />
+            </Suspense>
           </div>
         </div>
 

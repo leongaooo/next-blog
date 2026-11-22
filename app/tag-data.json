@@ -1,17 +1,17 @@
 {
   "three-js": 1,
   "deployment": 1,
-  "ai": 4,
-  "engineering": 1,
+  "ai": 5,
+  "engineering": 2,
   "product": 7,
   "automation": 4,
   "aigc": 1,
   "iot": 3,
   "data": 1,
-  "frontend": 3,
+  "frontend": 4,
   "data-visualization": 1,
   "oa": 1,
-  "next-js": 2,
+  "vite": 1,
   "node-js": 1,
-  "vite": 1
+  "next-js": 2
 }

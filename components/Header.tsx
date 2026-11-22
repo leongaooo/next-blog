@@ -3,26 +3,35 @@ import headerNavLinks from '@/data/headerNavLinks'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
-import HeaderImage from './layout/HeaderImag'
+import LionMarkTrad from './layout/LionMarkTrad'
 import Link from 'next/link'
 import { SlideInFromLeft, SlideInFromRight, FadeInUp } from './animations'
 
 const Header = () => {
-  let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
+  let headerClass =
+    'relative flex items-center w-full bg-white dark:bg-gray-950 justify-between py-6 sm:py-8'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
 
   return (
     <header className={headerClass}>
+      {/* 狮纹作背景层：绝对定位，不参与布局，不撑高 Header */}
+      <div aria-hidden="true" className="lion-watermark top-1/2 left-0 -translate-y-1/2 sm:hidden">
+        <LionMarkTrad size={64} animate />
+      </div>
+      <div
+        aria-hidden="true"
+        className="lion-watermark top-1/2 -left-6 hidden -translate-y-1/2 xl:block"
+      >
+        <LionMarkTrad size={96} animate />
+      </div>
+
       <SlideInFromLeft delay={0.1}>
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex items-center justify-between">
-            <div className="mr-3">
-              <HeaderImage />
-            </div>
             {typeof siteMetadata.headerTitle === 'string' ? (
-              <div className="hidden h-6 text-2xl font-semibold sm:block">
+              <div className="hidden h-6 text-2xl font-semibold sm:block xl:pl-[104px]">
                 {siteMetadata.headerTitle}
               </div>
             ) : (

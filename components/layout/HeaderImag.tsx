@@ -1,12 +1,9 @@
-'use client'
-
-import Loin2 from '@/data/lion2.png'
-import Image from 'next/image'
+import LionMarkTrad from './LionMarkTrad'
 
 export default function HeaderImage() {
   return (
-    <>
-      <Image src={Loin2} alt="logo" width={100} className="dark:invert" />
-    </>
+    <span className="inline-block text-[#1d3f72] dark:text-[#7fe8d8]">
+      <LionMarkTrad size={96} />
+    </span>
   )
 }
