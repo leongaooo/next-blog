@@ -2488,3 +2488,35 @@ input:-webkit-autofill:focus {
     letter-spacing: 0.02em;
   }
 }
+
+/* 文章页右下角的浮动按钮：跟随站点色，触屏与鼠标都够 44px */
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--home-border);
+  border-radius: 999px;
+  background: var(--home-card);
+  color: var(--home-muted);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.dark .scroll-cue {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-cue:hover {
+  color: var(--home-strong);
+  border-color: color-mix(in srgb, var(--home-accent) 45%, transparent);
+}
+
+.scroll-cue:focus-visible {
+  outline: 2px solid var(--home-accent);
+  outline-offset: 2px;
+}

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 
 const ScrollTopAndComment = () => {
   const [show, setShow] = useState(false)
+  const [hasComment, setHasComment] = useState(false)
 
   useEffect(() => {
     const handleWindowScroll = () => {
@@ -13,6 +14,8 @@ const ScrollTopAndComment = () => {
     }
 
     window.addEventListener('scroll', handleWindowScroll)
+    // giscus 未配置时评论容器是空的，这时候不显示"跳至评论"，避免按钮点了没反应
+    setHasComment(!!document.querySelector('#comment iframe'))
     return () => window.removeEventListener('scroll', handleWindowScroll)
   }, [])
 
@@ -26,12 +29,9 @@ const ScrollTopAndComment = () => {
     <div
       className={`fixed right-8 bottom-8 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
     >
-      {siteMetadata.comments?.provider && (
-        <button
-          aria-label="Scroll To Comment"
-          onClick={handleScrollToComment}
-          className="rounded-full bg-gray-200 p-2 text-gray-500 transition-all hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
-        >
+      {siteMetadata.comments?.provider && hasComment && (
+        <button aria-label="跳至评论区" onClick={handleScrollToComment} className="scroll-cue">
+          <span className="sr-only">跳至评论区</span>
           <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path
               fillRule="evenodd"
@@ -41,11 +41,7 @@ const ScrollTopAndComment = () => {
           </svg>
         </button>
       )}
-      <button
-        aria-label="Scroll To Top"
-        onClick={handleScrollTop}
-        className="rounded-full bg-gray-200 p-2 text-gray-500 transition-all hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
-      >
+      <button aria-label="回到顶部" onClick={handleScrollTop} className="scroll-cue">
         <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path
             fillRule="evenodd"
