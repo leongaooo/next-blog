@@ -69,7 +69,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         {tocItems.length >= 3 ? (
           <>
             <nav className="post-toc post-toc-d" aria-label="本页目录">
-              <p className="post-toc-label">ON THIS PAGE · {tocItems.length}</p>
+              <p className="post-toc-label">本页目录 · {tocItems.length} 条</p>
               {renderTocList()}
             </nav>
             <details className="post-toc post-toc-m">
