@@ -8,7 +8,7 @@ import { SlideInFromLeft, SlideInFromRight, FadeInUp } from './animations'
 
 const Header = () => {
   let headerClass =
-    'relative flex items-center w-full bg-[var(--home-bg)] justify-between py-6 sm:py-8'
+    'site-header relative flex items-center w-full bg-[var(--home-bg)] justify-between py-6 sm:py-8'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <header className={headerClass}>
       <SlideInFromLeft delay={0.1}>
-        <Link href="/" aria-label={siteMetadata.headerTitle}>
+        <Link href="/" aria-label={siteMetadata.headerTitle} className="site-logo">
           <div className="flex items-center justify-between">
             {typeof siteMetadata.headerTitle === 'string' ? (
               <>

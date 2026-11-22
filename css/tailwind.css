@@ -3511,6 +3511,53 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* 768 起切回桌面导航，但 iPad 这类触屏设备仍按 44px 命中区走：
+   767 以下的图标规则覆盖不到这里，页头导航、搜索、主题切换与页脚社交图标会退回 20–28px。
+   页头上下内边距同步从 32 收到 24，整体高度与鼠标端保持接近。 */
+@media (hover: none) and (min-width: 48rem) {
+  .site-header {
+    padding-block: 24px;
+  }
+
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .nav-link {
+    min-height: 44px;
+    padding-inline: 5px;
+    margin-inline: 0;
+  }
+
+  .nav-link--on::after {
+    right: 5px;
+    bottom: 8px;
+    left: 5px;
+  }
+
+  .site-search-trigger,
+  .theme-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    margin-inline: -10px;
+  }
+
+  .site-social-icon {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .hero2-reset {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+  }
+}
 /* 移动端展开的目录条目只有 28px 高：触屏下补到 44px，两列/单列间距不变 */
 @media (hover: none) {
   .post-toc a {
