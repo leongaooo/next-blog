@@ -2044,6 +2044,20 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 手机端头部三个图标原本只有 24–32px，命中区补到 44px；负边距抵消视觉变宽 */
+@media (max-width: 767px) {
+  .site-search-trigger,
+  .theme-switch,
+  .mobile-nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    margin-inline: -6px;
+  }
+}
+
 .search-root {
   position: fixed;
   inset: 0;
