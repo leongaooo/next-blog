@@ -2966,6 +2966,7 @@ input:-webkit-autofill:focus {
 .search-item-title {
   font-size: 13.5px;
   line-height: 1.45;
+  text-wrap: balance;
   color: var(--home-strong);
 }
 
