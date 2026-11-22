@@ -69,7 +69,8 @@ export default function ListLayoutWithTags({
   const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
   const onBlogIndex = pathname === '/blog' || pathname === '/blog/'
-  const activeTag = decodeURI(pathname.split('/tags/')[1] ?? '')
+  const tagSegment = (pathname.split('/tags/')[1] ?? '').split('/')[0]
+  const activeTag = decodeURI(tagSegment)
   const isPaged = /\/blog\/page\/\d+/.test(pathname)
   const pageNo = isPaged ? Number(pathname.match(/\/page\/(\d+)/)?.[1] ?? 1) : 0
 
