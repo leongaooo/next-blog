@@ -2620,3 +2620,11 @@ input:-webkit-autofill:focus {
     min-height: 44px;
   }
 }
+
+/* 移动端展开的目录条目只有 28px 高：触屏下补到 44px，两列/单列间距不变 */
+@media (hover: none) {
+  .post-toc a {
+    min-height: 44px;
+    align-items: center;
+  }
+}
