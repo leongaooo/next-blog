@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: '高立民 · Leon Gao',
   description:
     '高立民（Leon Gao）的个人站：前端、3D 与 AI Native 交付。作品、在线演示和工程复盘都在这里，链接都能点开。',
-  language: 'zh-cn',
+  language: 'zh-CN',
   theme: 'system', // system, dark or light
   siteUrl: 'https://www.leongao.me/',
   siteRepo: 'https://github.com/leongaooo/next-blog',
@@ -25,7 +25,7 @@ const siteMetadata = {
   bluesky: 'https://bsky.app/profile/leongao.bsky.social',
   wechat: undefined, // 微信号只在 About 里以复制入口呈现，不做外链
   juejin: 'https://juejin.cn/user/3976252950591149',
-  locale: 'zh-US',
+  locale: 'zh-CN',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
   analytics: {
