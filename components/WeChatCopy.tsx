@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const WECHAT_ID = 'Mintopia_'
 
@@ -17,15 +17,20 @@ export default function WeChatCopy({
 }) {
   const ink = variant === 'ink'
   const plain = variant === 'plain'
-  const [copied, setCopied] = useState(false)
+  const [copyState, setCopyState] = useState<'idle' | 'ok' | 'fail'>('idle')
+
+  useEffect(() => {
+    if (copyState === 'idle') return
+    const timer = window.setTimeout(() => setCopyState('idle'), 2000)
+    return () => window.clearTimeout(timer)
+  }, [copyState])
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(WECHAT_ID)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
+      setCopyState('ok')
     } catch {
-      setCopied(false)
+      setCopyState('fail')
     }
   }
 
@@ -74,10 +79,14 @@ export default function WeChatCopy({
                 : 'rounded-md border border-[#0f6b5e] px-3 py-1 text-sm font-medium text-[#0f6b5e] transition-colors hover:bg-[#0f6b5e] hover:text-white dark:border-[#5be1c9] dark:text-[#5be1c9] dark:hover:bg-[#5be1c9] dark:hover:text-[#07110f]')
           }
         >
-          {copied ? '已复制' : '复制微信号'}
+          {copyState === 'ok' ? '已复制' : copyState === 'fail' ? '复制失败' : '复制微信号'}
         </button>
         <span role="status" aria-live="polite" className="sr-only">
-          {copied ? '微信号已复制到剪贴板' : ''}
+          {copyState === 'ok'
+            ? '微信号已复制到剪贴板'
+            : copyState === 'fail'
+              ? '微信号复制失败，请手动选择复制'
+              : ''}
         </span>
       </div>
       {withHint && (
