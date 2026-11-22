@@ -56,7 +56,7 @@ const MobileNav = () => {
         aria-haspopup="dialog"
         onClick={onToggleNav}
         ref={triggerRef}
-        className="mobile-nav-trigger sm:hidden"
+        className="mobile-nav-trigger md:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -103,19 +103,25 @@ const MobileNav = () => {
                 className="mobile-nav flex h-full flex-col items-stretch overflow-y-auto px-6 pt-16 pb-6 text-left"
               >
                 <p className="mobile-nav-kicker">MENU · leongao.me</p>
-                {headerNavLinks.map((link, index) => (
-                  <Link
-                    key={link.title}
-                    href={link.href}
-                    className="mobile-nav-item"
-                    aria-current={pathname === link.href ? 'page' : undefined}
-                    onClick={onToggleNav}
-                  >
-                    <span className="mobile-nav-no">{String(index + 1).padStart(2, '0')}</span>
-                    <span className="mobile-nav-title">{link.title}</span>
-                    <span className="mobile-nav-arrow">↗</span>
-                  </Link>
-                ))}
+                {headerNavLinks.map((link, index) => {
+                  const exact = pathname === link.href
+                  const inSection = exact || pathname.startsWith(`${link.href}/`)
+                  return (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className={
+                        inSection ? 'mobile-nav-item mobile-nav-item--on' : 'mobile-nav-item'
+                      }
+                      aria-current={exact ? 'page' : inSection ? 'true' : undefined}
+                      onClick={onToggleNav}
+                    >
+                      <span className="mobile-nav-no">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="mobile-nav-title">{link.title}</span>
+                      <span className="mobile-nav-arrow">↗</span>
+                    </Link>
+                  )
+                })}
                 <p className="mobile-nav-foot">自托管 · 自运维 · 高立民</p>
               </nav>
 

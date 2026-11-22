@@ -11,16 +11,21 @@ const NavLinks = () => {
     <>
       {headerNavLinks
         .filter((link) => link.href !== '/')
-        .map((link) => (
-          <Link
-            key={link.title}
-            href={link.href}
-            aria-current={pathname === link.href ? 'page' : undefined}
-            className="m-1 inline-flex min-h-6 items-center font-medium text-gray-900 transition-colors duration-200 hover:text-[var(--home-accent)] dark:text-gray-100"
-          >
-            {link.title}
-          </Link>
-        ))}
+        .map((link) => {
+          // 子页面（/blog/xxx、/tags/ai）也算在这个栏目里，不然进去就看不出自己在哪
+          const exact = pathname === link.href
+          const inSection = exact || pathname.startsWith(`${link.href}/`)
+          return (
+            <Link
+              key={link.title}
+              href={link.href}
+              aria-current={exact ? 'page' : inSection ? 'true' : undefined}
+              className={inSection ? 'nav-link nav-link--on' : 'nav-link'}
+            >
+              {link.title}
+            </Link>
+          )
+        })}
     </>
   )
 }

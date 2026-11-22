@@ -2279,6 +2279,38 @@ input:-webkit-autofill:focus {
   color: var(--home-subtle);
 }
 
+/* 页头导航：当前栏目用强调色 + 底线，进到子页也认得出自己在哪 */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  margin: 0 4px;
+  padding: 2px 0;
+  font-weight: 500;
+  color: var(--home-strong);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.nav-link:hover {
+  color: var(--home-accent);
+}
+
+.nav-link--on {
+  color: var(--home-accent);
+}
+
+.nav-link--on::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--home-accent);
+}
+
 .mobile-nav-item {
   display: flex;
   align-items: baseline;
@@ -2309,6 +2341,12 @@ input:-webkit-autofill:focus {
 
 .mobile-nav-item:active .mobile-nav-title,
 .mobile-nav-item:hover .mobile-nav-title {
+  color: var(--home-accent);
+}
+
+.mobile-nav-item--on .mobile-nav-title,
+.mobile-nav-item--on .mobile-nav-no,
+.mobile-nav-item--on .mobile-nav-arrow {
   color: var(--home-accent);
 }
 
