@@ -2545,3 +2545,14 @@ input:-webkit-autofill:focus {
     padding-block: 0;
   }
 }
+
+/* 首页内联文字链接（「全部作品 →」「源码 ↗」「关于我 →」等）行高只有 16–20px。
+   触屏下用等量负边距撑出 44px 命中区，文字位置与行距都不动。 */
+@media (hover: none) {
+  .tap-inline {
+    display: inline-block;
+    padding: 14px 6px;
+    margin: -14px -6px;
+    vertical-align: baseline;
+  }
+}

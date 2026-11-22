@@ -54,7 +54,7 @@ export default function FeaturedProjects() {
               {project.demoHref && (
                 <Link
                   href={project.demoHref}
-                  className="hover:text-accent-300 text-[var(--home-accent)]"
+                  className="tap-inline hover:text-accent-300 text-[var(--home-accent)]"
                 >
                   在线体验 →
                 </Link>
@@ -62,7 +62,7 @@ export default function FeaturedProjects() {
               {project.href && (
                 <Link
                   href={project.href}
-                  className="text-[var(--home-muted)] hover:text-[var(--home-text)]"
+                  className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-text)]"
                 >
                   源码 ↗
                 </Link>

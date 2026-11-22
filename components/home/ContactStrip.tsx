@@ -11,17 +11,20 @@ export default function ContactStrip() {
       <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
         <Link
           href={siteMetadata.github}
-          className="text-[var(--home-muted)] hover:text-[var(--home-accent)]"
+          className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-accent)]"
         >
           GitHub ↗
         </Link>
         <Link
           href={`mailto:${siteMetadata.email}`}
-          className="text-[var(--home-muted)] hover:text-[var(--home-accent)]"
+          className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-accent)]"
         >
           邮箱 ↗
         </Link>
-        <Link href="/about" className="text-[var(--home-muted)] hover:text-[var(--home-accent)]">
+        <Link
+          href="/about"
+          className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-accent)]"
+        >
           关于我 →
         </Link>
         <WeChatCopy />
