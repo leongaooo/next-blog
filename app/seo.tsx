@@ -20,7 +20,7 @@ export function genPageMetadata({
   const siteUrl = siteMetadata.siteUrl.replace(/\/$/, '')
   return {
     title,
-    alternates: canonicalPath ? { canonical: `${siteUrl}${canonicalPath}` } : undefined,
+    alternates: { canonical: canonicalPath ? `${siteUrl}${canonicalPath}` : './' },
     description: description || siteMetadata.description,
     openGraph: {
       title: `${title} | ${siteMetadata.title}`,
@@ -28,7 +28,7 @@ export function genPageMetadata({
       url: './',
       siteName: siteMetadata.title,
       images: image ? [image] : [siteMetadata.socialBanner],
-      locale: 'zh-CN',
+      locale: 'zh_CN',
       type: 'website',
     },
     twitter: {
