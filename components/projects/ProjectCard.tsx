@@ -26,7 +26,6 @@ export default function ProjectCard({ project, index, featured = false, wide = f
           <img src={project.imgSrc} alt="" loading="lazy" />
         ) : (
           <div className="proj-cover" aria-hidden="true">
-            <span className="proj-cover-no">{no}</span>
             <span className="proj-cover-ghost">{no}</span>
             <span className="proj-cover-rule" />
             {(project.coverMeta || project.stack?.length) && (

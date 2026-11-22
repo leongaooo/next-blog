@@ -1170,7 +1170,7 @@ input:-webkit-autofill:focus {
 .proj-cover {
   position: relative;
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   gap: 10px;
   height: 100%;
   padding: 18px 20px 20px;
@@ -1206,13 +1206,6 @@ input:-webkit-autofill:focus {
   pointer-events: none;
 }
 
-.proj-cover-no {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: rgba(247, 246, 241, 0.42);
-}
-
 .proj-cover-rule {
   width: 26px;
   height: 2px;
@@ -1222,6 +1215,7 @@ input:-webkit-autofill:focus {
 /* 无截图的卡片只留编号印张：标题在右侧正文里已经有了，左右重复会把权重打散 */
 
 .proj-cover-meta {
+  grid-row: 3;
   align-self: end;
   padding-top: 10px;
   border-top: 1px solid rgba(247, 246, 241, 0.14);
