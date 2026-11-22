@@ -3,6 +3,8 @@ import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allBlogs } from 'contentlayer/generated'
 import tagData from 'app/tag-data.json'
+import siteMetadata from '@/data/siteMetadata'
+import { genPageMetadata } from 'app/seo'
 import { notFound } from 'next/navigation'
 
 const POSTS_PER_PAGE = 5
@@ -16,6 +18,24 @@ export const generateStaticParams = async () => {
       tag: encodeURI(tag),
       page: (i + 1).toString(),
     }))
+  })
+}
+
+export async function generateMetadata(props: { params: Promise<{ tag: string; page: string }> }) {
+  const params = await props.params
+  const tag = decodeURI(params.tag)
+  const pageNumber = parseInt(params.page)
+  const filteredPosts = allCoreContent(
+    sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
+  )
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+
+  if (isNaN(pageNumber) || pageNumber <= 0 || pageNumber > totalPages) return {}
+
+  return genPageMetadata({
+    title: `标签 · ${tag} · 第 ${pageNumber} 页`,
+    description: `${siteMetadata.title} 上关于 ${tag} 的文章，第 ${pageNumber} 页`,
+    canonicalPath: `/tags/${encodeURI(tag)}/page/${pageNumber}`,
   })
 }
 
