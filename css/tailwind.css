@@ -2892,6 +2892,17 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 选区高亮：浏览器默认蓝 #accef7 与纸面/墨色体系冲突，换成低饱和青绿。 */
+::selection {
+  background: color-mix(in oklab, var(--home-accent) 24%, transparent);
+  color: inherit;
+}
+
+.dark ::selection {
+  background: color-mix(in oklab, var(--home-accent) 30%, transparent);
+  color: inherit;
+}
+
 /* ---------- 跳到主内容（仅键盘 Tab 时浮现） ---------- */
 .skip-link {
   position: fixed;
