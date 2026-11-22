@@ -11,6 +11,9 @@ const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
   const pathname = usePathname()
   const navRef = useRef(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const restoreRef = useRef<HTMLElement | null>(null)
 
   const onToggleNav = () => {
     setNavShow((status) => {
@@ -28,6 +31,23 @@ const MobileNav = () => {
     return clearAllBodyScrollLocks
   })
 
+  // 打开时把焦点送进面板（否则焦点留在页面背后的触发按钮上，Esc/Tab 都够不到面板），
+  // 关闭时把焦点还给触发按钮。
+  useEffect(() => {
+    if (navShow) {
+      const current = document.activeElement
+      restoreRef.current = current instanceof HTMLElement ? current : null
+      const timer = setTimeout(() => closeRef.current?.focus(), 60)
+      return () => clearTimeout(timer)
+    }
+    const target = restoreRef.current
+    if (target && target.isConnected) {
+      target.focus()
+    } else {
+      triggerRef.current?.focus()
+    }
+  }, [navShow])
+
   return (
     <>
       <button
@@ -35,6 +55,7 @@ const MobileNav = () => {
         aria-expanded={navShow}
         aria-haspopup="dialog"
         onClick={onToggleNav}
+        ref={triggerRef}
         className="mobile-nav-trigger sm:hidden"
       >
         <svg
@@ -99,6 +120,7 @@ const MobileNav = () => {
               </nav>
 
               <button
+                ref={closeRef}
                 className="fixed top-7 right-4 z-80 h-16 w-16 p-4 text-gray-900 hover:text-[var(--home-accent)] dark:text-gray-100"
                 aria-label="关闭菜单"
                 onClick={onToggleNav}
