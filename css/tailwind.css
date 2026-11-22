@@ -325,6 +325,9 @@ input:-webkit-autofill:focus {
   --home-border: rgba(15, 23, 42, 0.12);
   --home-accent: #0f6b5e;
   --home-accent-soft: #2fa79a;
+  --cta-bg: #0f6b5e;
+  --cta-fg: #ffffff;
+  --cta-bg-hover: #0b5347;
   --home-hero: #0b1017;
 }
 
@@ -338,6 +341,9 @@ input:-webkit-autofill:focus {
   --home-border: rgba(255, 255, 255, 0.1);
   --home-accent: #5be1c9;
   --home-accent-soft: #7cebd8;
+  --cta-bg: #5be1c9;
+  --cta-fg: #07110f;
+  --cta-bg-hover: #8ff0dd;
   --home-hero: #0a1116;
 }
 
@@ -987,14 +993,14 @@ input:-webkit-autofill:focus {
 }
 
 .proj-link--primary {
-  border-color: var(--home-accent);
-  background: var(--home-accent);
-  color: #ffffff;
+  border-color: var(--cta-bg);
+  background: var(--cta-bg);
+  color: var(--cta-fg);
 }
 
 .proj-link--primary:hover {
-  background: var(--home-accent-soft);
-  color: #0b1017;
+  background: var(--cta-bg-hover);
+  color: var(--cta-fg);
 }
 
 /* 主推卡：横向 */
@@ -1086,14 +1092,16 @@ input:-webkit-autofill:focus {
 }
 
 .proj-foot button:hover {
-  background: var(--home-accent);
-  color: #ffffff;
+  background: var(--cta-bg);
+  color: var(--cta-fg);
 }
 
 /* Projects 二轮：移动端密度、暗色图片压亮、键盘焦点 */
 @media (max-width: 767px) {
   .proj-stats {
-    gap: 14px 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 18px;
   }
   .proj-stats strong {
     font-size: 20px;
@@ -1292,6 +1300,7 @@ input:-webkit-autofill:focus {
   justify-content: space-between;
   gap: 8px;
   padding: 5px 0;
+  white-space: nowrap;
   font-size: 12.5px;
   letter-spacing: 0.04em;
   color: var(--home-muted);
@@ -1433,6 +1442,12 @@ input:-webkit-autofill:focus {
     gap: 18px;
     padding-bottom: 6px;
     scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+  }
+
+  .blog-nav-item {
+    flex: none;
   }
   .blog-nav ul::-webkit-scrollbar {
     display: none;
@@ -1898,18 +1913,13 @@ input:-webkit-autofill:focus {
 
 .nf-btn--primary {
   border-color: transparent;
-  background: var(--home-accent);
-  color: #fff;
+  background: var(--cta-bg);
+  color: var(--cta-fg);
 }
 
 .nf-btn--primary:hover {
-  background: #0b5347;
-  color: #fff;
-}
-
-.dark .nf-btn--primary:hover {
-  background: #8ff0dd;
-  color: #07110f;
+  background: var(--cta-bg-hover);
+  color: var(--cta-fg);
 }
 
 .nf-note {
@@ -2157,19 +2167,15 @@ input:-webkit-autofill:focus {
   margin-top: 10px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--home-accent);
+  background: var(--cta-bg);
   font-size: 12.5px;
-  color: #fff;
+  color: var(--cta-fg);
   text-decoration: none;
 }
 
 .demo-cta:hover {
-  background: #0b5347;
-}
-
-.dark .demo-cta:hover {
-  background: #8ff0dd;
-  color: #07110f;
+  background: var(--cta-bg-hover);
+  color: var(--cta-fg);
 }
 
 #access {

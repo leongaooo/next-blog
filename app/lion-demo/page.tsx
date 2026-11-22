@@ -1,7 +1,10 @@
 import { genPageMetadata } from 'app/seo'
 import LionMarkTrad from '@/components/layout/LionMarkTrad'
 
-export const metadata = genPageMetadata({ title: '狮纹标记演示' })
+export const metadata = genPageMetadata({
+  title: '狮纹标记演示',
+  robots: { index: false, follow: false },
+})
 
 const sizes = [96, 144, 216, 288]
 const inks = [
