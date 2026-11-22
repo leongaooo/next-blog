@@ -55,6 +55,7 @@ export default function FeaturedProjects() {
                 <Link
                   href={project.demoHref}
                   className="tap-inline hover:text-accent-300 text-[var(--home-accent)]"
+                  aria-label={`${project.title}：在线体验`}
                 >
                   在线体验 →
                 </Link>
@@ -63,6 +64,7 @@ export default function FeaturedProjects() {
                 <Link
                   href={project.href}
                   className="tap-inline text-[var(--home-muted)] hover:text-[var(--home-text)]"
+                  aria-label={`${project.title}：源码仓库`}
                 >
                   源码 ↗
                 </Link>
