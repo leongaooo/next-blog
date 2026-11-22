@@ -90,17 +90,23 @@ export default function ListLayoutWithTags({
     const item = aside?.querySelector('.blog-nav-item-on') as HTMLElement | null
     if (!aside || !list || !item) return
     if (list.scrollWidth <= list.clientWidth + 2) return
-    const listBox = list.getBoundingClientRect()
-    const itemBox = item.getBoundingClientRect()
-    // 居中当前标签，左右各留一点邻项，避免左边只剩一个孤零零的计数
-    const itemLeft = list.scrollLeft + itemBox.left - listBox.left
-    list.scrollLeft = Math.max(
-      0,
-      Math.min(
-        itemLeft - (list.clientWidth - itemBox.width) / 2,
-        list.scrollWidth - list.clientWidth
-      )
-    )
+
+    const align = () => {
+      if (!aside.isConnected || !item.isConnected) return
+      if (list.scrollWidth <= list.clientWidth + 2) return
+      const listBox = list.getBoundingClientRect()
+      const itemBox = item.getBoundingClientRect()
+      // 窄屏把当前标签靠左对齐：居中时左侧空间不够放完整邻项，
+      // 会只剩上一项的计数（如「1」），看起来像断掉的标签。
+      const itemLeft = list.scrollLeft + itemBox.left - listBox.left
+      list.scrollLeft = Math.max(0, Math.min(itemLeft, list.scrollWidth - list.clientWidth))
+    }
+
+    // 首次渲染时字体和标签宽度还没稳定，滚完会把当前项留在邻项计数上；
+    // 等一帧和字体就绪后再对齐一次。
+    const raf = requestAnimationFrame(align)
+    document.fonts?.ready.then(align)
+    return () => cancelAnimationFrame(raf)
   }, [pathname])
 
   return (
