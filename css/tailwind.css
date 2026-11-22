@@ -2653,6 +2653,9 @@ input:-webkit-autofill:focus {
   max-height: 52vh;
   overflow-y: auto;
   padding: 6px;
+  /* 条目多于可视高度时，底边渐隐，说明「下面还有」；内容不满时这块没有东西可淡，等于没加 */
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent 100%);
 }
 
 .search-list ul {
