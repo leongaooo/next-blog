@@ -654,9 +654,9 @@ input:-webkit-autofill:focus {
       'actions'
       'toolbar'
       'explanation'
+      'caption'
       'stage'
       'hud'
-      'caption'
       'flow'
       'terminal';
     gap: 0;
@@ -738,7 +738,7 @@ input:-webkit-autofill:focus {
     grid-area: stage;
     overflow: hidden;
     border-radius: 8px;
-    background: #080f13;
+    background: var(--h2-bg);
   }
 
   .hero2-layout .hero2-hud {
