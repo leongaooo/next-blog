@@ -37,7 +37,9 @@ export default function ProjectCard({ project, index, featured = false, wide = f
           <img src={project.imgSrc} alt="" loading="lazy" />
         ) : (
           <div className="proj-cover" aria-hidden="true">
-            <span className="proj-cover-no">{no}</span>
+            <span className="proj-cover-no" aria-hidden="true">
+              {no}
+            </span>
             <span className="proj-cover-word">{project.title}</span>
           </div>
         )}
@@ -45,7 +47,7 @@ export default function ProjectCard({ project, index, featured = false, wide = f
 
       <div className="proj-body">
         <div className="proj-meta">
-          <span>{no}</span>
+          <span aria-hidden="true">{no}</span>
           {project.year && <span>{project.year}</span>}
         </div>
 
