@@ -1531,6 +1531,16 @@ input:-webkit-autofill:focus {
 }
 
 /* 访问条件单独成行：状态徽章只说明「要不要口令」，具体代价写在这里 */
+/* 768–960 宽（iPad 竖屏）左右分栏会把「访问」那行压到 197px，
+   「不开放公开注册」被拆成「公开注 / 册」。这一档改成等宽两列，
+   代价是左栏略窄，描述本来就限制在 52ch，不会变差。 */
+@media (min-width: 48rem) and (max-width: 80rem) {
+  .demo-card--open {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 32px;
+  }
+}
+
 .demo-cond {
   display: grid;
   gap: 7px;
