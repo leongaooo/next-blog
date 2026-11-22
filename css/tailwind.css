@@ -3494,6 +3494,18 @@ input:-webkit-autofill:focus {
   inset: -4px -2px;
 }
 
+/* 栏目头右侧「全部作品 / 全部文章」视觉 16px 高，补到 24px 命中区；
+   标题行高与上下间距不变。 */
+.section-head-link {
+  position: relative;
+}
+
+.section-head-link::after {
+  content: '';
+  position: absolute;
+  inset: -4px -2px;
+}
+
 /* 首页内联文字链接（「全部作品 →」「源码 ↗」「关于我 →」等）行高只有 16–20px。
    触屏下用等量负边距撑出 44px 命中区，文字位置与行距都不动。 */
 @media (hover: none) {

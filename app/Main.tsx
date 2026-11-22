@@ -82,7 +82,7 @@ export default function Home({ posts }) {
           </h2>
           <Link
             href="/projects"
-            className="tap-inline text-xs font-medium text-[var(--home-subtle)] hover:text-[var(--home-accent)]"
+            className="section-head-link tap-inline text-xs font-medium text-[var(--home-subtle)] hover:text-[var(--home-accent)]"
           >
             全部作品 →
           </Link>
@@ -97,7 +97,7 @@ export default function Home({ posts }) {
           </h2>
           <Link
             href="/blog"
-            className="tap-inline text-xs font-medium text-[var(--home-subtle)] hover:text-[var(--home-accent)]"
+            className="section-head-link tap-inline text-xs font-medium text-[var(--home-subtle)] hover:text-[var(--home-accent)]"
           >
             全部文章 →
           </Link>
