@@ -5,7 +5,6 @@ export default function NotFound() {
   return (
     <div className="nf-page">
       <NotFoundTitle />
-      <meta name="robots" content="noindex" />
       <p className="proj-kicker">404 · NOT FOUND</p>
       <h1 className="nf-code">这一页不在了</h1>
       <p className="nf-lede">链接可能改过名，或者这条路径从来没存在过。</p>
