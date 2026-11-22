@@ -2519,6 +2519,30 @@ input:-webkit-autofill:focus {
   scroll-margin-top: 110px;
 }
 
+/* 正文标题的垂直节奏：标题上方的留白要明显大于下方，段落才不会一片平 */
+.prose h2,
+.post-copy h2 {
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.35;
+}
+
+.prose h3,
+.post-copy h3 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+/* 紧跟标题的第一段不留大段距（标题自己的 margin-bottom 已经给过） */
+.prose h2 + p,
+.prose h3 + p,
+.prose h2 + ul,
+.prose h3 + ul {
+  margin-top: 0;
+}
+
 /* ---------- 站内搜索 ---------- */
 .site-search-trigger {
   display: inline-flex;
