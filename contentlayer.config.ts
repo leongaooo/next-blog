@@ -76,7 +76,13 @@ async function createTagCount(allBlogs) {
       })
     }
   })
-  const formatted = await prettier.format(JSON.stringify(tagCount, null, 2), { parser: 'json' })
+  // 按字母序输出，否则内容层文档顺序一变就会重排键，每次构建都把 tag-data.json 弄脏
+  const sortedTagCount = Object.fromEntries(
+    Object.entries(tagCount).sort(([a], [b]) => a.localeCompare(b))
+  )
+  const formatted = await prettier.format(JSON.stringify(sortedTagCount, null, 2), {
+    parser: 'json',
+  })
   writeFileSync('./app/tag-data.json', formatted)
 }
 
