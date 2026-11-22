@@ -652,6 +652,23 @@ input:-webkit-autofill:focus {
     overflow-x: auto;
   }
 
+  /* 390 宽度下 spec→code→render→ship 一行放不下，横向滚动没有提示等于藏内容，改成换行 */
+  @media (max-width: 47.99rem) {
+    .hero2-layout .hero2-toolbar {
+      flex-wrap: wrap;
+      height: auto;
+      min-height: 30px;
+      overflow: visible;
+      padding-block: 6px;
+      row-gap: 4px;
+      white-space: normal;
+    }
+
+    .hero2-toolbar button {
+      min-height: 18px;
+    }
+  }
+
   .hero2-layout .hero2-explanation {
     grid-area: explanation;
   }
