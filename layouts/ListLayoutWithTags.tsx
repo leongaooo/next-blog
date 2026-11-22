@@ -148,32 +148,34 @@ export default function ListLayoutWithTags({
       <div className="blog-body">
         <aside className="blog-nav" aria-label="标签导航" ref={navRef}>
           <p className="blog-nav-head">TAGS · {sortedTags.length}</p>
-          <ul>
-            <li>
-              {onBlogIndex ? (
-                <span className="blog-nav-item blog-nav-item-on" aria-current="true">
-                  全部 <em>{totalPostCount ?? posts.length}</em>
-                </span>
-              ) : (
-                <Link className="blog-nav-item" href="/blog">
-                  全部 <em>{totalPostCount ?? posts.length}</em>
-                </Link>
-              )}
-            </li>
-            {sortedTags.map((t) => (
-              <li key={t}>
-                {activeTag === slug(t) ? (
+          <div className="blog-nav-scroll">
+            <ul>
+              <li>
+                {onBlogIndex ? (
                   <span className="blog-nav-item blog-nav-item-on" aria-current="true">
-                    {t} <em>{tagCounts[t]}</em>
+                    全部 <em>{totalPostCount ?? posts.length}</em>
                   </span>
                 ) : (
-                  <Link className="blog-nav-item" href={`/tags/${slug(t)}`}>
-                    {t} <em>{tagCounts[t]}</em>
+                  <Link className="blog-nav-item" href="/blog">
+                    全部 <em>{totalPostCount ?? posts.length}</em>
                   </Link>
                 )}
               </li>
-            ))}
-          </ul>
+              {sortedTags.map((t) => (
+                <li key={t}>
+                  {activeTag === slug(t) ? (
+                    <span className="blog-nav-item blog-nav-item-on" aria-current="true">
+                      {t} <em>{tagCounts[t]}</em>
+                    </span>
+                  ) : (
+                    <Link className="blog-nav-item" href={`/tags/${slug(t)}`}>
+                      {t} <em>{tagCounts[t]}</em>
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         </aside>
 
         <div className="blog-list">

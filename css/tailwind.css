@@ -2040,6 +2040,11 @@ input:-webkit-autofill:focus {
     /* 末尾标签需要足够滚动余量才能整项停在左缘，不再露出半截邻项 */
     padding-right: 100%;
     scrollbar-width: none;
+  }
+
+  /* 渐隐放在固定视口宽的包装层：挂在会横向滚动的 ul 上时，100% 会算成
+     带 padding 的整条内容宽，右缘的 48px 渐隐会被推出屏幕。 */
+  .blog-nav-scroll {
     -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
     mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
   }
