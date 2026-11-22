@@ -2709,6 +2709,11 @@ input:-webkit-autofill:focus {
   color: var(--home-muted);
 }
 
+/* 结果被截断时在底栏说明一句，别让人以为只有这些 */
+.search-foot-count {
+  color: var(--home-muted);
+}
+
 .search-foot {
   display: flex;
   gap: 14px;

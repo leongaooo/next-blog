@@ -28,17 +28,18 @@ const STATIC_PAGES: Doc[] = [
   { title: '标签索引', path: 'tags', note: '按主题找到对应的文章' },
 ]
 
+const MAX_RESULTS = 8
+
 const resultsFor = (docs: Doc[], query: string) => {
   const q = query.trim().toLowerCase()
-  if (!q) return docs.slice(0, 6)
-  return docs
-    .filter((doc) =>
-      [doc.title, doc.summary, doc.note, (doc.tags ?? []).join(' ')]
-        .join(' ')
-        .toLowerCase()
-        .includes(q)
-    )
-    .slice(0, 8)
+  if (!q) return { items: docs.slice(0, 6), total: 0 }
+  const matched = docs.filter((doc) =>
+    [doc.title, doc.summary, doc.note, (doc.tags ?? []).join(' ')]
+      .join(' ')
+      .toLowerCase()
+      .includes(q)
+  )
+  return { items: matched.slice(0, MAX_RESULTS), total: matched.length }
 }
 
 export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'inline' } = {}) {
@@ -51,6 +52,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
   const dialogRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const restoreRef = useRef<Element | null>(null)
+  const listRef = useRef<HTMLUListElement>(null)
 
   const load = useCallback(async () => {
     if (docs.length) return
@@ -128,7 +130,14 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
     return () => window.removeEventListener('keydown', onTab)
   }, [open])
 
-  const results = useMemo(() => resultsFor(docs, query), [docs, query])
+  const { items: results, total } = useMemo(() => resultsFor(docs, query), [docs, query])
+
+  // 键盘翻到列表下方的条目时，把它滚进可视区，不然高亮会落在看不见的地方
+  useEffect(() => {
+    if (!open) return
+    const item = listRef.current?.children[active] as HTMLElement | undefined
+    item?.scrollIntoView({ block: 'nearest' })
+  }, [active, open])
 
   const go = (doc?: Doc) => {
     if (!doc?.path) return
@@ -219,7 +228,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
 
             <p className="sr-only" role="status" aria-live="polite">
               {query.trim()
-                ? `搜索「${query.trim()}」得到 ${results.length} 条结果`
+                ? `搜索「${query.trim()}」得到 ${total} 条结果`
                 : `${results.length} 条建议`}
             </p>
 
@@ -227,7 +236,7 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
               {results.length === 0 ? (
                 <p className="search-empty">没有匹配的内容。换个词，或者去文章列表翻。</p>
               ) : (
-                <ul>
+                <ul ref={listRef}>
                   {results.map((doc, index) => (
                     <li key={doc.path}>
                       <button
@@ -253,6 +262,11 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
             </div>
 
             <div className="search-foot">
+              {total > results.length ? (
+                <span className="search-foot-count">
+                  共 {total} 条 · 只列前 {results.length}
+                </span>
+              ) : null}
               <span>↑↓ 选择</span>
               <span>↵ 打开</span>
               <span>⌘K 开关</span>
