@@ -3016,6 +3016,9 @@ input:-webkit-autofill:focus {
 }
 
 .search-empty-acts .search-note-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 12.5px;
 }
 
