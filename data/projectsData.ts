@@ -7,6 +7,7 @@ export interface Project {
   stack?: string[]
   highlight?: string
   year?: string
+  caseHref?: string
 }
 
 const projectsData: Project[] = [
@@ -26,6 +27,7 @@ const projectsData: Project[] = [
     href: 'https://github.com/leongaooo/obscura-ocr',
     stack: ['PaddleOCR', 'systemd', 'HTTP API'],
     highlight: '把 OCR 能力做成可控、可交付的在线工作台。',
+    caseHref: '/blog/agent-delivered-gate-service',
   },
   {
     title: 'cesium-kit',

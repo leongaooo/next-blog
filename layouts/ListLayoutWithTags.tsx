@@ -69,15 +69,25 @@ export default function ListLayoutWithTags({
   const activeTag = decodeURI(pathname.split('/tags/')[1] ?? '')
   const isPaged = /\/blog\/page\/\d+/.test(pathname)
 
-  const kicker = isPaged ? 'WRITING · ARCHIVE' : onBlogIndex ? 'WRITING · 长期记录' : 'WRITING'
+  const kicker = isPaged
+    ? 'WRITING · ARCHIVE'
+    : onBlogIndex
+      ? 'WRITING · 长期记录'
+      : activeTag
+        ? `TAGGED · ${posts.length} 篇`
+        : 'WRITING'
 
   return (
     <div className="blog-page">
       <section className="blog-hero">
         <p className="proj-kicker">{kicker}</p>
-        <h1 className="proj-h1">{onBlogIndex || isPaged ? '文章' : title}</h1>
+        <h1 className="proj-h1">
+          {onBlogIndex || isPaged ? '文章' : activeTag ? `#${activeTag}` : title}
+        </h1>
         <p className="proj-lede">
-          写工程取舍、交付复盘和踩过的坑。先在本地跑通，再写成一页能被人验证的记录。
+          {activeTag
+            ? `按 #${activeTag} 归档的文章。`
+            : '写工程取舍、交付复盘和踩过的坑。先在本地跑通，再写成一页能被人验证的记录。'}
         </p>
       </section>
 
@@ -92,7 +102,7 @@ export default function ListLayoutWithTags({
                 </span>
               ) : (
                 <Link className="blog-nav-item" href="/blog">
-                  全部 <em>{posts.length}</em>
+                  全部 <em>{onBlogIndex || isPaged ? posts.length : ''}</em>
                 </Link>
               )}
             </li>

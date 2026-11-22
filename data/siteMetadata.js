@@ -1,10 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'LeonGao | leongaooo | 高立民 | 博客',
+  title: '高立民 Leon Gao | 前端工程师 · AI Native',
   author: 'LeonGao',
-  headerTitle: 'LeonGao‘s Blog | 高立民的博客',
+  headerTitle: '高立民 · Leon Gao',
   description:
-    'LeonGao‘s Blog | 高立民的博客 | 个人知识分享 | 成长与生活 | 全栈工程师 | 个人作品分享 | 前端开发 | Nextjs, Vue, React',
+    '高立民（Leon Gao）的个人站：前端、3D 与 AI Native 交付。作品、在线演示和工程复盘都在这里，链接都能点开。',
   language: 'zh-cn',
   theme: 'system', // system, dark or light
   siteUrl: 'https://www.leongao.me/',

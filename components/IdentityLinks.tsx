@@ -10,9 +10,6 @@ const IdentityLinks = () => (
     <Link href={siteMetadata.github} className="hover:text-[var(--home-accent)]">
       GitHub ↗
     </Link>
-    <Link href={siteMetadata.siteUrl} className="hover:text-[var(--home-accent)]">
-      个人站 ↗
-    </Link>
     <Link href={`mailto:${siteMetadata.email}`} className="hover:text-[var(--home-accent)]">
       邮箱 ↗
     </Link>

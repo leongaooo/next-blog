@@ -47,11 +47,16 @@ export default function DemoPage() {
             <h2 className="demo-title">{demo.title}</h2>
             <p className="demo-desc">{demo.description}</p>
             <p className="demo-instruction">{demo.instruction}</p>
+            {demo.live ? (
+              <Link href="#access" className="demo-cta">
+                申请入口 ↓
+              </Link>
+            ) : null}
           </article>
         ))}
       </section>
 
-      <section className="demo-pass">
+      <section className="demo-pass" id="access">
         <div className="demo-pass-text">
           <p className="demo-pass-kicker">怎么拿到入口</p>
           <h2>口令按需生成，不公开挂在网上</h2>

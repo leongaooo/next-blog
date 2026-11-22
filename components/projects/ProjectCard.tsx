@@ -63,6 +63,11 @@ export default function ProjectCard({ project, index, featured = false, wide = f
               源码 <span aria-hidden="true">↗</span>
             </a>
           )}
+          {project.caseHref && (
+            <a className="proj-link" href={project.caseHref}>
+              复盘 <span aria-hidden="true">→</span>
+            </a>
+          )}
         </div>
       </div>
     </article>

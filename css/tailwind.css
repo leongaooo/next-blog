@@ -1499,8 +1499,19 @@ input:-webkit-autofill:focus {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0 2px;
-  margin: 12px 0 0;
+  gap: 6px;
+  margin: 14px 0 0;
+}
+
+.about-icons > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-icons svg {
+  width: 26px;
+  height: 26px;
 }
 
 .about-links {
@@ -2138,4 +2149,29 @@ input:-webkit-autofill:focus {
 
 .site-footer-note a:hover {
   color: var(--home-accent);
+}
+
+.demo-cta {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--home-accent);
+  font-size: 12.5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.demo-cta:hover {
+  background: #0b5347;
+}
+
+.dark .demo-cta:hover {
+  background: #8ff0dd;
+  color: #07110f;
+}
+
+#access {
+  scroll-margin-top: 110px;
 }
