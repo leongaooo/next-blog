@@ -20,7 +20,18 @@ export default function ProjectCard({ project, index, featured = false, wide = f
         .filter(Boolean)
         .join(' ')}
     >
-      <div className="proj-media">
+      <div
+        className={project.imgSrc ? 'proj-media proj-media--img' : 'proj-media'}
+        style={
+          project.imgSrc
+            ? {
+                backgroundImage: `url(${project.imgSrc})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }
+            : undefined
+        }
+      >
         {project.imgSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={project.imgSrc} alt="" loading="lazy" />

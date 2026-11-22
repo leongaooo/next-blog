@@ -1049,6 +1049,24 @@ input:-webkit-autofill:focus {
 .proj-card--wide .proj-media {
   aspect-ratio: auto;
   min-height: 272px;
+  isolation: isolate;
+}
+
+/* 主推卡媒体区是近似方形的，宽幅横图（如 2:1 的品牌横幅）用 cover 会把标题文字裁掉。
+   改为：同一张图做磨砂底（铺满），上层 contain 完整显示原图。 */
+.proj-card--wide .proj-media--img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 16, 23, 0.45);
+  -webkit-backdrop-filter: blur(18px) saturate(0.85);
+  backdrop-filter: blur(18px) saturate(0.85);
+}
+
+.proj-card--wide .proj-media--img img {
+  position: relative;
+  z-index: 1;
+  object-fit: contain;
 }
 
 .proj-card--wide .proj-body {
