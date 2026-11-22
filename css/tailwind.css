@@ -2398,11 +2398,24 @@ input:-webkit-autofill:focus {
 .search-input {
   flex: 1;
   min-width: 0;
+  padding: 6px 8px;
   border: 0;
+  border-radius: 8px;
   background: transparent;
   font-size: 14.5px;
   color: var(--home-strong);
   outline: none;
+}
+
+/* @tailwindcss/forms 的基样式会给输入框套一圈 Tailwind 蓝 ring（1px oklch 蓝 +
+   蓝色 border-color），和站点青绿强调色冲突。这里改回站内色：内缩 2px 的描边
+   落在 8px 内边距里，文字不会贴到描边上。 */
+.search-input:focus,
+.search-input:focus-visible {
+  border-color: transparent;
+  box-shadow: none;
+  outline: 2px solid var(--home-accent);
+  outline-offset: -2px;
 }
 
 .search-input::placeholder {
