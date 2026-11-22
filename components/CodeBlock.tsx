@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- 横向滚动的代码块需要键盘焦点 */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
@@ -49,7 +50,12 @@ export default function CodeBlock({ children }: Props) {
   return (
     <div className="code-block">
       <div className="code-pre">
-        <pre ref={preRef} onScroll={measure}>
+        <pre
+          ref={preRef}
+          onScroll={measure}
+          tabIndex={overflow ? 0 : undefined}
+          aria-label={overflow ? '代码块，可横向滚动查看完整内容' : undefined}
+        >
           {children}
         </pre>
         {overflow && !atEnd ? <span className="code-fade" aria-hidden="true" /> : null}
