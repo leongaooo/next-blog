@@ -2572,3 +2572,13 @@ input:-webkit-autofill:focus {
     min-height: 44px;
   }
 }
+
+/* 首屏两个胶囊按钮在触屏上只有 40 / 42px 高：补到 44px，文字仍居中。 */
+@media (hover: none) {
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+  }
+}
