@@ -2,6 +2,8 @@ export interface Project {
   title: string
   /** 卡片角标：显式写 LIVE / LIB 才显示；只有 demoHref 时卡片默认标 DEMO。 */
   badge?: string
+  /** 卡片主按钮文案：默认「在线体验」，口令制入口写「申请口令」，直连实例写「打开演示」。 */
+  demoLabel?: string
   description: string
   href?: string
   demoHref?: string
@@ -24,7 +26,8 @@ const projectsData: Project[] = [
     demoHref: 'http://154.8.178.202/ai-graph/',
     imgSrc: '/static/images/ai-graph-scene.svg',
     stack: ['JavaScript'],
-    badge: 'LIVE',
+    badge: 'DEMO',
+    demoLabel: '打开演示',
     highlight: '同一份 Brief + seed 可复现，重叠与裁切在出图前就被门禁拦下。',
     caseHref: '/projects/ai-graph',
     caseLabel: '成果页',
@@ -42,6 +45,8 @@ const projectsData: Project[] = [
     title: 'obscura-ocr',
     description: `PaddleOCR 工作台，自托管部署、口令制访问。演示入口与当日口令请加微信 Mintopia_ 获取。`,
     demoHref: '/demo',
+    badge: '口令',
+    demoLabel: '申请口令',
     href: 'https://github.com/leongaooo/obscura-ocr',
     stack: ['PaddleOCR', 'systemd', 'HTTP API'],
     highlight: '把 OCR 能力做成可控、可交付的在线工作台。',

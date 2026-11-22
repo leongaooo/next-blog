@@ -45,7 +45,7 @@ export default function ProjectCard({ project, index, featured = false, wide = f
           {project.year && <span>{project.year}</span>}
           {(project.demoHref || project.badge) && (
             <span className="proj-badge font-mono text-[10px] tracking-wider">
-              {/* 有链接只说明入口存在，不能替服务健康背书；LIVE 只在数据里显式标注时出现 */}
+              {/* 角标只写入口类型（DEMO / 口令），不替服务健康背书 */}
               {project.badge ?? (project.demoHref ? 'DEMO' : null)}
             </span>
           )}
@@ -70,9 +70,9 @@ export default function ProjectCard({ project, index, featured = false, wide = f
             <a
               className="proj-link proj-link--primary"
               href={project.demoHref}
-              aria-label={`${project.title}：在线体验`}
+              aria-label={`${project.title}：${project.demoLabel ?? '在线体验'}`}
             >
-              在线体验 <span aria-hidden="true">↗</span>
+              {project.demoLabel ?? '在线体验'} <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.href && (
