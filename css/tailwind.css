@@ -482,6 +482,14 @@ input:-webkit-autofill:focus {
   color: #8ff2df;
 }
 
+/* 自动轮播开关与「换一版」同属一组：窄屏换行时不会各自散开 */
+.hero2-scene-switch {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  margin-inline-start: auto;
+}
+
 .hero2-step {
   gap: 3px;
   height: 100%;

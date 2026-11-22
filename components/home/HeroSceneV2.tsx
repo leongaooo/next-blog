@@ -37,6 +37,7 @@ const MAX_SEGMENTS = Math.max(
 const AZIMUTH = Math.atan2(0.55, 0.68)
 const ELEVATION = (38 * Math.PI) / 180
 const ORBIT_STEP = Math.PI / 12
+const AUTO_HOLD_MS = 16_000
 
 const pointVertex = `
   attribute vec4 aVisual;
@@ -197,7 +198,8 @@ function createScene(
   context: WebGL2RenderingContext,
   publish: (hud: Hud) => void,
   onFirstFrame: () => void,
-  onLost: () => void
+  onLost: () => void,
+  onCycle: () => void
 ) {
   const renderer = new THREE.WebGLRenderer({ canvas, context, antialias: true, alpha: false })
   const scene = new THREE.Scene()
@@ -610,7 +612,10 @@ function createScene(
     const previousStage = machine.nodes[machine.stage]
     const previousState = previousStage.state
     const previousRetry = machine.retry
+    const previousRunAt = machine.runAt
     advanceInferenceMachine(spec, machine, time)
+    // runAt 前进 = 上一轮生命周期结束、新一轮从 0 开始：自动轮播在这里换下一版
+    if (machine.runAt !== previousRunAt) onCycle()
 
     const hoverBefore = hover
     const nextHover = pointer && !drag?.moved ? pickNode(pointer.x, pointer.y) : -1
@@ -902,7 +907,31 @@ export default function HeroSceneV2() {
   const [hud, setHud] = useState<Hud | null>(null)
   const [hinted, setHinted] = useState(true)
   const [panel, setPanel] = useState<number | 'why' | null>(null)
+  const [auto, setAuto] = useState(true)
+  const autoRef = useRef(true)
+  const advanceRef = useRef<() => void>(() => {})
+  const holdUntilRef = useRef(0)
   const spec = INFERENCE_SPECS[index]
+
+  // 减少动效偏好：默认不自动轮播，仍保留手动「换一版」
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (query.matches) setAuto(false)
+    const onChange = () => {
+      if (query.matches) setAuto(false)
+    }
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    autoRef.current = auto
+  }, [auto])
+
+  // 用户自己操作过（拖拽/缩放/键盘/复位/手动换版）就让自动轮播等一会儿，别把人拽走
+  function holdAuto() {
+    holdUntilRef.current = Date.now() + AUTO_HOLD_MS
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -927,7 +956,12 @@ export default function HeroSceneV2() {
           context,
           setHud,
           () => setReady(true),
-          () => setFallback(true)
+          () => setFallback(true),
+          () => {
+            if (!autoRef.current) return
+            if (Date.now() < holdUntilRef.current) return
+            advanceRef.current()
+          }
         )
         engineRef.current = engine
       })
@@ -941,13 +975,17 @@ export default function HeroSceneV2() {
     }
   }, [])
 
-  function switchScene() {
+  function switchScene(fromAuto = false) {
     const next = (index + 1) % INFERENCE_SPECS.length
     engineRef.current?.setScene(next)
     setIndex(next)
     setHud(null)
     setHinted(true)
+    // 自动切换紧接着下一轮，手动切换先让人看 16 秒
+    holdUntilRef.current = fromAuto ? 0 : Date.now() + AUTO_HOLD_MS
   }
+
+  advanceRef.current = () => switchScene(true)
 
   function togglePanel(next: typeof panel) {
     setPanel(panel === next ? null : next)
@@ -974,9 +1012,24 @@ export default function HeroSceneV2() {
           why this
         </button>
         {!fallback && (
-          <button type="button" onClick={switchScene} disabled={!ready} aria-label="切换推理场景">
-            换一版
-          </button>
+          <div className="hero2-scene-switch">
+            <button
+              type="button"
+              onClick={() => setAuto((value) => !value)}
+              aria-pressed={auto}
+              aria-label={auto ? '暂停自动轮播' : '继续自动轮播'}
+            >
+              {auto ? '自动 ●' : '自动 ○'}
+            </button>
+            <button
+              type="button"
+              onClick={() => switchScene()}
+              disabled={!ready}
+              aria-label="切换推理场景"
+            >
+              换一版
+            </button>
+          </div>
         )}
       </div>
       {panel !== null && (
@@ -997,7 +1050,8 @@ export default function HeroSceneV2() {
         {!fallback && (
           <span>
             {spec.label}
-            {spec.connections && hud ? ' · 固定 ' + hud.pins + '/' + PIN_LIMIT : ''}
+            {spec.connections && hud ? ' · 固定 ' + hud.pins + '/' + PIN_LIMIT : ''} · {index + 1}/
+            {INFERENCE_SPECS.length}
           </span>
         )}
       </div>
@@ -1005,6 +1059,11 @@ export default function HeroSceneV2() {
         <p className="hero2-flow">
           throughput {hud ? hud.throughput.toFixed(1) + '/s' : '—'} · backpressure{' '}
           {hud ? hud.backpressure.toFixed(2) : '—'} · 示意数据
+        </p>
+      )}
+      {!fallback && (
+        <p className="sr-only" aria-live="polite">
+          {auto ? '自动轮播中，当前第 ' + (index + 1) + ' 版：' + spec.label : ''}
         </p>
       )}
       <div className="hero2-stage">
@@ -1023,6 +1082,7 @@ export default function HeroSceneV2() {
             onClick={() => {
               engineRef.current?.resetCamera()
               setHinted(true)
+              holdAuto()
             }}
             aria-label="复位视角"
           >
@@ -1031,8 +1091,14 @@ export default function HeroSceneV2() {
         )}
         <canvas
           ref={canvasRef}
-          onPointerDown={() => setHinted(false)}
-          onWheel={() => setHinted(false)}
+          onPointerDown={() => {
+            setHinted(false)
+            holdAuto()
+          }}
+          onWheel={() => {
+            setHinted(false)
+            holdAuto()
+          }}
           className="hero2-canvas"
           data-ready={ready && !fallback}
           aria-hidden={!ready || fallback}
