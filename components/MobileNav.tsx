@@ -29,7 +29,9 @@ const MobileNav = () => {
   return (
     <>
       <button
-        aria-label="Toggle Menu"
+        aria-label={navShow ? '关闭菜单' : '打开菜单'}
+        aria-expanded={navShow}
+        aria-haspopup="dialog"
         onClick={onToggleNav}
         className="mobile-nav-trigger sm:hidden"
       >
@@ -94,7 +96,7 @@ const MobileNav = () => {
 
               <button
                 className="fixed top-7 right-4 z-80 h-16 w-16 p-4 text-gray-900 hover:text-[var(--home-accent)] dark:text-gray-100"
-                aria-label="Toggle Menu"
+                aria-label="关闭菜单"
                 onClick={onToggleNav}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
