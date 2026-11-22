@@ -4,7 +4,11 @@ import { allBlogs } from 'contentlayer/generated'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
 
-export const metadata = genPageMetadata({ title: '标签', description: '按标签浏览文章' })
+export const metadata = genPageMetadata({
+  title: '标签',
+  description: '按标签浏览文章',
+  canonicalPath: '/tags',
+})
 
 export default async function Page() {
   const tagCounts = tagData as Record<string, number>

@@ -44,6 +44,7 @@ export async function generateMetadata(props: {
     imageList = typeof post.images === 'string' ? [post.images] : post.images
   }
   const siteBase = siteMetadata.siteUrl.replace(/\/+$/, '')
+  const canonicalUrl = `${siteBase}/${post.path.replace(/^\/+/, '')}`
   const ogImages = imageList.map((img) => {
     const url = img && img.includes('http') ? img : `${siteBase}${img}`
     const isBanner = img === siteMetadata.socialBanner
@@ -59,6 +60,7 @@ export async function generateMetadata(props: {
   return {
     title: post.title,
     description: post.summary,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: post.title,
       description: post.summary,
@@ -67,7 +69,7 @@ export async function generateMetadata(props: {
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
-      url: './',
+      url: canonicalUrl,
       images: ogImages,
       authors: authors.length > 0 ? authors : [siteMetadata.author],
     },
@@ -77,9 +79,9 @@ export async function generateMetadata(props: {
       creator: '@Leongaooo',
       title: post.title,
       description: post.summary,
-      images: imageList.map((img) => ({
-        url: img,
-        alt: `${siteMetadata.headerTitle}｜${post.title}`,
+      images: ogImages.map((img) => ({
+        url: img.url,
+        alt: img.alt,
       })),
     },
   }

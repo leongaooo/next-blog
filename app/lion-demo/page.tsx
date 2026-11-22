@@ -3,6 +3,7 @@ import LionMarkTrad from '@/components/layout/LionMarkTrad'
 
 export const metadata = genPageMetadata({
   title: '狮纹标记演示',
+  canonicalPath: '/lion-demo',
   robots: { index: false, follow: false },
 })
 

@@ -17,6 +17,7 @@ export async function generateMetadata(props: {
   return genPageMetadata({
     title: `标签 · ${tag}`,
     description: `${siteMetadata.title} 上关于 ${tag} 的文章`,
+    canonicalPath: `/tags/${tag}`,
     alternates: {
       canonical: './',
       types: {

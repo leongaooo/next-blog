@@ -3,7 +3,7 @@ import { genPageMetadata } from 'app/seo'
 import WeChatCopy from '@/components/WeChatCopy'
 import siteMetadata from '@/data/siteMetadata'
 
-export const metadata = genPageMetadata({ title: '在线演示' })
+export const metadata = genPageMetadata({ title: '在线演示', canonicalPath: '/demo' })
 
 const demos = [
   {

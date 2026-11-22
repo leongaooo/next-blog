@@ -17,7 +17,10 @@ export function genPageMetadata({
   canonicalPath,
   ...rest
 }: PageSEOProps): Metadata {
-  const siteUrl = siteMetadata.siteUrl.replace(/\/$/, '')
+  const siteUrl = siteMetadata.siteUrl.replace(/\/+$/, '')
+  const canonicalUrl = canonicalPath
+    ? `${siteUrl}${canonicalPath.startsWith('/') ? '' : '/'}${canonicalPath}`
+    : siteUrl
   const bannerAlt = `${siteMetadata.headerTitle}｜${siteMetadata.description}`
   const ogImages = image
     ? [{ url: image, alt: `${title} | ${siteMetadata.headerTitle}` }]
@@ -31,12 +34,12 @@ export function genPageMetadata({
       ]
   return {
     title,
-    alternates: { canonical: canonicalPath ? `${siteUrl}${canonicalPath}` : './' },
+    alternates: { canonical: canonicalUrl },
     description: description || siteMetadata.description,
     openGraph: {
       title: `${title} | ${siteMetadata.title}`,
       description: description || siteMetadata.description,
-      url: './',
+      url: canonicalUrl,
       siteName: siteMetadata.title,
       images: ogImages,
       locale: 'zh_CN',

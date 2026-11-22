@@ -4,7 +4,7 @@ import WeChatCopy from '@/components/WeChatCopy'
 import { genPageMetadata } from 'app/seo'
 import LionMarkTrad from '@/components/layout/LionMarkTrad'
 
-export const metadata = genPageMetadata({ title: '作品与服务交付' })
+export const metadata = genPageMetadata({ title: '作品与服务交付', canonicalPath: '/projects' })
 
 export default function Projects() {
   const featured = projectsData.filter((p) => FEATURED_PROJECTS.includes(p.title))

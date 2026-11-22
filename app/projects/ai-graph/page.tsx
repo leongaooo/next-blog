@@ -5,6 +5,7 @@ export const metadata = genPageMetadata({
   title: 'ai-graph：把文案画成可复现的插画',
   description:
     'ai-graph 用脚本把一段 Brief 渲染成静态 SVG 场景：纸白、墨、青绿、琥珀六色，−30°/−15° 轴测，纸底加六层合成，同一 seed 重跑逐字节一致。',
+  canonicalPath: '/projects/ai-graph',
 })
 
 const SCENES = [
