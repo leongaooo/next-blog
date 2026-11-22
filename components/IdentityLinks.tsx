@@ -7,10 +7,13 @@ const IdentityLinks = () => (
     aria-label="个人链接"
     className="flex flex-col items-start gap-y-2 text-[13px] text-[var(--home-muted)]"
   >
-    <Link href={siteMetadata.github} className="hover:text-[var(--home-accent)]">
+    <Link href={siteMetadata.github} className="tap-stack hover:text-[var(--home-accent)]">
       GitHub ↗
     </Link>
-    <Link href={`mailto:${siteMetadata.email}`} className="hover:text-[var(--home-accent)]">
+    <Link
+      href={`mailto:${siteMetadata.email}`}
+      className="tap-stack hover:text-[var(--home-accent)]"
+    >
       邮箱 ↗
     </Link>
     <WeChatCopy variant="plain" />

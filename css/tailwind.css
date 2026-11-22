@@ -2582,3 +2582,22 @@ input:-webkit-autofill:focus {
     min-height: 44px;
   }
 }
+
+/* 非首页的文字链接同样只有 20px 高：博客分页、demo 邮件入口、关于页外链。
+   触屏下统一抬到 44px 高，宽度本来就够，不改字号与颜色。 */
+@media (hover: none) {
+  .blog-pager a,
+  .demo-mail {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .tap-stack {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 3px;
+    margin-inline: -3px;
+  }
+}
