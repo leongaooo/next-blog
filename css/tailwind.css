@@ -216,18 +216,14 @@ input:-webkit-autofill:focus {
 @layer components {
   .hero-grid {
     background-image:
-      linear-gradient(to right, rgba(154, 164, 178, 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(154, 164, 178, 0.08) 1px, transparent 1px);
+      linear-gradient(to right, var(--home-hero-grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--home-hero-grid) 1px, transparent 1px);
     background-size: 40px 40px;
     background-position: center;
   }
 
   .hero-glow {
-    background: radial-gradient(
-      ellipse 60% 50% at 20% 0%,
-      rgba(91, 225, 201, 0.14),
-      transparent 70%
-    );
+    background: radial-gradient(ellipse 60% 50% at 20% 0%, var(--home-hero-glow), transparent 70%);
   }
 
   .stream-caret {
@@ -358,7 +354,9 @@ input:-webkit-autofill:focus {
   --cta-bg: #0f6b5e;
   --cta-fg: #ffffff;
   --cta-bg-hover: #0b5347;
-  --home-hero: #0b1017;
+  --home-hero: #f6f8f6;
+  --home-hero-grid: rgba(15, 107, 94, 0.09);
+  --home-hero-glow: rgba(47, 167, 154, 0.16);
 }
 
 .dark {
@@ -375,6 +373,8 @@ input:-webkit-autofill:focus {
   --cta-fg: #07110f;
   --cta-bg-hover: #8ff0dd;
   --home-hero: #0a1116;
+  --home-hero-grid: rgba(154, 164, 178, 0.08);
+  --home-hero-glow: rgba(91, 225, 201, 0.14);
 }
 
 /* 无障碍：用户要求减少动效时，入场动画直接呈现终态，避免内容长时间半透明 */

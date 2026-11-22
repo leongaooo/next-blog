@@ -46,21 +46,21 @@ export default function HeroStream() {
 
   return (
     <div className="relative">
-      <p className="text-accent-500 font-mono text-[11px] tracking-[0.22em] uppercase">
+      <p className="font-mono text-[11px] tracking-[0.22em] text-[var(--home-accent)] uppercase">
         AI Native · Design Engineer
       </p>
 
-      <h1 className="text-mist-100 mt-4 text-[1.7rem] leading-[1.16] font-extrabold tracking-tight sm:text-5xl sm:leading-[1.08] md:text-[clamp(2.7rem,4.1vw,3.9rem)]">
+      <h1 className="mt-4 text-[1.7rem] leading-[1.16] font-extrabold tracking-tight text-[var(--home-strong)] sm:text-5xl sm:leading-[1.08] md:text-[clamp(2.7rem,4.1vw,3.9rem)]">
         把设计意图，
         <br />
         <span>
           直接变成
           <br className="hidden xl:inline" />
-          <span className="text-accent-400">能跑的东西</span>。
+          <span className="text-[var(--home-accent)]">能跑的东西</span>。
         </span>
       </h1>
 
-      <p className="text-mist-400 mt-5 max-w-xl text-base leading-7">
+      <p className="mt-5 max-w-xl text-base leading-7 text-[var(--home-muted)]">
         前端体验、3D 交互、AI 编排、自运维交付 —— 从画出来到跑起来，一个人闭环。
       </p>
 
@@ -115,13 +115,13 @@ export default function HeroStream() {
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <Link
           href="/projects"
-          className="hero-cta bg-accent-500 text-ink-950 hover:bg-accent-400 rounded-full px-6 py-2.5 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+          className="hero-cta rounded-full bg-[var(--cta-bg)] px-6 py-2.5 text-sm font-semibold text-[var(--cta-fg)] transition-transform hover:-translate-y-0.5"
         >
           进入作品墙 →
         </Link>
         <Link
           href="/demo"
-          className="hero-cta text-mist-200 hover:border-accent-500 hover:text-accent-400 rounded-full border border-white/15 px-6 py-2.5 text-sm font-medium transition-colors"
+          className="hero-cta rounded-full border border-[var(--home-border)] px-6 py-2.5 text-sm font-medium text-[var(--home-text)] transition-colors hover:border-[var(--home-accent)] hover:text-[var(--home-accent)]"
         >
           看在线 Demo
         </Link>

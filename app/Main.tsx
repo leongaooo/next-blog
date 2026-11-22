@@ -33,7 +33,7 @@ export default function Home({ posts }) {
           </div>
         </div>
 
-        <dl className="border-mist-100 relative mt-10 grid grid-cols-2 gap-4 border-t pt-6 md:grid-cols-4">
+        <dl className="relative mt-10 grid grid-cols-2 gap-4 border-t border-[var(--home-border)] pt-6 md:grid-cols-4">
           {[
             ['交付形态', '静态构建 + SSR'],
             ['首屏脚本', 'SSR 直出'],
@@ -44,7 +44,7 @@ export default function Home({ posts }) {
               <dt className="text-mist-500 font-mono text-[10px] tracking-[0.18em] uppercase">
                 {k}
               </dt>
-              <dd className="text-mist-100 mt-1 text-[13px] font-medium">{v}</dd>
+              <dd className="mt-1 text-[13px] font-medium text-[var(--home-strong)]">{v}</dd>
             </div>
           ))}
         </dl>
