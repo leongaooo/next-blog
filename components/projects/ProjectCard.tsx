@@ -23,7 +23,7 @@ export default function ProjectCard({ project, index, featured = false, wide = f
       <div className={project.imgSrc ? 'proj-media proj-media--img' : 'proj-media'}>
         {project.imgSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.imgSrc} alt="" loading="lazy" />
+          <img src={project.imgSrc} alt={project.imgAlt ?? ''} loading="lazy" />
         ) : (
           <div className="proj-cover" aria-hidden="true">
             <span className="proj-cover-ghost">{no}</span>
