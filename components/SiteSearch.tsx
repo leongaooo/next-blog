@@ -348,8 +348,14 @@ export default function SiteSearch({ variant = 'icon' }: { variant?: 'icon' | 'i
                 </span>
               ) : null}
               <span className="search-foot-hints">
-                <span>↑↓ 选择</span>
-                <span>↵ 打开</span>
+                {results.length > 0 ? (
+                  <>
+                    <span>↑↓ 选择</span>
+                    <span>↵ 打开</span>
+                  </>
+                ) : (
+                  <span>Esc 关闭</span>
+                )}
                 <span>⌘K 开关</span>
               </span>
             </div>
