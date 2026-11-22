@@ -2,15 +2,7 @@
 
 import { Fragment, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Radio,
-  RadioGroup,
-  Transition,
-} from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 
 const Sun = () => (
   <svg
@@ -78,57 +70,38 @@ const ThemeSwitch = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="ring-opacity-5 absolute right-0 z-50 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md border border-[var(--home-border)] bg-[var(--home-bg)] shadow-lg ring-1 ring-black/5 focus:outline-hidden">
-            <RadioGroup value={theme} onChange={setTheme}>
-              <div className="p-1">
-                <Radio value="light">
-                  <MenuItem>
-                    {({ focus }) => (
-                      <button
-                        className={`${focus ? 'bg-[#0f6b5e] text-white' : ''} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                      >
-                        <div className="mr-2">
-                          <Sun />
-                        </div>
-                        Light
-                      </button>
-                    )}
-                  </MenuItem>
-                </Radio>
-                <Radio value="dark">
-                  <MenuItem>
-                    {({ focus }) => (
-                      <button
-                        className={`${
-                          focus ? 'bg-[#0f6b5e] text-white' : ''
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                      >
-                        <div className="mr-2">
-                          <Moon />
-                        </div>
-                        Dark
-                      </button>
-                    )}
-                  </MenuItem>
-                </Radio>
-                <Radio value="system">
-                  <MenuItem>
-                    {({ focus }) => (
-                      <button
-                        className={`${
-                          focus ? 'bg-[#0f6b5e] text-white' : ''
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                      >
-                        <div className="mr-2">
-                          <Monitor />
-                        </div>
-                        System
-                      </button>
-                    )}
-                  </MenuItem>
-                </Radio>
-              </div>
-            </RadioGroup>
+          <MenuItems
+            aria-label="主题"
+            className="ring-opacity-5 absolute right-0 z-50 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md border border-[var(--home-border)] bg-[var(--home-bg)] shadow-lg ring-1 ring-black/5 focus:outline-hidden"
+          >
+            <div className="p-1" role="none">
+              {(
+                [
+                  ['light', '亮色', <Sun key="light" />],
+                  ['dark', '暗色', <Moon key="dark" />],
+                  ['system', '跟随系统', <Monitor key="system" />],
+                ] as const
+              ).map(([value, label, icon]) => (
+                <MenuItem
+                  key={value}
+                  as="button"
+                  type="button"
+                  onClick={() => setTheme(value)}
+                  aria-current={theme === value ? 'true' : undefined}
+                  className={({ focus }) =>
+                    `${focus ? 'bg-[#0f6b5e] text-white' : ''} group flex w-full items-center rounded-md px-2 py-2 text-sm`
+                  }
+                >
+                  <span className="mr-2">{icon}</span>
+                  <span>{label}</span>
+                  {theme === value ? (
+                    <span className="ml-auto text-xs" aria-hidden="true">
+                      ✓
+                    </span>
+                  ) : null}
+                </MenuItem>
+              ))}
+            </div>
           </MenuItems>
         </Transition>
       </Menu>
