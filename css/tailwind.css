@@ -718,7 +718,34 @@ input:-webkit-autofill:focus {
     }
 
     .hero2-toolbar button {
-      min-height: 18px;
+      min-height: 24px;
+    }
+
+    /* 390 下第二行只剩两个切换键，右侧对齐会留出 245px 空白；
+       改成整行等宽分段控件，两键各占一半，也顺手把命中高度补到 32。 */
+    .hero2-layout .hero2-scene-switch {
+      flex: 1 1 100%;
+      margin-inline-start: 0;
+      gap: 0;
+      border: 1px solid var(--home-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .hero2-layout .hero2-scene-switch button {
+      flex: 1 1 0;
+      min-height: 32px;
+      justify-content: center;
+      border-radius: 0;
+    }
+
+    /* 两个等宽分段之间补一道细线，否则中间留白看不出是一组控件 */
+    .hero2-layout .hero2-scene-switch button + button {
+      border-inline-start: 1px solid var(--home-border);
+    }
+
+    .hero2-layout .hero2-scene-switch button:active {
+      background: var(--home-chip, rgba(15, 107, 94, 0.1));
     }
   }
 
