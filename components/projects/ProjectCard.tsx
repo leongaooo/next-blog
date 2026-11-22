@@ -65,17 +65,25 @@ export default function ProjectCard({ project, index, featured = false, wide = f
 
         <div className="proj-actions">
           {project.demoHref && (
-            <a className="proj-link proj-link--primary" href={project.demoHref}>
+            <a
+              className="proj-link proj-link--primary"
+              href={project.demoHref}
+              aria-label={`${project.title}：在线体验`}
+            >
               在线体验 <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.href && (
-            <a className="proj-link" href={project.href}>
+            <a className="proj-link" href={project.href} aria-label={`${project.title}：源码仓库`}>
               源码 <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.caseHref && (
-            <a className="proj-link" href={project.caseHref}>
+            <a
+              className="proj-link"
+              href={project.caseHref}
+              aria-label={`${project.title}：交付复盘`}
+            >
               复盘 <span aria-hidden="true">→</span>
             </a>
           )}
