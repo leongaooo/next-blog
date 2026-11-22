@@ -2683,7 +2683,12 @@ input:-webkit-autofill:focus {
 .prose h4,
 .post-copy h2,
 .post-copy h3 {
-  scroll-margin-top: 110px;
+  /* 锚点定位与目录高亮共用同一个基准：改这一处，两边的「当前章节」不会错位 */
+  scroll-margin-top: var(--post-anchor-offset);
+}
+
+:root {
+  --post-anchor-offset: 110px;
 }
 
 /* 正文标题的垂直节奏：标题上方的留白要明显大于下方，段落才不会一片平 */

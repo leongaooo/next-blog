@@ -14,10 +14,16 @@ export default function TocHighlight() {
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.post-toc a[href^="#"]'))
     if (!heads.length || !links.length) return
 
+    // 与 scroll-margin-top 同一个基准，另留 24px 观察余量
+    const anchorOffset =
+      parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--post-anchor-offset')
+      ) || 110
+
     let frame = 0
     const update = () => {
       frame = 0
-      const line = 150
+      const line = anchorOffset + 24
       let index = 0
       for (let i = 0; i < heads.length; i += 1) {
         if (heads[i].getBoundingClientRect().top <= line) index = i
