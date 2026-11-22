@@ -1569,7 +1569,7 @@ input:-webkit-autofill:focus {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
+  gap: 0;
   margin: 10px 0 0;
 }
 
@@ -1577,8 +1577,8 @@ input:-webkit-autofill:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 42px;
-  min-height: 42px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 6px;
 }
 
