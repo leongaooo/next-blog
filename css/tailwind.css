@@ -2289,6 +2289,16 @@ input:-webkit-autofill:focus {
   color: var(--home-accent);
 }
 
+/* 版权行里的站点名与博客卡片下的标签 chip 同样只有 16px 高 */
+@media (hover: none) {
+  .site-footer-meta a,
+  .blog-tag {
+    display: inline-block;
+    padding: 14px 6px;
+    margin: -14px -6px;
+  }
+}
+
 /* 页脚底行 10.5px 的 RSS / 源码链接，触屏命中区只有文字本身（约 13px）。
    用 padding + 等量负 margin 把可点区域撑到 44px，视觉行距不变。 */
 @media (hover: none) {
