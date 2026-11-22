@@ -2628,3 +2628,21 @@ input:-webkit-autofill:focus {
     align-items: center;
   }
 }
+
+/* 标签页没有文章时的空态：一句话 + 回到列表入口，不留空白区 */
+.blog-empty {
+  padding: 28px 0 34px;
+  border-top: 1px solid var(--home-border);
+}
+
+.blog-empty p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--home-muted);
+}
+
+.blog-empty a {
+  font-size: 13px;
+  color: var(--home-accent);
+}

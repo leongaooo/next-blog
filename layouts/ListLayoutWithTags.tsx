@@ -123,6 +123,14 @@ export default function ListLayoutWithTags({
         </aside>
 
         <main className="blog-list">
+          {displayPosts.length === 0 ? (
+            <div className="blog-empty">
+              <p>这个标签下还没有文章。</p>
+              <Link className="tap-inline" href="/blog">
+                看全部文章 →
+              </Link>
+            </div>
+          ) : null}
           <ul>
             {displayPosts.map((post) => {
               const { path, date, title: postTitle, summary, tags, readingTime } = post
