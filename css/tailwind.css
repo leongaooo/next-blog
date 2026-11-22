@@ -1738,10 +1738,20 @@ input:-webkit-autofill:focus {
 
 .demo-mail {
   display: inline-block;
+  position: relative;
   margin-top: 12px;
   font-size: 13px;
   color: #5be1c9;
   text-decoration: none;
+}
+
+/* 邮件入口在深色演示面板上只有 20px 高，桌面补到约 28px。 */
+@media (hover: hover) and (pointer: fine) {
+  .demo-mail::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+  }
 }
 
 .demo-mail:hover {
