@@ -105,13 +105,14 @@ body {
 
 @layer utilities {
   .prose {
+    /* 正文链接统一走站内青绿，不用模板遗留的玫红梯度 */
     & a {
-      color: var(--color-primary-500);
+      color: var(--home-accent);
       &:hover {
-        color: var(--color-primary-600);
+        color: var(--home-accent-soft);
       }
       & code {
-        color: var(--color-primary-400);
+        color: var(--home-accent);
       }
     }
     & :where(h1, h2) {
@@ -142,12 +143,12 @@ body {
 
   .prose-invert {
     & a {
-      color: var(--color-primary-500);
+      color: var(--home-accent);
       &:hover {
-        color: var(--color-primary-400);
+        color: var(--home-accent-soft);
       }
       & code {
-        color: var(--color-primary-400);
+        color: var(--home-accent);
       }
     }
     & :where(h1, h2, h3, h4, h5, h6) {
@@ -2184,6 +2185,12 @@ input:-webkit-autofill:focus {
 }
 
 .post-copy a:hover {
+  color: var(--home-accent);
+}
+
+/* 链接里嵌行内代码时，胶囊文字不能又回到玫红 */
+.post-copy a code,
+.prose a code {
   color: var(--home-accent);
 }
 
