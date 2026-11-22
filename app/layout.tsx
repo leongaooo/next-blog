@@ -134,7 +134,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </a>
           <SectionContainer>
             <Header />
-            <PageTransition>
+            <PageTransition className="flex-1">
               <main id="main-content" tabIndex={-1} className="mb-auto outline-none">
                 {children}
               </main>
