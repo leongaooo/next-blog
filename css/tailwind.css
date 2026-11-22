@@ -3610,7 +3610,20 @@ input:-webkit-autofill:focus {
 }
 
 /* 文章尾部「回到文章列表 / 在 X 上讨论 / 在 GitHub 看源文」只有 19px 高，
-   触屏下各自补到 44px；这一行是 flex-wrap，抬高度不会互相压住。 */
+   桌面下用透明伪元素补到约 27px；触屏继续走 44px 规则。
+   这一行是 flex-wrap，伪元素不占布局，行高不变。 */
+@media (hover: hover) and (pointer: fine) {
+  .post-actions a {
+    position: relative;
+  }
+
+  .post-actions a::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+  }
+}
+
 @media (hover: none) {
   .post-actions a {
     display: inline-flex;
