@@ -183,6 +183,10 @@ export default makeSource({
           headingProperties: {
             className: ['content-header'],
           },
+          // 图标锚点没有文字，屏幕阅读器只会念「链接」，补一个动作名称
+          properties: {
+            'aria-label': '本节锚点',
+          },
           content: icon,
         },
       ],
