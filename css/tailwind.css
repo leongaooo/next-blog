@@ -2556,3 +2556,19 @@ input:-webkit-autofill:focus {
     vertical-align: baseline;
   }
 }
+
+/* 推理场面板顶部工具栏在触屏上只有 28px 高、按钮 18px，逐项都点不准。
+   触屏下只把整条工具栏抬到 44px（按钮随 stretch 撑满），横向排布一律不动，
+   避免六个标签在 364px 宽度里挤成溢出。 */
+@media (hover: none) {
+  .hero2-layout .hero2-toolbar {
+    height: auto;
+    min-height: 44px;
+    padding-block: 0;
+  }
+
+  .hero2-layout .hero2-toolbar button {
+    height: auto;
+    min-height: 44px;
+  }
+}
