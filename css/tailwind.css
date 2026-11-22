@@ -1158,12 +1158,10 @@ input:-webkit-autofill:focus {
   object-fit: cover;
   display: block;
   filter: saturate(0.92);
-  transition: transform 0.4s ease;
 }
 
-.proj-card:hover .proj-media img {
-  transform: scale(1.03);
-}
+/* 封面本身不是链接：以前悬停整张卡会放图，暗示「点了会进详情」，实际只有下面的
+   按钮能点。去掉这个假交互，鼠标移到卡片上不再有承诺。 */
 
 .proj-cover {
   position: relative;
