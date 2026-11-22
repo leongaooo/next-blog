@@ -22,6 +22,7 @@ const projectsData: Project[] = [
     stack: ['JavaScript'],
     badge: 'LIVE',
     highlight: '同一份 Brief + seed 可复现，重叠与裁切在出图前就被门禁拦下。',
+    caseHref: '/projects/ai-graph',
   },
   {
     title: 'SvgToThreeModel',
