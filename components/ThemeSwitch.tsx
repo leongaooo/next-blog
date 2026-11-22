@@ -89,7 +89,7 @@ const ThemeSwitch = () => {
                   onClick={() => setTheme(value)}
                   aria-current={theme === value ? 'true' : undefined}
                   className={({ focus }) =>
-                    `${focus ? 'bg-[#0f6b5e] text-white' : ''} group flex w-full items-center rounded-md px-2 py-2 text-sm`
+                    `${focus ? 'bg-[#0f6b5e] text-white' : ''} theme-item group flex w-full items-center rounded-md px-2 py-2 text-sm`
                   }
                 >
                   <span className="mr-2">{icon}</span>
