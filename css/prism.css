@@ -34,7 +34,8 @@
 }
 
 .highlight-line {
-  @apply border-primary-500 -mx-4 border-l-4 bg-gray-700/50;
+  @apply -mx-4 border-l-4 bg-gray-700/50;
+  border-left-color: var(--home-accent);
 }
 
 .line-number::before {
@@ -58,7 +59,7 @@
 }
 
 .token.punctuation {
-  color: rgb(199, 146, 234);
+  color: rgb(148, 163, 184);
 }
 
 .namespace {
@@ -82,7 +83,7 @@
 }
 
 .token.boolean {
-  color: rgb(255, 88, 116);
+  color: rgb(240, 180, 120);
 }
 
 .token.number {
@@ -98,7 +99,7 @@
 
 .token.selector,
 .token.doctype {
-  color: rgb(199, 146, 234);
+  color: rgb(163, 178, 196);
   font-style: italic;
 }
 
