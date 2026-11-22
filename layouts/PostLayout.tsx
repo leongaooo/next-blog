@@ -7,6 +7,7 @@ import SectionContainer from '@/components/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import TocHighlight from '@/components/blog/TocHighlight'
+import { editorialDate, readingMinutes } from '@/utils/editorial'
 import GithubSlugger from 'github-slugger'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
@@ -53,7 +54,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       <article className="post-page">
         <header className="post-head">
           <time dateTime={date} className="post-date">
-            {new Date(date).toLocaleDateString('sv-SE')}
+            {editorialDate(date)}
           </time>
           <h1 className="post-h1">{title}</h1>
           {summary ? <p className="post-lede">{summary}</p> : null}
@@ -62,7 +63,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             {readingTime?.minutes ? (
               <>
                 <span className="post-meta-dot">·</span>
-                <span>{Math.round(readingTime.minutes)} 分钟阅读</span>
+                <span>约 {readingMinutes(readingTime.minutes)} 分钟阅读</span>
               </>
             ) : null}
           </div>

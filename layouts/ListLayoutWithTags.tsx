@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
-import { formatDate } from 'pliny/utils/formatDate'
+import { editorialDate, readingMinutes } from '@/utils/editorial'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
@@ -173,11 +173,11 @@ export default function ListLayoutWithTags({
                     <dt className="sr-only">发布于</dt>
                     <dd className="blog-meta">
                       <time dateTime={date} className="blog-date" suppressHydrationWarning>
-                        {formatDate(date, siteMetadata.locale)}
+                        {editorialDate(date)}
                       </time>
                       {readingTime?.minutes ? (
                         <span className="blog-read">
-                          · 约 {Math.max(1, Math.round(readingTime.minutes))} 分钟
+                          · 约 {readingMinutes(readingTime.minutes)} 分钟
                         </span>
                       ) : null}
                     </dd>

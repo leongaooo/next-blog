@@ -1,5 +1,5 @@
 import Link from '@/components/Link'
-import { formatDate } from 'pliny/utils/formatDate'
+import { editorialDate, readingMinutes } from '@/utils/editorial'
 import siteMetadata from '@/data/siteMetadata'
 
 type PostItem = {
@@ -22,9 +22,9 @@ export default function PostsRail({ posts }: { posts: PostItem[] }) {
               {post.title}
             </span>
             <span className="flex items-center gap-3 font-mono text-[11px] text-[var(--home-subtle)] tabular-nums">
-              <time dateTime={post.date}>{formatDate(post.date, siteMetadata.locale)}</time>
+              <time dateTime={post.date}>{editorialDate(post.date)}</time>
               {post.readingTime?.minutes ? (
-                <span>{Math.round(post.readingTime.minutes)} 分钟</span>
+                <span>约 {readingMinutes(post.readingTime.minutes)} 分钟</span>
               ) : null}
             </span>
           </Link>
