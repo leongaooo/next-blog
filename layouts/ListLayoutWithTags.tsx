@@ -71,16 +71,20 @@ export default function ListLayoutWithTags({
   const onBlogIndex = pathname === '/blog' || pathname === '/blog/'
   const tagSegment = (pathname.split('/tags/')[1] ?? '').split('/')[0]
   const activeTag = decodeURI(tagSegment)
-  const isPaged = /\/blog\/page\/\d+/.test(pathname)
-  const pageNo = isPaged ? Number(pathname.match(/\/page\/(\d+)/)?.[1] ?? 1) : 0
+  const isBlogPaged = /\/blog\/page\/\d+/.test(pathname)
+  const isTagPaged = Boolean(activeTag) && /\/tags\/[^/]+\/page\/\d+/.test(pathname)
+  const pageNo = isBlogPaged || isTagPaged ? Number(pathname.match(/\/page\/(\d+)/)?.[1] ?? 1) : 0
+  const pageTotal = pagination?.totalPages ?? pageNo
 
-  const kicker = isPaged
-    ? `WRITING · ARCHIVE · ${pageNo} / ${pagination?.totalPages ?? pageNo}`
-    : onBlogIndex
-      ? 'WRITING · 长期记录'
-      : activeTag
-        ? `TAGGED · ${posts.length} 篇`
-        : 'WRITING'
+  const kicker = isBlogPaged
+    ? `WRITING · ARCHIVE · ${pageNo} / ${pageTotal}`
+    : isTagPaged
+      ? `TAGGED · ${posts.length} 篇 · ${pageNo} / ${pageTotal}`
+      : onBlogIndex
+        ? 'WRITING · 长期记录'
+        : activeTag
+          ? `TAGGED · ${posts.length} 篇`
+          : 'WRITING'
 
   // 移动端标签条是横向滚动：进入某个标签页时把当前标签滚进视口，
   // 否则 15 个标签里靠后的 active 项落在遮罩渐隐之外，看不出当前在哪。
@@ -127,7 +131,7 @@ export default function ListLayoutWithTags({
       <section className="blog-hero">
         <p className="proj-kicker">{kicker}</p>
         <h1 className="proj-h1">
-          {onBlogIndex || isPaged ? (
+          {onBlogIndex || isBlogPaged ? (
             '文章'
           ) : activeTag ? (
             <>
