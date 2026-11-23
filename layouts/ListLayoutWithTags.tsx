@@ -72,7 +72,9 @@ export default function ListLayoutWithTags({
   const tagSegment = (pathname.split('/tags/')[1] ?? '').split('/')[0]
   const activeTag = decodeURI(tagSegment)
   const isBlogPaged = /\/blog\/page\/\d+/.test(pathname)
-  const isTagPaged = Boolean(activeTag) && /\/tags\/[^/]+\/page\/\d+/.test(pathname)
+  const isTagPaged =
+    Boolean(activeTag) &&
+    (Boolean(pagination && pagination.totalPages > 1) || /\/tags\/[^/]+\/page\/\d+/.test(pathname))
   const pageNo = isBlogPaged || isTagPaged ? Number(pathname.match(/\/page\/(\d+)/)?.[1] ?? 1) : 0
   const pageTotal = pagination?.totalPages ?? pageNo
 
