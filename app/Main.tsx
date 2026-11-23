@@ -37,7 +37,7 @@ export default function Home({ posts }) {
           {[
             ['交付形态', '静态构建 + SSR'],
             ['首屏脚本', 'SSR 直出'],
-            ['运行环境', '自运维 · systemd'],
+            ['运行环境', 'Vercel · 托管'],
             ['最近交付', '门禁 + OCR'],
           ].map(([k, v]) => (
             <div key={k}>
