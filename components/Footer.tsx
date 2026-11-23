@@ -24,7 +24,7 @@ export default function Footer() {
         </p>
       </div>
       <p className="site-footer-note">
-        Next.js · 自托管在腾讯云 · <Link href="/feed.xml">RSS</Link> ·{' '}
+        Next.js · Vercel 部署 · <Link href="/feed.xml">RSS</Link> ·{' '}
         <Link href={siteMetadata.siteRepo}>源码</Link> <span aria-hidden="true">↗</span>
       </p>
     </footer>
